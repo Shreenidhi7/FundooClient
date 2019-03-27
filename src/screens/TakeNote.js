@@ -22,43 +22,44 @@ export default class TakeNote extends Component {
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('DashBoard')}>
                     <Image style={styles.arrow} source={require('../assets/images/leftarrow.png')} >
                     </Image>
-                </TouchableOpacity>
-                <Text>                                              </Text>
+                </TouchableOpacity> 
+                <Text>                                                     </Text>
                 <TouchableOpacity>
-                    <Image style={styles.pinbutton} source={require('../assets/images/pinbutton.png')}>
+                    <Image style={styles.pinbutton} source={require('../assets/images/pinicon.png')}>
                     </Image>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <Image style={styles.reminderbutton} source={require('../assets/images/remainderbutton.jpeg')}></Image>
+                    <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <Image style={styles.archivebutton} source={require('../assets/images/archivebox.png')}>
                     </Image>
                 </TouchableOpacity>
             </View>
-
-            <View style={{ marginLeft: 30 }}>
+            <View>
+            <View style={{ marginLeft: 30}}>
                     <TextInput
-                        style={{ fontSize: 25 }}
+                        style={{ fontSize: 30,fontWeight:"bold" }}
                         placeholder="Title"
                         placeholderTextColor="#a1a5a3"
                        
                     />
                     <TextInput placeholder="Note"
-                        style={{ fontSize: 15 }}
+                        style={{ fontSize: 20,fontWeight:"bold" }}
                         placeholderTextColor="#a1a5a3"
                        
                     />
             </View>
-            
+            </View> 
 
 
-
+            <View>
             <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff" , justifyContent : 'flex-end'}}></View>
             <View style={styles.last}>
                      <TouchableOpacity>
-                        <Image style={styles.plusicon} source={require('../assets/images/plusbutton.png')}></Image>
+                        <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
                     </TouchableOpacity>
+                </View>
                 </View>
   </View>
             
@@ -85,22 +86,24 @@ const styles = StyleSheet.create({
     },
    
     pinbutton: {
-        width: 30,
+        width: 20,
         height: 30,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        marginLeft: 10,
-        paddingLeft: 30,
-        marginTop: 10
+        //marginLeft: 10,  //10,
+        marginRight:-15,
+        paddingLeft: 50,   // 30,
+        marginTop: 10,
 
     },
     reminderbutton: {
-        width: 30,
-        height: 30,
+        width: 40,
+        height: 40,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        marginLeft: 10,
-        paddingLeft: 30,
+        marginLeft: 25,     //10,
+        marginRight: 20,
+        paddingLeft: 20,  // 30,
         marginTop: 10
     },
     archivebutton: {
@@ -108,19 +111,20 @@ const styles = StyleSheet.create({
         height: 30,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        marginLeft: 10,
-        paddingLeft: 30,
+        //marginLeft:  10,    // 10,
+        marginRight:50,
+        paddingLeft:  20,    //  30,
         marginTop: 10
     },
   
     plusicon : {
-        width: 30,
-        height: 30,
+        width: 50,
+        height: 50,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         marginLeft: 10,
         paddingLeft: 30,
-        marginTop: 10
+        marginTop: -10
     }
 
 }); 

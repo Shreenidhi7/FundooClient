@@ -134,7 +134,7 @@ export default class DashBoard extends Component {
         <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5 }}>
           <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 20, alignItems: 'center', width: /*350*/ 400, borderRadius:50 }}>
             <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-              <Image style={styles.image} source={require('../assets/images/drawericon.png')} />
+              <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
             </TouchableOpacity>
             <Image style={styles.image} source={require('../assets/images/keep_48dp.png')}></Image>
 
@@ -147,12 +147,12 @@ export default class DashBoard extends Component {
               this.state.click ?
                 (<View>
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.image} source={require('../assets/images/gridicon.jpg')}></Image>
+                    <Image style={styles.gridicon} source={require('../assets/images/gridnew.png')}></Image>
                   </TouchableOpacity>
                 </View>)
                 : (<View>
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.image} source={require('../assets/images/listnew.png')}></Image>
+                    <Image style={styles.listicon} source={require('../assets/images/listicon.png')}></Image>
                   </TouchableOpacity>
                 </View>)
             }
@@ -221,6 +221,14 @@ const styles = StyleSheet.create({
     padding: 50,
     borderRadius: 35,
   },
+  drawericon: {
+    width: 38, //30,
+    height: 38,  //40,
+    justifyContent: 'space-between',
+    alignItems: "center",       //'flex-start',
+    marginLeft: 10,   //10,
+    paddingLeft: 30
+  },
   image: {
     width: 30, //30,
     height: 30,  //40,
@@ -229,6 +237,23 @@ const styles = StyleSheet.create({
     marginLeft: 15,   //10,
     paddingLeft: 30
   },
+  gridicon: {
+    width: 35, //30,
+    height: 35,  //40,
+    justifyContent: 'space-between',
+    alignItems: "center",       //'flex-start',
+    marginLeft: 15,   //10,
+    paddingLeft: 30
+  },
+  listicon: {
+    width: 27, //30,
+    height: 24,  //40,
+    justifyContent: 'space-between',
+    alignItems: "center",       //'flex-start',
+    marginLeft: 15,   //10,
+    paddingLeft: 30
+  },
+
   data1: {
 
     justifyContent: 'center',
@@ -264,9 +289,11 @@ const styles = StyleSheet.create({
   text1: {
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 20,
-    marginHorizontal: 0.5,
-
+    fontSize: 22,
+    fontWeight:"bold",
+    marginHorizontal:  3,  //0.5,
+    marginRight:5,
+    marginLeft:-30
 
   },
   image1: {
@@ -279,8 +306,8 @@ const styles = StyleSheet.create({
 
   },
   checkbox: {
-    width: 20,
-    height: 20,
+    width: 25,  //20,
+    height: 25,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 20,
@@ -288,24 +315,24 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   pen: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     marginHorizontal: 10,
     paddingHorizontal: 0.5
   },
   microphone: {
-    width: 20,
-    height: 20,
+    width: 35,
+    height: 35,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     marginHorizontal: 10,
     paddingHorizontal: 0.5
   },
   photo: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     marginHorizontal: 10,
@@ -314,3 +341,51 @@ const styles = StyleSheet.create({
 
 
 })
+
+
+
+
+/****************************old dashboard with drawer navigator****************************** */
+
+// import React,{ Component } from "react";
+
+// import {StyleSheet,View,Text,DrawerLayoutAndroid,Image} from 'react-native';
+// var navigationView = (
+//     <View style={{flex: 1, backgroundColor: '#fff'}}>
+//     <Image style={{borderRadius:120,alignSelf:'center',justifyContent:'center',width:80,height:80}}    
+//     source={require('../components/images/sample.jpg')}/>
+//       <Text style={{margin: 10,
+//          fontSize: 25,
+//           textAlign: 'left',
+//           color:'black',
+//           fontWeight:'bold',
+//           borderBottomColor:'black',
+//           borderBottomWidth:3}}>Drawer Items</Text>
+//     </View>);
+
+// export default class Dashboard extends Component {
+
+//     static navigationOptions={header:null}
+//     render() {
+//         return (
+//             <DrawerLayoutAndroid
+//               drawerWidth={300}
+//               drawerPosition={DrawerLayoutAndroid.positions.Left}
+//               renderNavigationView={() => navigationView}>
+//               <View style={{flex: 1, alignItems: 'center',backgroundColor:/*'#206bad'*/'white'}}>
+//                 <Text style={{margin: 10, fontSize: 25, textAlign: 'right',justifyContent:'center',fontWeight:'bold'}}>Haii</Text>
+//                 <Text style={{margin: 10,
+//                  fontSize: 25,
+//                   textAlign: 'right',
+//                   justifyContent:'center',
+//                   fontWeight:'bold',
+//                    borderBottomColor:'black',
+//                     borderBottomWidth:3}}>Welcome to Fundoo Dashboard </Text>
+//               </View>
+             
+  
+
+
+
+//             </DrawerLayoutAndroid>
+//           );
