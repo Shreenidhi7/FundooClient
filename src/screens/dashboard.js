@@ -96,10 +96,28 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Text
+  Text,DrawerLayoutAndroid
 } from 'react-native';
 import LoginNew from './loginFormNew';
 import { TextInput, BorderlessButton } from 'react-native-gesture-handler';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -128,11 +146,27 @@ export default class DashBoard extends Component {
   render() {
     return (
 
+  
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
       <View style={{ flex: 1 }}>
-        <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5 }}>
-          <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 20, alignItems: 'center', width: /*350*/ 400, borderRadius:50 }}>
+        <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
+          <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390,marginLeft:7, borderRadius:9,borderColor:"#C1C1C1",borderWidth:2 }}>
             <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
               <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
             </TouchableOpacity>
@@ -141,8 +175,9 @@ export default class DashBoard extends Component {
 
             <TouchableOpacity>
               <Text style={styles.text}>Search your Notes</Text>
-            </TouchableOpacity>
+         </TouchableOpacity> 
 
+        
             {
               this.state.click ?
                 (<View>
@@ -167,7 +202,7 @@ export default class DashBoard extends Component {
             <View style={styles.data}>
 
             <TouchableOpacity onPress={() => this.props.navigation.navigate('TakeNote')}>
-                <Text style={styles.text1}>Take a note</Text>
+                <Text style={styles.text1}>Take a note...</Text>
               </TouchableOpacity>
               <View>
                 <TouchableOpacity>
@@ -293,7 +328,8 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
     marginHorizontal:  3,  //0.5,
     marginRight:5,
-    marginLeft:-30
+    marginLeft:-55,
+   // marginLeft:-30
 
   },
   image1: {

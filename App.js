@@ -76,6 +76,7 @@ import {
 //import Forgot from './src/pages/Forgot';
 import Container from './src/navigation/appNavigator';
 import Drawer from './src/navigation/dawerNavigator';
+import MyApp from './src/navigation/slideNavigator';
 //import Drawer from './src/Component/DrawerNavigator'
 //import Drawer from './src/pages/DashBoard'
 
@@ -92,8 +93,10 @@ export default class App extends Component {
   render() {
     return (
 
-     // <Container />
-      <Drawer/>
+     /* <Drawer/>   */
+  
+      <MyApp/>
+
     );
   }
 }
