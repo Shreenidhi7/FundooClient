@@ -1,3 +1,6 @@
+
+/*
+
 import React from "react";
 import { Icon } from "react-native-elements";
 
@@ -12,3 +15,6 @@ const HamburgerMenu = props => {
 };
 
 export default HamburgerMenu;
+
+
+*/

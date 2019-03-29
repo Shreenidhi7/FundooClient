@@ -40,6 +40,9 @@ export default class Notes extends Component {
 
 /*********************************************************************************************************** */
 
+
+/*
+
 import React from "react";
 import { View, Text } from "react-native";
 import MyHeader from "../navigation/MyHeader";
@@ -54,3 +57,41 @@ const HomeScreen = props => {
 };
 
 export default HomeScreen;
+
+
+
+*/
+
+/************************************************************************************************************* */
+
+import React,{ Component } from "react";
+
+import {StyleSheet, View,Text } from "react-native";
+
+
+export default class Notes extends Component {
+  render() {
+    return(
+      <View style={styles.container}>
+          <Text style={styles.text} >
+            Notes 
+          </Text>
+      </View>
+    )
+  }
+}
+
+const styles=StyleSheet.create({
+  container:{
+    flex:1,
+  },
+  text:{
+
+    justifyContent:"center",
+    alignItems:'center',
+    fontWeight:'bold',
+    fontSize:30
+
+
+  }
+})

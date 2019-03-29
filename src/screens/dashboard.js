@@ -185,7 +185,8 @@ export default class DashBoard extends Component {
                     <Image style={styles.gridicon} source={require('../assets/images/gridnew.png')}></Image>
                   </TouchableOpacity>
                 </View>)
-                : (<View>
+                : 
+                (<View>
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
                     <Image style={styles.listicon} source={require('../assets/images/listicon.png')}></Image>
                   </TouchableOpacity>
@@ -201,9 +202,17 @@ export default class DashBoard extends Component {
           <View style={styles.data1}>
             <View style={styles.data}>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('TakeNote')}>
+          {/*  <TouchableOpacity onPress={() => this.props.navigation.navigate('TakeNote')}>
                 <Text style={styles.text1}>Take a note...</Text>
-              </TouchableOpacity>
+          </TouchableOpacity>  */}
+
+          <TouchableOpacity   onPress={()=>this.props.navigation.navigate('TakeNote')}>
+              <Text style={styles.text1}>
+              Take a note...
+              </Text>
+          </TouchableOpacity>
+
+
               <View>
                 <TouchableOpacity>
                   <Image style={styles.checkbox} source={require('../assets/images/checkbox.png')} >
@@ -321,7 +330,7 @@ const styles = StyleSheet.create({
    
   },
 
-  text1: {
+  text1: { 
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 22,

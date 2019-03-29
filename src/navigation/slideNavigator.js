@@ -29,8 +29,10 @@ import { createAppContainer,createDrawerNavigator } from "react-navigation";
 
   /********************************************************************************************************* */
 
+/*
 
-  import { createDrawerNavigator, createAppContainer } from "react-navigation";
+
+import { createDrawerNavigator, createAppContainer } from "react-navigation";
 
 import HomeScreen from "../screens/notes";
 import SettingsScreen from "../screens/remainder";
@@ -48,3 +50,6 @@ const AppNavigator = createDrawerNavigator({
 const MyApp=createAppContainer(AppNavigator)
 
 export default MyApp;
+
+
+*/

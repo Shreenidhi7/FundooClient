@@ -4,28 +4,34 @@ import LoginNew from '../screens/loginFormNew';
 import Register from '../screens/registerForm';
 import ForgotPassword from '../screens/forgotPasswordForm';
 import ResetPassword from '../screens/resetPasswordForm';
+import TakeNote from '../screens/TakeNote'
 
-
+import Notes from '../screens/notes'
+import Reminder from '../screens/reminder';
+import Search from "../screens/search";
 
 navigationOptions = { header: null };
 const MyDrawer=createDrawerNavigator(
     {
-    Notes:{screen: DashBoard},
-    Reminders : {screen : DashBoard},
+    Notes:{screen: Notes},
+    Reminders : {screen : Reminder},
     CreateLabel : {screen : DashBoard},
      
+      Search:{screen:Search},
+
+
     Login :{screen:LoginNew}, 
     Register : { screen : Register},
     Forgot : {screen : ForgotPassword},
     ResetPassword : {screen:ResetPassword  },
     DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
-   
+    TakeNote:{screen : TakeNote,navigationOptions:{header:null}}
 
  
 },
-/*{
-  initialRouteName:'Login'
-},  */                              
+{
+  initialRouteName:'Reminders'
+},                                
 {
   navigationOptions: {
     gesturesEnabled: false
