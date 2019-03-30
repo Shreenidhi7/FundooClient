@@ -182,7 +182,7 @@ export default class DashBoard extends Component {
               this.state.click ?
                 (<View>
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.gridicon} source={require('../assets/images/gridnew.png')}></Image>
+                    <Image style={styles.gridicon} source={require('../assets/images/gridicon1.png')}></Image>
                   </TouchableOpacity>
                 </View>)
                 : 
@@ -221,19 +221,19 @@ export default class DashBoard extends Component {
               </View>
               <View>
                 <TouchableOpacity>
-                  <Image style={styles.pen} source={require('../assets/images/penicon.png')}>
+                  <Image style={styles.pen} source={require('../assets/images/paintbrush.png')}>
                   </Image>
                 </TouchableOpacity>
               </View>
               <View>
                 <TouchableOpacity>
-                  <Image style={styles.microphone} source={require('../assets/images/microphone.jpeg')}>
+                  <Image style={styles.microphone} source={require('../assets/images/microphone.png')}>
                   </Image>
                 </TouchableOpacity>
               </View>
               <View>
                 <TouchableOpacity>
-                  <Image style={styles.photo} source={require('../assets/images/imagesicon.png')}>
+                  <Image style={styles.photo} source={require('../assets/images/image.png')}>
                   </Image>
                 </TouchableOpacity>
               </View>
@@ -282,8 +282,8 @@ const styles = StyleSheet.create({
     paddingLeft: 30
   },
   gridicon: {
-    width: 35, //30,
-    height: 35,  //40,
+    width: 28, //30,
+    height: 29,  //40,
     justifyContent: 'space-between',
     alignItems: "center",       //'flex-start',
     marginLeft: 15,   //10,
@@ -321,12 +321,23 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: 10,
     alignItems: 'center',
-    padding: 25,
+   // padding: 25,
     //borderRadius: 15,
   },
   last: {
-    position: 'relative',
-    bottom: 0,
+    // position: 'relative',
+     // bottom: 0,
+     height: 50, 
+     backgroundColor:  '#ffffff',
+     flexDirection: "row",
+     paddingLeft: 25,  //10,
+     alignItems: 'center',
+     width: /*350*/ 390,
+     marginLeft: 10,  //7,
+     marginVertical:10,
+    // borderRadius: 1, //9,
+     borderColor:"#C1C1C1",
+    // borderWidth:1
    
   },
 
@@ -335,9 +346,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 22,
     fontWeight:"bold",
-    marginHorizontal:  3,  //0.5,
-    marginRight:5,
-    marginLeft:-55,
+   // marginHorizontal:  3,  //0.5,
+   // marginRight:5,
+   // marginLeft:-55,
    // marginLeft:-30
 
   },
@@ -357,7 +368,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 20,
     paddingHorizontal: 10,
-    marginRight: 10,
+    marginRight: 1,  //10,
   },
   pen: {
     width: 25,

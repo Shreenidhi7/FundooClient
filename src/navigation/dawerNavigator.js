@@ -9,22 +9,28 @@ import TakeNote from '../screens/TakeNote'
 import Notes from '../screens/notes'
 import Reminder from '../screens/reminder';
 import Search from "../screens/search";
+import NewLabel from '../screens/createNewLabel';
 
 navigationOptions = { header: null };
 const MyDrawer=createDrawerNavigator(
     {
+   
     Notes:{screen: Notes},
     Reminders : {screen : Reminder},
-    CreateLabel : {screen : DashBoard},
-     
-      Search:{screen:Search},
+    Createlabel : {screen : NewLabel},
+    Archive:{screen:DashBoard}, 
+    Trash:{screen:DashBoard},
+    Settings:{screen:DashBoard},
+    
+    
+  Search:{screen:Search},
 
-
+/*
     Login :{screen:LoginNew}, 
     Register : { screen : Register},
     Forgot : {screen : ForgotPassword},
     ResetPassword : {screen:ResetPassword  },
-    DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
+  */  DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
     TakeNote:{screen : TakeNote,navigationOptions:{header:null}}
 
  

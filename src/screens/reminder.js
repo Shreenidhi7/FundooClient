@@ -95,6 +95,9 @@ export default class Reminder extends Component {
 
   render() {
     return(
+
+ <View style={{flex:1,flexDirection:"column"}}>
+
       <View style={{ flex: 1 }}>
       <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
         <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390,marginLeft:7, borderRadius:9,/*borderColor:"#C1C1C1",borderWidth:2 */ }}>
@@ -115,7 +118,7 @@ export default class Reminder extends Component {
   this.state.click ?
     (<View>
       <TouchableOpacity onPress={(event) => this.grid(event)}>
-        <Image style={styles.gridicon} source={require('../assets/images/gridnew.png')}></Image>
+        <Image style={styles.gridicon} source={require('../assets/images/gridicon1.png')}></Image>
       </TouchableOpacity>
     </View>)
     : 
@@ -126,13 +129,65 @@ export default class Reminder extends Component {
     </View>)
 }
 
-
-
-
-
     </View>
     </View>
     </View>
+
+
+
+<View style={{ flex: 1, backgroundColor: /*"#009688"*/ "white",  }}></View>
+<View style={styles.last}>
+  <View style={styles.data1}>
+    <View style={styles.data}>
+
+  
+
+  <TouchableOpacity   onPress={()=>this.props.navigation.navigate('TakeNote')}>
+      <Text style={styles.text1}>Take a note...</Text>
+  </TouchableOpacity>
+
+
+      <View>
+        <TouchableOpacity>
+          <Image style={styles.checkbox} source={require('../assets/images/checkbox.png')} >
+          </Image>
+        </TouchableOpacity>
+      </View>
+
+      <View>
+        <TouchableOpacity>
+          <Image style={styles.pen} source={require('../assets/images/paintbrush.png')}>
+          </Image>
+        </TouchableOpacity>
+      </View>
+
+      <View>
+        <TouchableOpacity>
+          <Image style={styles.microphone} source={require('../assets/images/microphone.png')}>
+          </Image>
+        </TouchableOpacity>
+      </View>
+
+      <View>
+        <TouchableOpacity>
+          <Image style={styles.photo} source={require('../assets/images/image.png')}>
+          </Image>
+        </TouchableOpacity>
+      </View>
+
+    </View>
+  </View>
+</View>
+
+
+
+
+
+</View>
+
+
+
+
     )
   }
 }
@@ -160,29 +215,134 @@ const styles=StyleSheet.create({
 
     },
     searchicon: {
-      width: 38, //30,
-      height: 38,  //40,
+      width: 36, //30,
+      height: 36,  //40,
       justifyContent: 'space-between',
       alignItems: "center",       //'flex-start',
-      marginLeft: 60,   //10,
-      paddingLeft: 30
+      //marginLeft: 60,   //10,
+     // paddingLeft: 30,
+      marginHorizontal:60,
+      marginRight:30
+     
   
     },
     gridicon: {
-      width: 35, //30,
-      height: 35,  //40,
+      width: 28, //30,
+      height: 28,  //40,
       justifyContent: 'space-between',
-      alignItems: "center",       //'flex-start',
-      marginLeft: 20,  //15,   //10,
-      paddingLeft: 30
+      alignItems: "flex-end",       //'flex-start',
+     // marginLeft: 20,  //15,   //10,
+     // paddingLeft: 30,
+     // marginHorizontal:60
     },
     listicon: {
       width: 27, //30,
       height: 24,  //40,
       justifyContent: 'space-between',
-      alignItems: "center",       //'flex-start',
-      marginLeft: 20,   //15,   //10,
-      paddingLeft: 30
+      alignItems: "flex-end",       //'flex-start',
+     // marginLeft: 20,   //15,   //10,
+     // paddingLeft: 30,
+     // marginHorizontal:60
     },
+
+    data1: {
+
+      justifyContent: 'center',
+      backgroundColor: "#ffffff",   //"#206bad",    /*   '#1c313a', */
+      alignItems: 'center',
+  
+    },
+  
+    text: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontSize: 20,
+      fontWeight:"bold",
+      padding: 20
+    },
+    data: {
+      height: 70,
+      width: 340,
+      backgroundColor: '#ffffff',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginTop: 17,
+      alignItems: 'center',
+     // padding: 25,
+      //borderRadius: 15,
+    },
+    last: {
+     // position: 'relative',
+     // bottom: 0,
+      height: 50, 
+      backgroundColor:  '#ffffff',
+      flexDirection: "row",
+      paddingLeft: 25,  //10,
+      alignItems: 'center',
+      width: /*350*/ 390,
+      marginLeft: 10,  //7,
+      marginVertical:10,
+     // borderRadius: 1, //9,
+      borderColor:"#C1C1C1",
+     // borderWidth:1
+    },
+
+    text1: { 
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontSize: 22,
+      fontWeight:"bold",
+      paddingRight:15
+      //marginHorizontal: 3, //3,  //0.5,
+      //marginRight:70,
+      //marginLeft:-45,
+     // marginLeft:-30
+  
+    },
+    image1: {
+      flexDirection:"row",
+      width: 20,
+      height: 20,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      marginHorizontal: 10,
+      paddingHorizontal: 0.5,
+      paddingBottom:60,
+  
+    },
+    checkbox: {
+      width: 25,  //20,
+      height: 25,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: 20,
+      paddingHorizontal: 10,
+      marginRight: 1, //10,
+    },
+    pen: {
+      width: 25,
+      height: 25,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      marginHorizontal: 10,
+      paddingHorizontal: 0.5
+    },
+    microphone: {
+      width: 35,
+      height: 35,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      marginHorizontal: 10,
+      paddingHorizontal: 0.5
+    },
+    photo: {
+      width: 25,
+      height: 25,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      marginHorizontal: 10,
+      paddingHorizontal: 0.5
+    }
+  
   
 })
