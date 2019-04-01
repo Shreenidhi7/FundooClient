@@ -7,6 +7,9 @@
     "test": "jest",
     "lint": "eslint ."
   },
+
+  "proxy":"http//:localhost:3000",
+
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.2",

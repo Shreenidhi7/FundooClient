@@ -10,6 +10,8 @@ import Notes from '../screens/notes'
 import Reminder from '../screens/reminder';
 import Search from "../screens/search";
 import NewLabel from '../screens/createNewLabel';
+import Archive from '../screens/archive';
+import Trash from '../screens/trash';
 
 navigationOptions = { header: null };
 const MyDrawer=createDrawerNavigator(
@@ -18,25 +20,25 @@ const MyDrawer=createDrawerNavigator(
     Notes:{screen: Notes},
     Reminders : {screen : Reminder},
     Createlabel : {screen : NewLabel},
-    Archive:{screen:DashBoard}, 
-    Trash:{screen:DashBoard},
+    Archive:{screen:Archive}, 
+    Trash:{screen:Trash},
     Settings:{screen:DashBoard},
     
     
   Search:{screen:Search},
 
-/*
+
     Login :{screen:LoginNew}, 
     Register : { screen : Register},
     Forgot : {screen : ForgotPassword},
     ResetPassword : {screen:ResetPassword  },
-  */  DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
+    DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
     TakeNote:{screen : TakeNote,navigationOptions:{header:null}}
 
  
 },
 {
-  initialRouteName:'Reminders'
+  initialRouteName:'Archive'
 },                                
 {
   navigationOptions: {

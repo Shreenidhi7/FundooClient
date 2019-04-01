@@ -173,7 +173,7 @@ export default class DashBoard extends Component {
             <Image style={styles.image} source={require('../assets/images/keep_48dp.png')}></Image>
 
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Search")}>
               <Text style={styles.text}>Search your Notes</Text>
          </TouchableOpacity> 
 
@@ -188,7 +188,7 @@ export default class DashBoard extends Component {
                 : 
                 (<View>
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.listicon} source={require('../assets/images/listicon.png')}></Image>
+                    <Image style={styles.listicon} source={require('../assets/images/list1.png')}></Image>
                   </TouchableOpacity>
                 </View>)
             }

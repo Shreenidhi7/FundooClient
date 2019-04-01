@@ -16,9 +16,9 @@ export default class Search extends Component {
           </TouchableOpacity>
 
             <TextInput style={styles.text}
-            placeholder="Search Your Notes"
+            placeholder="Search your notes"
             
-            fontWeight="normal"
+            fontWeight="bold"
             underlineColorAndroid='rgba(0,0,0,0)'
             placeholderTextColor='gray'>
 
@@ -46,6 +46,7 @@ const styles=StyleSheet.create({
     },
 
     text:{
+        color:'gray',
         flexDirection:"row",
         fontSize:20,
         marginTop:-45,

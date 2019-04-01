@@ -124,7 +124,7 @@ export default class Reminder extends Component {
     : 
     (<View>
       <TouchableOpacity onPress={(event) => this.grid(event)}>
-        <Image style={styles.listicon} source={require('../assets/images/listicon.png')}></Image>
+        <Image style={styles.listicon} source={require('../assets/images/list1.png')}></Image>
       </TouchableOpacity>
     </View>)
 }

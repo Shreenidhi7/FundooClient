@@ -121,7 +121,7 @@ export default class LoginNew extends Component {
                     onChangeText={(text) => this.validatePassword(text)}
                     placeholder="Password"
                     fontWeight='bold'
-                    //  onChangeText={(password)=>this.setState({password})}
+                     // onChangeText={(password)=>this.setState({password})}
                     secureTextEntry={true}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholderTextColor='#ffffff' />

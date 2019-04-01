@@ -23,7 +23,7 @@ export default class NewLabel extends Component {
         <View style={{flexGrow:1,flexDirection:"row",marginTop:15}}>         
 
             <TextInput style={styles.label} 
-            placeholder="Create New Label"
+            placeholder="Create new label"
             
             fontWeight="normal"
             underlineColorAndroid='rgba(0,0,0,0)'
@@ -55,7 +55,7 @@ const styles=StyleSheet.create({
     },
     label:{
        // flexDirection:"row",
-        borderWidth:1.5,
+        borderWidth:1.25,
        // borderRadius:5,
        // flexWrap: 'wrap',
         width:415,
