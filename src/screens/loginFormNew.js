@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet,Text,TextInput,View,TouchableOpacity,Image} from "react-native";
 import { ToastAndroid } from "react-native";
-
+import userLogin from '../services/userService'
 
  class Blink extends Component {
      constructor(props) {
@@ -86,7 +86,11 @@ export default class LoginNew extends Component {
         }
 
         else {
-            this.props.navigation.navigate('DashBoard')
+            userLogin({
+                'email':this.state.Email,
+                'password':this.state.Password,
+            })
+             this.props.navigation.navigate('DashBoard')
         }
     }
 

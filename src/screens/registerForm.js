@@ -3,14 +3,17 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-nativ
 //import { validate } from '@babel/types';
 import { ToastAndroid } from "react-native";
 
+import userRegister from "../services/userService";
+
+
 export default class Register extends Component {
     constructor() {
         super();
         this.state={
-            //nameValidate:true,
-            Name:'',
+          
+            FirstName:'',
+            LastName:'',
             Email:'',
-            //passwordValidate:true,
             Password:'',
             ConfirmPassword:'',
         }
@@ -19,18 +22,18 @@ export default class Register extends Component {
     {
         alph=/^[a-zA-Z]+$/
         num=/^[0-9]+$/
-        if(type=='name')
+        if(type=='FirstName')
         {
             if(alph.test(text))
             {
                 this.setState({
-                    nameValidate:true,
+                    FirstNameValidate:true,
                 })
             }
             else
             {
             this.setState({
-                nameValidate:false,
+                FirstNameValidate:false,
             })
             }
         }
@@ -39,13 +42,13 @@ export default class Register extends Component {
             if(num.test(text))
             {
                 this.setState({
-                    nameValidate:true,
+                    FirstNameValidate:true,
                 })
             }
             else
             {
             this.setState({
-                nameValidate:false,
+                FirstNameValidate:false,
             })
             }
         }
@@ -53,17 +56,33 @@ export default class Register extends Component {
     }
 */
 
-validateName(text) {
-    testName=/^[a-zA-Z]*$/
+validateFirstName(text) {
+    testFirstName=/^[a-zA-Z]*$/
      {
-        if(testName.test(text)){
+        if(testFirstName.test(text)){
             this.setState({
-                Name:text
+                FirstName:text
             })
         }
     else {
         this.setState({
-            Name:false
+            FirstName:false
+        })
+    }
+}
+}
+
+validateLastName(text) {
+    testLastName=/^[a-zA-Z]*$/
+     {
+        if(testLastName.test(text)){
+            this.setState({
+                LastName:text
+            })
+        }
+    else {
+        this.setState({
+            LastName:false
         })
     }
 }
@@ -121,9 +140,9 @@ validateConfirmPassword(text) {
 }
 
 submit() {
-    if(this.state.Name==false) {
-        //alert("Name cannot be empty!");
-        ToastAndroid.showWithGravity("Enter Valid Name",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+    if(this.state.FirstName==false) {
+        //alert("FirstName cannot be empty!");
+        ToastAndroid.showWithGravity("Enter Valid FirstName",ToastAndroid.LONG,ToastAndroid.BOTTOM)
     }
     else if(this.state.Email==false) {
        // alert("Email cannot be empty!");
@@ -138,6 +157,13 @@ submit() {
        ToastAndroid.showWithGravity("Password should be same as above",ToastAndroid.LONG,ToastAndroid.BOTTOM)
     }
     else{
+        userRegister({
+            'firstName':this.state.FirstName,
+            'lastName':this.state.LastName,
+            'email':this.state.Email,
+            'password':this.state.Password,
+            'confirmpassword':this.state.ConfirmPassword
+        })
         this.props.navigation.navigate('Login')
     }
 }
@@ -150,16 +176,16 @@ submit() {
                 <Text style={styles.header}>Registration Form</Text>
 
               <TextInput style={[styles.inputbox,
-                 !this.state.Name? styles.error:null]}
-                onChangeText={(text)=>this.validateName(text)}
+                 !this.state.FirstName? styles.error:null]}
+                onChangeText={(text)=>this.validateFirstName(text)}
                 placeholder="FirstName"
                 fontWeight='bold'
                 underlineColorAndroid='rgba(0,0,0,0)'
                 placeholderTextColor='#ffffff'  /> 
 
               <TextInput style={[styles.inputbox,
-                    !this.state.Name? styles.error:null]}
-                onChangeText={(text)=>this.validateName(text)}
+                    !this.state.FirstName? styles.error:null]}
+                onChangeText={(text)=>this.validateFirstName(text)}
                 placeholder="LastName"
                 fontWeight='bold'
                 underlineColorAndroid='rgba(0,0,0,0)'

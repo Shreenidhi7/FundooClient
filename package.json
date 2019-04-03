@@ -7,10 +7,9 @@
     "test": "jest",
     "lint": "eslint ."
   },
-
-  "proxy":"http//:localhost:3000",
-
+  "proxy": "http://localhost:3000",
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "16.8.3",
     "react-native": "0.59.2",
     "react-native-elements": "^1.1.0",

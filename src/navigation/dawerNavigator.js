@@ -38,7 +38,7 @@ const MyDrawer=createDrawerNavigator(
  
 },
 {
-  initialRouteName:'Archive'
+  initialRouteName:'Login'
 },                                
 {
   navigationOptions: {
