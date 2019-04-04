@@ -3,30 +3,30 @@ import axios from "axios" ;
 // import "react-toastify/dist/ReactToastify.css";
 import { ToastAndroid } from "react-native";
 
-function userRegister(FirstName,LastName,Email,Password,ConfirmPassword) 
-{
 
-    return axios.post('/registration',{
-        'firstName':FirstName,
-        'lastName':LastName,
-        'email':Email,
-        'password':Password,
-        'confirmpassword':ConfirmPassword
-    })
+function userRegister(data) 
+{
+   return axios.post('/registration',data)
     .then(function(response){
         console.log("inside Registration response is--",response.data);
-        const token1=response.data;
-        const token2=token1.substring(34)
-        localStorage.setItem('verifyUserToken',token2);
+       
         this.props.navigation.navigate('Login')
     })
     .catch(function(err){
         console.log("error in Registration",err);
+       // this.props.navigation.navigate('DashBoard')
      
     })
 }
+function userLogin(email,password){
+    return axios.post('/login',
+    {
+        email:email,
+        password:password,
+    })
+}
 
-
+/*
 function userLogin(Email,Password){
      axios.post('/login',
     {
@@ -38,14 +38,14 @@ function userLogin(Email,Password){
         const token1=response.data;
         const token2=token1.substring(34)
         localStorage.setItem('verifyUserToken',token2);
-        //this.props.navigation.navigate('DashBoard')
+        this.props.navigation.navigate('DashBoard')
     })
     .catch(function(err){
         console.log("error in login",err);
      
     })
 }
-
+*/
 function forgot(email) {
     axios.post('/verifyUser',{
         email:email

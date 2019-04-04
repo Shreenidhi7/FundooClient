@@ -3,7 +3,9 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-nativ
 //import { validate } from '@babel/types';
 import { ToastAndroid } from "react-native";
 
+
 import userRegister from "../services/userService";
+
 
 
 export default class Register extends Component {
@@ -157,16 +159,71 @@ submit() {
        ToastAndroid.showWithGravity("Password should be same as above",ToastAndroid.LONG,ToastAndroid.BOTTOM)
     }
     else{
-        userRegister({
-            'firstName':this.state.FirstName,
-            'lastName':this.state.LastName,
-            'email':this.state.Email,
-            'password':this.state.Password,
-            'confirmpassword':this.state.ConfirmPassword
+      
+      /*      fetch("http://localhost:3000/registration", {
+            
+            method: 'POST',
+            headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            },
+        body: JSON.stringify({
+            "firstName":this.state.FirstName,
+              "lastName":this.state.LastName,
+              "email":this.state.Email,
+              "password":this.state.Password,
+              "confirmpassword":this.state.ConfirmPassword
+        
+        
+        }),
+        }).then((response) => response.json())
+        .then((responseJson) => {
+        return responseJson.movies;
         })
+        .catch((error) => {
+      console.error(error);
+    });
+
+    */
+
+
+
+      /*    let collection={}
+              collection.firstName=this.state.FirstName,
+              collection.lastName=this.state.LastName,
+              collection.email=this.state.Email,
+              collection.password=this.state.Password,
+              collection.confirmpassword=this.state.ConfirmPassword
+           // console.warn(collection);
+            
+            var url = 'http://localhost:4000/registration';
+       
+            
+            fetch(url, {
+              method: 'POST', // or 'PUT'
+              body: JSON.stringify(collection), // data can be `string` or {object}!
+              headers:{
+                'Content-Type': 'application/json'
+              }
+            }).then(res => res.json())
+            .then(response => console.log('Success:', JSON.stringify(response)))
+            .catch(error => console.error('Error:', error));
+        */     
+            
+              
+            var data={
+            firstName:this.state.FirstName,
+            lastName:this.state.LastName,
+            email:this.state.Email,
+            password:this.state.Password,
+            confirmpassword:this.state.ConfirmPassword
+            
+        }
+        userRegister(data);
+  
         this.props.navigation.navigate('Login')
-    }
-}
+     }
+}       
 
     static navigationOptions={header:null}
     render() {

@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet,Text,TextInput,View,TouchableOpacity,Image} from "react-native";
 import { ToastAndroid } from "react-native";
-import userLogin from '../services/userService'
+import {userLogin} from '../services/userService'
+var jwt= require('jsonwebtoken');
+//const jwt=require('jsonwebtoken')
+
+
 
  class Blink extends Component {
      constructor(props) {
@@ -31,11 +35,16 @@ import userLogin from '../services/userService'
 export default class LoginNew extends Component {
 
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             Email: '',
             Password: '',
+            errormsg:"",
+            formErrors:{
+                email:'',
+                password:''
+            },
         }
     }
 
@@ -85,14 +94,51 @@ export default class LoginNew extends Component {
            ToastAndroid.showWithGravity("Must contain at least one number and one uppercase and lowercase letter,and at least 6 or more characters",ToastAndroid.LONG,ToastAndroid.BOTTOM)
         }
 
-        else {
-            userLogin({
-                'email':this.state.Email,
-                'password':this.state.Password,
-            })
-             this.props.navigation.navigate('DashBoard')
-        }
+        else {  /*
+                    userLogin({
+                        'email':this.state.Email,
+                        'password':this.state.Password
+                    })  
+                    // this.props.navigation.navigate('DashBoard')
+                    }*/
+                    this.props.navigation.navigate('/login')
+               try{
+                  // if(formValid(this.state)){
+                       userLogin(this.state.Email,this.state.Password)
+                       .then((res)=>{
+                           console.log("Response from Backend",res.data);
+                           jwt.verify(res.data,'secretkeyAuthentication',(err,decoded)=>{
+                               if(err){
+                                   console.log("Token Invalid--->");
+                               } else {
+                                   console.log("decoded data==>",decoded.payload);
+
+                                   localStorage.setItem('username',decoded.payload.firstName);
+                                   localStorage.setItem('email',decoded.payload.email);
+                                   localStorage.setItem('userId',decoded.payload.user_id);
+                                   localStorage.setItem('token',res.data);
+                                   this.setState({open:true,errormsg:"Login Successfull!!!!!"});
+                                    this.props.navigation.navigate('DashBoard')
+                                    //this.props.props.history.push('DashBoard')
+                               }
+                           })                           
+                       })
+                       .catch((err)=>{
+                           this.setState({open:true,errormsg:"Login Unsuccessfull!!!!"})
+                           console.log(err);
+                           
+                       });
+                 //  }
+                 //  else{
+                   //    this.setState({open:true,errormsg:"invalid user"})
+                  // }
+               }
+               catch(err){
+                   console.log(err,"error in submit");
+                   
+               }     
     }
+}
 
 
     static navigationOptions = { header: null }
@@ -168,6 +214,7 @@ export default class LoginNew extends Component {
 
 
 }
+export {userLogin}
 
 const styles=StyleSheet.create({
     loginform:{
