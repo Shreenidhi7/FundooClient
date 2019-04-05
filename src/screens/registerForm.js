@@ -4,7 +4,9 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-nativ
 import { ToastAndroid } from "react-native";
 
 
-import userRegister from "../services/userService";
+import {userRegister} from "../services/userService";
+
+//import { ThemeConsumer } from 'react-native-elements';
 
 
 
@@ -18,6 +20,8 @@ export default class Register extends Component {
             Email:'',
             Password:'',
             ConfirmPassword:'',
+            regform:{}
+           
         }
     }
   /*  validate(text,type)
@@ -146,6 +150,9 @@ submit() {
         //alert("FirstName cannot be empty!");
         ToastAndroid.showWithGravity("Enter Valid FirstName",ToastAndroid.LONG,ToastAndroid.BOTTOM)
     }
+    else if(this.state.LastName==false){
+        ToastAndroid.showWithGravity("Enter Valid LastName",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+    }
     else if(this.state.Email==false) {
        // alert("Email cannot be empty!");
         ToastAndroid.showWithGravity("Enter Valid Email",ToastAndroid.LONG,ToastAndroid.BOTTOM)
@@ -210,21 +217,68 @@ submit() {
             .catch(error => console.error('Error:', error));
         */     
             
+                var data={
+                    firstName:this.state.FirstName,
+                    lastName:this.state.LastName,
+                    email:this.state.Email,
+                    password:this.state.Password,
+                    confirmpassword:this.state.ConfirmPassword
+                    
+            }
+            userRegister(data)
+                .then((result) => {
+                    this.setState({
+                        
+                        regform:result.data.data
+                    })
+                    this.props.navigation.navigate('Login')
+                })
+                .catch((error) => {
+                    ToastAndroid.showWithGravity("The User Already Exits",ToastAndroid.LONG,ToastAndroid.BOTTOM,error)
+                    //alert(error);
+                })
+
               
-            var data={
-            firstName:this.state.FirstName,
-            lastName:this.state.LastName,
-            email:this.state.Email,
-            password:this.state.Password,
-            confirmpassword:this.state.ConfirmPassword
+            
+        
+        
+  
+        
+     }
+   /*  
+try{
+userRegister(this.state.FirstName,this.state.LastName,this.state.Email,this.state.Password)
+.then((res)=>{
+    console.log("reg page");
+    this.props.props.history.push('Login')
+    })
+.catch((err)=>{
+    this.setState({open:true,errormsg:"Registration UNsuccessfull"})
+});
+}
+    
+
+catch(err){
+    console.log(err,"error in handle submit in registration");
+    
+}
+    }
+
+    registrationclick=e=>{
+        try{
+            this.props.props.history.push('Login');
+        }
+        catch(err){
+            console.log(err,"errror in registration click in registration");
             
         }
-        userRegister(data);
-  
-        this.props.navigation.navigate('Login')
-     }
-}       
+        }
+    
 
+
+}
+*/
+}
     static navigationOptions={header:null}
     render() {
         return (
@@ -241,8 +295,8 @@ submit() {
                 placeholderTextColor='#ffffff'  /> 
 
               <TextInput style={[styles.inputbox,
-                    !this.state.FirstName? styles.error:null]}
-                onChangeText={(text)=>this.validateFirstName(text)}
+                    !this.state.LastName? styles.error:null]}
+                onChangeText={(text)=>this.validateLastName(text)}
                 placeholder="LastName"
                 fontWeight='bold'
                 underlineColorAndroid='rgba(0,0,0,0)'
@@ -306,6 +360,9 @@ submit() {
         )
     }
 }
+
+export {userRegister};
+
 
 const styles = StyleSheet.create({
 

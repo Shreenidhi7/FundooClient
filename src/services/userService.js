@@ -1,30 +1,70 @@
+
+
+/************************************************************************************************************************************************* */
+
 import axios from "axios" ;
 //import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+
 import { ToastAndroid } from "react-native";
 
+const baseUrl = "http://192.168.0.115:3000";
 
-function userRegister(data) 
+/*
+function userRegister(firstName,lastName,email,password)
 {
-   return axios.post('/registration',data)
-    .then(function(response){
-        console.log("inside Registration response is--",response.data);
-       
-        this.props.navigation.navigate('Login')
-    })
-    .catch(function(err){
-        console.log("error in Registration",err);
-       // this.props.navigation.navigate('DashBoard')
-     
+    return axios.post('/registration',{
+        firstName:firstName,
+        lastName:lastName,
+        email:email,
+        password:password
     })
 }
-function userLogin(email,password){
+*/
+
+
+
+function userRegister(data) {
+
+    
+    return axios(baseUrl + '/registration', {
+        method: "POST",
+        data:data
+    })
+}
+
+// function userRegister(data) 
+// {
+//    return axios.post(baseUrl + '/registration',data)
+//     .then(function(response){
+//         console.log("inside Registration response is--",response.data);
+       
+//        // this.props.navigation.navigate('Login')
+//     })
+//     .catch(function(err){
+//         console.log("error in Registration",err);
+//        // this.props.navigation.navigate('DashBoard')
+     
+//     })
+// }
+
+
+/*function userLogin(email,password){
     return axios.post('/login',
     {
         email:email,
         password:password,
     })
 }
+*/
+
+function userLogin(data) {
+
+    return axios(baseUrl+ '/login',{
+        method:"POST",
+        data:data
+    })
+}
+
 
 /*
 function userLogin(Email,Password){
@@ -82,3 +122,9 @@ export{
     forgot,
     reset
 }
+
+
+
+/***************************************************************************************************************************************** */
+
+

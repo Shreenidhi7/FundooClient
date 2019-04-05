@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet,Text,TextInput,View,TouchableOpacity,Image} from "react-native";
 import { ToastAndroid } from "react-native";
-import {userLogin} from '../services/userService'
-var jwt= require('jsonwebtoken');
+import { getUserInfo, userLogin } from "../services/userService";
+//import {userLogin} from '../services/userService'
+//var jwt= require('jsonwebtoken');
 //const jwt=require('jsonwebtoken')
 
 
@@ -35,19 +36,18 @@ var jwt= require('jsonwebtoken');
 export default class LoginNew extends Component {
 
 
-    constructor(props) {
-        super(props)
+    constructor() {        //(props)
+        super()            //(props)
         this.state = {
             Email: '',
             Password: '',
-            errormsg:"",
-            formErrors:{
-                email:'',
-                password:''
-            },
+            logform:''
+           
         }
     }
 
+
+   
 
     validateEmail(text) {
         testEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -83,7 +83,7 @@ export default class LoginNew extends Component {
         }
     }
 
-    submit() {
+    handleSubmit() {
         if (this.state.Email == '') {
             //alert("Invalid Email")
             ToastAndroid.showWithGravity("Enter Valid Email",ToastAndroid.LONG,ToastAndroid.BOTTOM)
@@ -101,8 +101,8 @@ export default class LoginNew extends Component {
                     })  
                     // this.props.navigation.navigate('DashBoard')
                     }*/
-                    this.props.navigation.navigate('/login')
-               try{
+                  //  this.props.navigation.navigate('DashBoard')
+            /*   try{
                   // if(formValid(this.state)){
                        userLogin(this.state.Email,this.state.Password)
                        .then((res)=>{
@@ -113,7 +113,7 @@ export default class LoginNew extends Component {
                                } else {
                                    console.log("decoded data==>",decoded.payload);
 
-                                   localStorage.setItem('username',decoded.payload.firstName);
+                                   localStorage.setItem('firstname',decoded.payload.firstName);
                                    localStorage.setItem('email',decoded.payload.email);
                                    localStorage.setItem('userId',decoded.payload.user_id);
                                    localStorage.setItem('token',res.data);
@@ -139,8 +139,45 @@ export default class LoginNew extends Component {
                }     
     }
 }
+*/
+
+var data={
+    
+    email:this.state.Email,
+    password:this.state.Password,
+}
+
+userLogin(data)
+.then((result) => {
+    this.setState({
+        
+        logform:result.data.data
+    })
+    this.props.navigation.navigate('DashBoard')
+})
+.catch((error) => {
+    ToastAndroid.showWithGravity("The User Doesnot Exicts,Register Now",ToastAndroid.LONG,ToastAndroid.BOTTOM,error)
+    //alert(error);
+})
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+    }
     static navigationOptions = { header: null }
     render() {
         return (
@@ -178,7 +215,7 @@ export default class LoginNew extends Component {
 
 
                 <TouchableOpacity style={styles.button}  
-                onPress={()=>this.submit()}>
+                onPress={()=>this.handleSubmit()}>
                {/* onPress={() => this.props.navigation.navigate('dashboard')}>  */}
                     <Text style={styles.buttontext}>Submit</Text>
                 </TouchableOpacity>
@@ -214,7 +251,7 @@ export default class LoginNew extends Component {
 
 
 }
-export {userLogin}
+//export {userLogin}
 
 const styles=StyleSheet.create({
     loginform:{
