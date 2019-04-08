@@ -156,7 +156,7 @@ userLogin(data)
     this.props.navigation.navigate('DashBoard')
 })
 .catch((error) => {
-    ToastAndroid.showWithGravity("The User Doesnot Exicts,Register Now",ToastAndroid.LONG,ToastAndroid.BOTTOM,error)
+    ToastAndroid.showWithGravity("The User Doesnot Exists,Register Now",ToastAndroid.LONG,ToastAndroid.BOTTOM,error)
     //alert(error);
 })
 

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-native";
-//import { validate } from '@babel/types';
+
 import { ToastAndroid } from "react-native";
 
 
 import {userRegister} from "../services/userService";
 
-//import { ThemeConsumer } from 'react-native-elements';
+
 
 
 

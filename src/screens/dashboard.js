@@ -100,6 +100,7 @@ import {
 } from 'react-native';
 import LoginNew from './loginFormNew';
 import { TextInput, BorderlessButton } from 'react-native-gesture-handler';
+import CardComponent from '../navigation/CardComponent';
 
 
 
@@ -144,14 +145,42 @@ export default class DashBoard extends Component {
 
 
   render() {
+
+    var arrdata=[],
+    var arr1=[],
+    var key;
+    var data;
+
+    arr1=Object.keys(this.state.note).map((notes)=>{
+      key=notes;
+      data=this.state.note[key]
+    
     return (
 
   
-    
+    <CardComponent Display={data}
+        notekey={key}
+        view={this.state.click}
+        navigation={this.props.navigation}
+        />
+    )
+
+  })
 
 
 
-
+  return(
+    <CardComponent Display={data}
+    notekey={key}
+    view={this.state.click}
+    navigation={this.props.navigation}
+    />
+  )
+  }
+})
+return(
+  
+)
 
 
 
