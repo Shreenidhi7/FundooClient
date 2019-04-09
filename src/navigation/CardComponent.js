@@ -1,9 +1,9 @@
 import React,{Component} from "react";
-import { View,Text,StyleSheet } from "react-native";
+import { View,Text,StyleSheet,TouchableOpacity } from "react-native";
 
 
 import { Card } from "react-native-elements";
-import { TouchableOpacity } from "react-native-gesture-handler";
+//import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class CardComponent extends Component {
     static navigationOptions={header:null};

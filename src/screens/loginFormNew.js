@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet,Text,TextInput,View,TouchableOpacity,Image} from "react-native";
 import { ToastAndroid } from "react-native";
-import { getUserInfo, userLogin } from "../services/userService";
+import {  userLogin } from "../services/userService";
 //import {userLogin} from '../services/userService'
 //var jwt= require('jsonwebtoken');
 //const jwt=require('jsonwebtoken')

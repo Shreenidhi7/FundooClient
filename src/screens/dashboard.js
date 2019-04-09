@@ -1,5 +1,3 @@
-
-
 // import React,{ Component } from "react";
 
 // import {StyleSheet,View,Text,DrawerLayoutAndroid,Image} from 'react-native';
@@ -96,10 +94,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Text,DrawerLayoutAndroid
+  Text,
 } from 'react-native';
 import LoginNew from './loginFormNew';
-import { TextInput, BorderlessButton } from 'react-native-gesture-handler';
+import { TextInput, BorderlessButton, ScrollView } from 'react-native-gesture-handler';
 import CardComponent from '../navigation/CardComponent';
 
 
@@ -127,6 +125,7 @@ export default class DashBoard extends Component {
     super();
 
     this.state = {
+      note:[],
       click: false,
 
     }
@@ -146,8 +145,8 @@ export default class DashBoard extends Component {
 
   render() {
 
-    var arrdata=[],
-    var arr1=[],
+    var arrdata=[]
+    var arr1=[]
     var key;
     var data;
 
@@ -156,9 +155,7 @@ export default class DashBoard extends Component {
       data=this.state.note[key]
     
     return (
-
-  
-    <CardComponent Display={data}
+      <CardComponent Display={data}
         notekey={key}
         view={this.state.click}
         navigation={this.props.navigation}
@@ -167,10 +164,16 @@ export default class DashBoard extends Component {
 
   })
 
-
-
-  return(
-    <CardComponent Display={data}
+  var pinarr=[]
+  var key;
+  var data1;
+  pinarr=Object.keys(this.state.note).map((notes)=>{
+    key=notes;
+    data1=this.state.note[key]
+    if(data1.pin===true)
+  {
+    return(
+    <CardComponent Display={data1}
     notekey={key}
     view={this.state.click}
     navigation={this.props.navigation}
@@ -178,21 +181,10 @@ export default class DashBoard extends Component {
   )
   }
 })
+
+
 return(
   
-)
-
-
-
-
-
-
-
-
-
-
-
-
       <View style={{ flex: 1 }}>
         <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
           <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390,marginLeft:7, borderRadius:9,borderColor:"#C1C1C1",borderWidth:2 }}>
@@ -227,6 +219,14 @@ return(
 
 
         <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "white",  }}></View>
+
+<View style={styles.card}>
+<ScrollView>
+  {arr1}
+</ScrollView>
+</View>
+
+
         <View style={styles.last}>
           <View style={styles.data1}>
             <View style={styles.data}>
@@ -248,18 +248,21 @@ return(
                   </Image>
                 </TouchableOpacity>
               </View>
+              
               <View>
                 <TouchableOpacity>
                   <Image style={styles.pen} source={require('../assets/images/paintbrush.png')}>
                   </Image>
                 </TouchableOpacity>
               </View>
+              
               <View>
                 <TouchableOpacity>
                   <Image style={styles.microphone} source={require('../assets/images/microphone.png')}>
                   </Image>
                 </TouchableOpacity>
               </View>
+              
               <View>
                 <TouchableOpacity>
                   <Image style={styles.photo} source={require('../assets/images/image.png')}>
@@ -272,7 +275,7 @@ return(
       </View>
 
 
-
+        
     );
 
   }
@@ -422,6 +425,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginHorizontal: 10,
     paddingHorizontal: 0.5
+  },
+
+  card:{
+    flexDirection:'row',
+    flex:1
   }
 
 
