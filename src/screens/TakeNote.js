@@ -7,14 +7,57 @@ import {
     StatusBar,
     Image,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    Picker
 } from 'react-native';
+
+import DashBoard from '../screens/DashBoard';
+import { createNote } from '../services/noteService';
 
 
 
 
 export default class TakeNote extends Component {
+/*    constructor(props) {
+        super(props);
+        this.state = {
+            Title:"",
+            Note:"",
+           
+
+        }
+    }
+
+    validatedinput() {
+        if (this.state.Title == '') {
+            alert('enter Title')
+        }
+        if (this.state.Note == '') {
+            alert('enter Description')
+        }
+        else {
+            return true;
+        }
+    }
+*/
+  /*  submit()
+    {
+        var bol=this.validatedinput();
     
+
+    if(bol){
+        createNote(this.state.Title,this.state.Note)
+        this.setState({Note:''})
+        this.setState({Title:''})
+        this.props.navigation.navigate('Notes')
+    }
+    else{
+
+        this.props.navigation.navigate('Notes')
+    }
+
+    }
+   */ 
     render() {
         return (
         <View>

@@ -164,7 +164,7 @@ export default class DashBoard extends Component {
 
   })
 
-  var pinarr=[]
+  /*var pinarr=[]
   var key;
   var data1;
   pinarr=Object.keys(this.state.note).map((notes)=>{
@@ -181,6 +181,7 @@ export default class DashBoard extends Component {
   )
   }
 })
+*/
 
 
 return(
