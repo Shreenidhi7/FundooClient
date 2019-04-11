@@ -1,43 +1,3 @@
-// import React,{ Component } from "react";
-
-// import {StyleSheet,View,Text,DrawerLayoutAndroid,Image} from 'react-native';
-// var navigationView = (
-//     <View style={{flex: 1, backgroundColor: '#fff'}}>
-//     <Image style={{borderRadius:120,alignSelf:'center',justifyContent:'center',width:80,height:80}}    
-//     source={require('../assets/images/sample.jpg')}/>
-//       <Text style={{margin: 10,
-//          fontSize: 25,
-//           textAlign: 'left',
-//           color:'black',
-//           fontWeight:'bold',
-//           borderBottomColor:'black',
-//           borderBottomWidth:3}}>Drawer Items</Text>
-//     </View>);
-
-// export default class Dashboard extends Component {
-
-//     static navigationOptions={header:null}
-//     render() {
-//         return (
-//             <DrawerLayoutAndroid
-//               drawerWidth={300}
-//               drawerPosition={DrawerLayoutAndroid.positions.Left}
-//               renderNavigationView={() => navigationView}>
-//               <View style={{flex: 1, alignItems: 'center',backgroundColor:/*'#206bad'*/'white'}}>
-//                 <Text style={{margin: 10, fontSize: 25, textAlign: 'right',justifyContent:'center',fontWeight:'bold'}}>Haii</Text>
-//                 <Text style={{margin: 10,
-//                  fontSize: 25,
-//                   textAlign: 'right',
-//                   justifyContent:'center',
-//                   fontWeight:'bold',
-//                    borderBottomColor:'black',
-//                     borderBottomWidth:3}}>Welcome to Fundoo Dashboard </Text>
-//               </View>
-             
-//             </DrawerLayoutAndroid>
-//           );
-//                 }
-//             }
 
 /***************************************************************************************** */        
 
@@ -95,26 +55,11 @@ import {
   TouchableOpacity,
   Image,
   Text,
+  ScrollView
 } from 'react-native';
-import LoginNew from './loginFormNew';
-import { TextInput, BorderlessButton, ScrollView } from 'react-native-gesture-handler';
+
+
 import CardComponent from '../navigation/CardComponent';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -154,6 +99,7 @@ export default class DashBoard extends Component {
       key=notes;
       data=this.state.note[key]
     
+
     return (
       <CardComponent Display={data}
         notekey={key}
@@ -161,7 +107,7 @@ export default class DashBoard extends Component {
         navigation={this.props.navigation}
         />
     )
-
+    
   })
 
   /*var pinarr=[]
@@ -189,15 +135,20 @@ return(
       <View style={{ flex: 1 }}>
         <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
           <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390,marginLeft:7, borderRadius:9,borderColor:"#C1C1C1",borderWidth:2 }}>
+           
+
+           {/* onpress with drawericon */  }
             <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
               <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
             </TouchableOpacity>
+           
+           {/* keep icon */}
             <Image style={styles.image} source={require('../assets/images/keep_48dp.png')}></Image>
 
-
+            {/* search onpress navigation */}
             <TouchableOpacity onPress={()=>this.props.navigation.navigate("Search")}>
-              <Text style={styles.text}>Search your Notes</Text>
-         </TouchableOpacity> 
+                <Text style={styles.text}>Search your Notes</Text>
+            </TouchableOpacity> 
 
         
             {
@@ -219,13 +170,18 @@ return(
         </View>
 
 
+{/*<View style={styles.card}>   */}
+<ScrollView>
+  <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between'}}>
+  {arr1}
+  </View>
+</ScrollView>
+{/*</View>       */}
+
+
         <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "white",  }}></View>
 
-<View style={styles.card}>
-<ScrollView>
-  {arr1}
-</ScrollView>
-</View>
+
 
 
         <View style={styles.last}>

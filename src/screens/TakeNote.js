@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Platform,
+  
     StyleSheet,
     Text,
     View,
@@ -11,8 +11,6 @@ import {
     Picker
 } from 'react-native';
 
-import DashBoard from '../screens/DashBoard';
-import { createNote } from '../services/noteService';
 
 
 

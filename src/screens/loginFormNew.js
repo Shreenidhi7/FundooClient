@@ -41,7 +41,7 @@ export default class LoginNew extends Component {
         this.state = {
             Email: '',
             Password: '',
-            logform:''
+            logform:{}
            
         }
     }
@@ -152,6 +152,7 @@ userLogin(data)
     this.setState({
         
         logform:result.data.data
+        
     })
     this.props.navigation.navigate('DashBoard')
 })

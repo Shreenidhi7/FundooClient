@@ -7,7 +7,7 @@ import axios from "axios" ;
 
 import { ToastAndroid } from "react-native";
 
-const baseUrl = "http://192.168.0.9:3000";
+const baseUrl = "http://192.168.0.16:3000";
 
 /*
 function userRegister(firstName,lastName,email,password)
@@ -86,9 +86,10 @@ function userLogin(Email,Password){
     })
 }
 */
-function forgot(email) {
-    axios.post('/verifyUser',{
-        email:email
+function forgot(data) {
+     return axios(baseUrl+'/verifyUser',{
+         method:'POST',
+        data:data
     })
     .then(function(response){
         console.log("inside forgetPassword response is--",response.data);
@@ -106,15 +107,52 @@ function forgot(email) {
 }
 
 
+/*function forgot(email) {
+    axios.post(baseUrl+'/verifyUser',{
+        email:email
+    })
+    .then(function(response){
+        console.log("inside forgetPassword response is--",response.data);
+        const token1=response.data;
+        const token2=token1.substring(34)
+        localStorage.setItem('verifyUserToken',token2);
+       // toast('plz check your email..')
+       ToastAndroid.showWithGravity("Enter Valid Email",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+    })
+    .catch(function(err){
+        console.log(err);
+     //   toast("user not found..")
+     ToastAndroid.showWithGravity("User Not Found",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+    })
+}
+*/
 
+function reset(password,token)
+{
+    return axios(baseUrl+`/resetpassword/${token}`,{'password':password},{
+        method:"POST",
+        }
+    )
+}
+
+
+
+
+
+
+
+
+
+
+/*
 function reset(password,token) {
-    return axios.post(`/resetpassword/${token}`,{'password':password},{
+    return axios.post(baseUrl +`/resetpassword/${token}`,{'password':password},{
         headers:{
             'token':token
         }
     })
 }
-
+*/
 
 export{
     userRegister,

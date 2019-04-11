@@ -1,6 +1,8 @@
 import React,{ Component } from "react";
 import { StyleSheet,Text,TextInput,View,TouchableOpacity } from "react-native";
 import { ToastAndroid } from "react-native";
+import {forgot} from '../services/userService'
+
 
 export default class ForgotPassword extends Component {
 
@@ -8,6 +10,7 @@ constructor(){
     super()
     this.state={
         Email:'',
+        forgotform:{},
        
     }
 }
@@ -36,7 +39,20 @@ submit() {
         ToastAndroid.showWithGravity("Enter Valid Email",ToastAndroid.LONG,ToastAndroid.BOTTOM)
     }
     else{
-        this.props.navigation.navigate('Login')
+        var data={
+            email:this.state.Email
+        }
+        forgot(data)
+            .then((res)=>{
+                this.setState({
+                    forgotform:res.data.data
+                })
+                this.props.navigation.navigate('ResetPassword')
+            })
+            .catch((error)=>{
+                console.log(error);
+                ToastAndroid.showWithGravity("Enter Valid Email",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+            })
     }
 }
     
