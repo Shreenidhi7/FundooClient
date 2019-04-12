@@ -58,7 +58,6 @@ import {
   ScrollView
 } from 'react-native';
 
-
 import CardComponent from '../navigation/CardComponent';
 
 
@@ -82,6 +81,13 @@ export default class DashBoard extends Component {
   static navigationOptions = { header: null }
 
 
+
+
+
+
+ 
+
+
   grid(event) {
 
     this.setState({ click: !(this.state.click) })
@@ -95,7 +101,8 @@ export default class DashBoard extends Component {
     var key;
     var data;
 
-    arr1=Object.keys(this.state.note).map((notes)=>{
+  //  arr1=Object.keys(this.state.note).map((notes)=>{
+    arr1=Object.keys(this.state.note).map(()=>{
       key=notes;
       data=this.state.note[key]
     
@@ -176,7 +183,7 @@ return(
   {arr1}
   </View>
 </ScrollView>
-{/*</View>       */}
+{/*</View>  */}
 
 
         <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "white",  }}></View>
@@ -188,9 +195,7 @@ return(
           <View style={styles.data1}>
             <View style={styles.data}>
 
-          {/*  <TouchableOpacity onPress={() => this.props.navigation.navigate('TakeNote')}>
-                <Text style={styles.text1}>Take a note...</Text>
-          </TouchableOpacity>  */}
+          
 
           <TouchableOpacity   onPress={()=>this.props.navigation.navigate('TakeNote')}>
               <Text style={styles.text1}>

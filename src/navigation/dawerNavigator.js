@@ -12,6 +12,7 @@ import Search from "../screens/search";
 import NewLabel from '../screens/createNewLabel';
 import Archive from '../screens/archive';
 import Trash from '../screens/trash';
+import CardComponent from './CardComponent';
 
 navigationOptions = { header: null };
 const MyDrawer=createDrawerNavigator(
@@ -23,7 +24,7 @@ const MyDrawer=createDrawerNavigator(
     Archive:{screen:Archive}, 
     Trash:{screen:Trash},
     Settings:{screen:DashBoard},
-    
+    CardComponent:{screen:CardComponent},
     
   Search:{screen:Search},
 

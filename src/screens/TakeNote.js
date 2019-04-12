@@ -11,17 +11,17 @@ import {
     Picker
 } from 'react-native';
 
-
+export {createNote} from '../services/noteService'
 
 
 
 export default class TakeNote extends Component {
-/*    constructor(props) {
+   constructor(props) {
         super(props);
         this.state = {
             Title:"",
-            Note:"",
-           
+           // Note:"",
+           Description:"",
 
         }
     }
@@ -30,32 +30,52 @@ export default class TakeNote extends Component {
         if (this.state.Title == '') {
             alert('enter Title')
         }
-        if (this.state.Note == '') {
+        if (this.state.Description == '') {
             alert('enter Description')
         }
         else {
             return true;
         }
     }
-*/
-  /*  submit()
-    {
-        var bol=this.validatedinput();
-    
 
-    if(bol){
+   submit()
+    {
+       // var bol=this.validatedinput();
+        var data={
+            title:this.state.Title,
+            description:this.state.Description
+        }
+
+    /*if(bol){
         createNote(this.state.Title,this.state.Note)
         this.setState({Note:''})
         this.setState({Title:''})
-        this.props.navigation.navigate('Notes')
+        this.props.navigation.navigate('/createNote')
+    }*/
+    createNote(data)
+    .then((result)=>{
+        this.setState({
+        
+            logform:result.data.data
+            
+        })
+        this.props.navigation.navigate('DashBoard')
+    })
+    .catch((err)=>{
+        alert(err,"hahahaa")
+        
+    })
     }
-    else{
+
+  
+  
+    /*  else{
 
         this.props.navigation.navigate('Notes')
     }
-
-    }
-   */ 
+*/
+  //  }
+   
     render() {
         return (
         <View>
