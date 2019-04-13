@@ -6,7 +6,7 @@ export default class CardComponent extends Component {
     static navigationOptions={header:null};
 
         data=()=>{
-            console.warn("editing a note");
+           // console.warn("editing a note");
             this.props.navigation.navigate('Edit',{Display:this.props.Display,notekey:this.props.notekey})
          }
 
@@ -25,17 +25,17 @@ export default class CardComponent extends Component {
                     onLongPress={this.handlerLongClick}
                     activeOpacity={0.6}>
 
-                <Card containerStyle={{backgroundColor:this.props.Display.color,borderRadius:20,borderWidth:3}}>
+                <Card containerStyle={{backgroundColor:"white",borderRadius:20,borderWidth:3}}>
                 <View>
                         <View style={{padding:5,}}>
-                            <Text style={{color:"white",fontWeight:'600'}}>
-                                {this.props.Display.Title}
+                            <Text style={{color:"black"/*"white"*/,fontWeight:'600'}}>
+                            hehehehehehe
                             </Text> 
                         </View>
 
                         <View style={{padding:5,}}>
-                            <Text style={{color:"white"}}>
-                                {this.props.Display.Note}
+                            <Text style={{color:"black"/*"white"*/}}>
+                                hahahahahaha
                             </Text>
                         </View>
                 </View>

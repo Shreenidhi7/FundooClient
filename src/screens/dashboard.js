@@ -1,5 +1,5 @@
 
-/***************************************************************************************** */        
+/***************************************************************************************** */
 
 
 
@@ -16,9 +16,9 @@
 // render() {       
 //         return(
 //             <View style={styles.container}>       
-                
+
 //                 <DrawerNavigator/>
-                
+
 //             </View>
 //         )
 //     }
@@ -69,7 +69,7 @@ export default class DashBoard extends Component {
     super();
 
     this.state = {
-      note:[],
+      note: [],
       click: false,
 
     }
@@ -85,7 +85,7 @@ export default class DashBoard extends Component {
 
 
 
- 
+
 
 
   grid(event) {
@@ -96,68 +96,68 @@ export default class DashBoard extends Component {
 
   render() {
 
-    var arrdata=[]
-    var arr1=[]
+    var arrdata = []
+    var arr1 = []
     var key;
     var data;
 
-  //  arr1=Object.keys(this.state.note).map((notes)=>{
-    arr1=Object.keys(this.state.note).map(()=>{
-      key=notes;
-      data=this.state.note[key]
-    
+    //  arr1=Object.keys(this.state.note).map((notes)=>{
+    arr1 = Object.keys(this.state.note).map(() => {
+      key = notes;
+      data = this.state.note[key]
 
-    return (
-      <CardComponent Display={data}
-        notekey={key}
-        view={this.state.click}
-        navigation={this.props.navigation}
+
+      return (
+        <CardComponent Display={data}
+          notekey={key}
+          view={this.state.click}
+          navigation={this.props.navigation}
         />
+      )
+
+    })
+
+    /*var pinarr=[]
+    var key;
+    var data1;
+    pinarr=Object.keys(this.state.note).map((notes)=>{
+      key=notes;
+      data1=this.state.note[key]
+      if(data1.pin===true)
+    {
+      return(
+      <CardComponent Display={data1}
+      notekey={key}
+      view={this.state.click}
+      navigation={this.props.navigation}
+      />
     )
-    
+    }
   })
+  */
 
-  /*var pinarr=[]
-  var key;
-  var data1;
-  pinarr=Object.keys(this.state.note).map((notes)=>{
-    key=notes;
-    data1=this.state.note[key]
-    if(data1.pin===true)
-  {
-    return(
-    <CardComponent Display={data1}
-    notekey={key}
-    view={this.state.click}
-    navigation={this.props.navigation}
-    />
-  )
-  }
-})
-*/
+ 
+    return (
 
-
-return(
-  
       <View style={{ flex: 1 }}>
         <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
-          <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390,marginLeft:7, borderRadius:9,borderColor:"#C1C1C1",borderWidth:2 }}>
-           
+          <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390, marginLeft: 7, borderRadius: 9, borderColor: "#C1C1C1", borderWidth: 2 }}>
 
-           {/* onpress with drawericon */  }
+
+            {/* onpress with drawericon */}
             <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
               <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
             </TouchableOpacity>
-           
-           {/* keep icon */}
+
+            {/* keep icon */}
             <Image style={styles.image} source={require('../assets/images/keep_48dp.png')}></Image>
 
             {/* search onpress navigation */}
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Search")}>
-                <Text style={styles.text}>Search your Notes</Text>
-            </TouchableOpacity> 
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
+              <Text style={styles.text}>Search your Notes</Text>
+            </TouchableOpacity>
 
-        
+
             {
               this.state.click ?
                 (<View>
@@ -165,7 +165,7 @@ return(
                     <Image style={styles.gridicon} source={require('../assets/images/gridicon1.png')}></Image>
                   </TouchableOpacity>
                 </View>)
-                : 
+                :
                 (<View>
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
                     <Image style={styles.listicon} source={require('../assets/images/list1.png')}></Image>
@@ -174,19 +174,20 @@ return(
             }
 
           </View>
+    
         </View>
 
+        <CardComponent/>
+        {/*<View style={styles.card}>   */}
+        <ScrollView>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+            {arr1}
+          </View>
+        </ScrollView>
+        {/*</View>  */}
 
-{/*<View style={styles.card}>   */}
-<ScrollView>
-  <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between'}}>
-  {arr1}
-  </View>
-</ScrollView>
-{/*</View>  */}
 
-
-        <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "white",  }}></View>
+        <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "white", }}></View>
 
 
 
@@ -195,13 +196,13 @@ return(
           <View style={styles.data1}>
             <View style={styles.data}>
 
-          
 
-          <TouchableOpacity   onPress={()=>this.props.navigation.navigate('TakeNote')}>
-              <Text style={styles.text1}>
-              Take a note...
+
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('TakeNote')}>
+                <Text style={styles.text1}>
+                  Take a note...
               </Text>
-          </TouchableOpacity>
+              </TouchableOpacity>
 
 
               <View>
@@ -210,21 +211,21 @@ return(
                   </Image>
                 </TouchableOpacity>
               </View>
-              
+
               <View>
                 <TouchableOpacity>
                   <Image style={styles.pen} source={require('../assets/images/paintbrush.png')}>
                   </Image>
                 </TouchableOpacity>
               </View>
-              
+
               <View>
                 <TouchableOpacity>
                   <Image style={styles.microphone} source={require('../assets/images/microphone.png')}>
                   </Image>
                 </TouchableOpacity>
               </View>
-              
+
               <View>
                 <TouchableOpacity>
                   <Image style={styles.photo} source={require('../assets/images/image.png')}>
@@ -237,7 +238,7 @@ return(
       </View>
 
 
-        
+
     );
 
   }
@@ -304,7 +305,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 20,
-    fontWeight:"bold",
+    fontWeight: "bold",
     padding: 20
   },
   data: {
@@ -315,35 +316,35 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: 10,
     alignItems: 'center',
-   // padding: 25,
+    // padding: 25,
     //borderRadius: 15,
   },
   last: {
     // position: 'relative',
-     // bottom: 0,
-     height: 50, 
-     backgroundColor:  '#ffffff',
-     flexDirection: "row",
-     paddingLeft: 25,  //10,
-     alignItems: 'center',
-     width: /*350*/ 390,
-     marginLeft: 10,  //7,
-     marginVertical:10,
+    // bottom: 0,
+    height: 50,
+    backgroundColor: '#ffffff',
+    flexDirection: "row",
+    paddingLeft: 25,  //10,
+    alignItems: 'center',
+    width: /*350*/ 390,
+    marginLeft: 10,  //7,
+    marginVertical: 10,
     // borderRadius: 1, //9,
-     borderColor:"#C1C1C1",
+    borderColor: "#C1C1C1",
     // borderWidth:1
-   
+
   },
 
-  text1: { 
+  text1: {
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 22,
-    fontWeight:"bold",
-   // marginHorizontal:  3,  //0.5,
-   // marginRight:5,
-   // marginLeft:-55,
-   // marginLeft:-30
+    fontWeight: "bold",
+    // marginHorizontal:  3,  //0.5,
+    // marginRight:5,
+    // marginLeft:-55,
+    // marginLeft:-30
 
   },
   image1: {
@@ -389,9 +390,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0.5
   },
 
-  card:{
-    flexDirection:'row',
-    flex:1
+  card: {
+    flexDirection: 'row',
+    flex: 1
   }
 
 
@@ -437,8 +438,8 @@ const styles = StyleSheet.create({
 //                    borderBottomColor:'black',
 //                     borderBottomWidth:3}}>Welcome to Fundoo Dashboard </Text>
 //               </View>
-             
-  
+
+
 
 
 

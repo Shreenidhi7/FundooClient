@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.0.9:3000";
-
+const baseUrl = "http://192.168.0.16:3000";
+/*
 export function createNote(data) {
     console.log("Create note data from frontend==>",data);
 
@@ -24,4 +24,20 @@ export function getNotes() {
         }
     });
     
+}
+
+*/
+
+function createNote(data)
+{
+    return axios(baseUrl+'/createNote',{
+        method:'POST',
+        data:data
+    })
+}
+
+
+
+export{
+    createNote
 }

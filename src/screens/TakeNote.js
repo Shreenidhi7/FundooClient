@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  
+
     StyleSheet,
     Text,
     View,
@@ -10,138 +10,121 @@ import {
     TextInput,
     Picker
 } from 'react-native';
-
-export {createNote} from '../services/noteService'
+import { ToastAndroid } from 'react-native';
+import { createNote } from "../services/noteService";
 
 
 
 export default class TakeNote extends Component {
-   constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            Title:"",
-           // Note:"",
-           Description:"",
+            Title: "",
+            Description: "",
+            TakeNote:{}
 
         }
     }
 
-    validatedinput() {
+    submit() {
         if (this.state.Title == '') {
-            alert('enter Title')
+            ToastAndroid.showWithGravity("Enter Title",ToastAndroid.LONG,ToastAndroid.BOTTOM)
         }
-        if (this.state.Description == '') {
-            alert('enter Description')
-        }
+       /* else if (this.state.Description == '') {
+            ToastAndroid.showWithGravity("Enter Description",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+        }*/
         else {
-            return true;
-        }
-    }
-
-   submit()
-    {
-       // var bol=this.validatedinput();
-        var data={
-            title:this.state.Title,
-            description:this.state.Description
-        }
-
-    /*if(bol){
-        createNote(this.state.Title,this.state.Note)
-        this.setState({Note:''})
-        this.setState({Title:''})
-        this.props.navigation.navigate('/createNote')
-    }*/
-    createNote(data)
-    .then((result)=>{
-        this.setState({
-        
-            logform:result.data.data
             
-        })
-        this.props.navigation.navigate('DashBoard')
-    })
-    .catch((err)=>{
-        alert(err,"hahahaa")
-        
-    })
+                var data = {
+                    title: this.state.Title,
+                    description: this.state.Description
+                }
+                createNote(data)
+                    .then((result) => {
+                        this.setState({
+                              TakeNote: result.data.data
+                        })
+                        this.props.navigation.navigate('DashBoard')
+                    })
+                    .catch((err) => {
+                        ToastAndroid.showWithGravity("Fill all the sections",err,ToastAndroid.LONG,ToastAndroid.BOTTOM)
+
+                    })
+        }
+
+
     }
 
-  
-  
-    /*  else{
 
-        this.props.navigation.navigate('Notes')
-    }
-*/
-  //  }
-   
+
     render() {
         return (
-        <View>
-            <View style={styles.container}>
-               
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('DashBoard')}>
-                    <Image style={styles.arrow} source={require('../assets/images/leftarrow.png')} >
-                    </Image>
-                </TouchableOpacity> 
-
-                <Text>                                                     </Text>
-                
-                <TouchableOpacity>
-                    <Image style={styles.pinbutton} source={require('../assets/images/pinicon.png')}>
-                    </Image>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity>
-                    <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity>
-                    <Image style={styles.archivebutton} source={require('../assets/images/archivebox.png')}>
-                    </Image>
-                </TouchableOpacity>
-            </View>
-       
-       
             <View>
-        
-                <View style={{ marginLeft: 30}}>
-                    <TextInput
-                        style={{ fontSize: 30,fontWeight:"bold" }}
-                        placeholder="Title"
-                        placeholderTextColor="#a1a5a3"
-                       
-                    />
-                    <TextInput placeholder="Note"
-                        style={{ fontSize: 20,fontWeight:"bold" }}
-                        placeholderTextColor="#a1a5a3"
-                       
-                    />
+                <View style={styles.container}>
+
+                    <TouchableOpacity onPress={() => this.submit()}>
+                        <Image style={styles.arrow} source={require('../assets/images/leftarrow.png')} >
+                        </Image>
+                    </TouchableOpacity>
+
+                    <Text>                                                     </Text>
+
+                    <TouchableOpacity>
+                        <Image style={styles.pinbutton} source={require('../assets/images/pinicon.png')}>
+                        </Image>
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity>
+                        <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity>
+                        <Image style={styles.archivebutton} source={require('../assets/images/archivebox.png')}>
+                        </Image>
+                    </TouchableOpacity>
                 </View>
-            </View> 
 
 
-            <View>
-                <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff" , justifyContent : 'flex-end'}}></View>
-                <View style={styles.last}>
-                 
-                    <TouchableOpacity>
-                        <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
-                    </TouchableOpacity>
+                <View>
 
-                    <TouchableOpacity>
-                        <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
+                    <View style={{ marginLeft: 30 }}>
+                        <TextInput
+                            style={{ fontSize: 30, fontWeight: "bold" }}
+                            placeholder="Title"
+                            placeholderTextColor="#a1a5a3"
+                            onChangeText={(text)=>this.setState({Title:text})}
+                            
+                        />
+                        <TextInput placeholder="Description"
+                            style={{ fontSize: 20, fontWeight: "bold" }}
+                            placeholderTextColor="#a1a5a3"
+                            onChangeText={(text)=>this.setState({Description:text})}
 
-                    </TouchableOpacity>
-                    </View>  
+                        />
+                    </View>
+                </View>
 
-                
+
+                <View>
+                    <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end' }}></View>
+                    <View style={styles.last}>
+
+                        <TouchableOpacity>
+                            <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity>
+                            <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
+
+                        </TouchableOpacity>
+                    </View>
+
+
+                </View>
             </View>
-  </View>
-            
+
         );
     }
 }
@@ -154,24 +137,24 @@ const styles = StyleSheet.create({
     last: {
         position: 'relative',
         bottom: /*-375*/  -555,
-        flexDirection:"row"
-    
-      },
-   
+        flexDirection: "row"
+
+    },
+
     arrow: {
         marginLeft: 10,
         width: 30,
         height: 40,
 
     },
-   
+
     pinbutton: {
         width: 20,
         height: 30,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         //marginLeft: 10,  //10,
-        marginRight:-15,
+        marginRight: -15,
         paddingLeft: 50,   // 30,
         marginTop: 10,
 
@@ -192,12 +175,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         //marginLeft:  10,    // 10,
-        marginRight:50,
-        paddingLeft:  20,    //  30,
+        marginRight: 50,
+        paddingLeft: 20,    //  30,
         marginTop: 10
     },
-  
-    plusicon : {
+
+    plusicon: {
         width: 50,
         height: 50,
         justifyContent: 'space-between',
@@ -208,12 +191,12 @@ const styles = StyleSheet.create({
     },
 
 
-    dots : {
+    dots: {
         width: 40,
         height: 40,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-       // marginRight:300,
+        // marginRight:300,
         marginLeft: 290,
         paddingLeft: 85,
         marginTop: -5

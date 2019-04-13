@@ -39,7 +39,7 @@ const MyDrawer=createDrawerNavigator(
  
 },
 {
-  initialRouteName:'Login'
+  initialRouteName:'DashBoard'
 },                                
 {
   navigationOptions: {
