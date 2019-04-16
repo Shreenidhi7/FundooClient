@@ -36,14 +36,17 @@ export default class TakeNote extends Component {
         else {
             
                 var data = {
+                   
                     title: this.state.Title,
                     description: this.state.Description
                 }
                 createNote(data)
                     .then((result) => {
                         this.setState({
+                            
                               TakeNote: result.data.data
                         })
+                  
                         this.props.navigation.navigate('DashBoard')
                     })
                     .catch((err) => {

@@ -236,8 +236,8 @@ const styles=StyleSheet.create({
      // marginHorizontal:60
     },
     listicon: {
-      width: 27, //30,
-      height: 24,  //40,
+      width: 40, //30,
+      height: 45,  //40,
       justifyContent: 'space-between',
       alignItems: "flex-end",       //'flex-start',
      // marginLeft: 20,   //15,   //10,

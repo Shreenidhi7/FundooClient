@@ -1,52 +1,3 @@
-
-/***************************************************************************************** */
-
-
-
-// import React,{ Component } from "react";
-
-// import { StyleSheet,View,Text } from "react-native";
-
-// import HomeScreen from "../screens/HomeScreen"
-// import DrawerNavigator from "../navigation/DrawerNavigator"
-
-// export default class Dashboard extends Component {
-
-// static navigationOptions={header:null}
-// render() {       
-//         return(
-//             <View style={styles.container}>       
-
-//                 <DrawerNavigator/>
-
-//             </View>
-//         )
-//     }
-//  }
-
-// const styles=StyleSheet.create({
-//      container:{
-//             flex:1,
-//            // paddingVertical:30,
-//             alignItems:'center',
-//             justifyContent:'center',
-//            // backgroundColor:  "#206bad",
-//            backgroundColor:'#fff'
-//      },
-
-//      writeUp:{
-//          color:"black",
-//          fontSize:30,
-//          fontWeight:'bold'
-//      }
-
-// })
-
-
-
-/********************************************************************************* */
-
-
 import React, { Component } from 'react';
 import { DrawerActions } from 'react-navigation';
 import {
@@ -60,7 +11,7 @@ import {
 
 import CardComponent from '../navigation/CardComponent';
 
-
+import { getTitle } from "../services/noteService";
 
 
 
@@ -71,19 +22,43 @@ export default class DashBoard extends Component {
     this.state = {
       note: [],
       click: false,
-
+      array: []
     }
   }
 
 
-
-
   static navigationOptions = { header: null }
+  toggleDrawer = () => {
+    this.props.navigationProps.toggleDrawer();
+  };
+
+  componentDidMount() {
 
 
+    
+    getTitle(arr => {
+     // console.warn(arr)
+      
+      if (arr) {
+        this.setState({
+          note: arr
+        })
+      }
+      else {
+        this.setState({
+          note: []
+        })
+      
+    }
+    alert("data from back====>",arr)
+    }
+    )
 
+  }
 
-
+    // })
+    // alert("acchha")
+  //}
 
 
 
@@ -101,8 +76,8 @@ export default class DashBoard extends Component {
     var key;
     var data;
 
-    //  arr1=Object.keys(this.state.note).map((notes)=>{
-    arr1 = Object.keys(this.state.note).map(() => {
+    arr1 = Object.keys(this.state.note).map((notes) => {
+
       key = notes;
       data = this.state.note[key]
 
@@ -136,7 +111,7 @@ export default class DashBoard extends Component {
   })
   */
 
- 
+
     return (
 
       <View style={{ flex: 1 }}>
@@ -174,17 +149,18 @@ export default class DashBoard extends Component {
             }
 
           </View>
-    
+          
         </View>
 
-        <CardComponent/>
-        {/*<View style={styles.card}>   */}
-        <ScrollView>
+        <CardComponent />
+
+  {/*      <ScrollView>
+          <View><Text style={styles.margin1}>Others</Text></View>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
             {arr1}
           </View>
-        </ScrollView>
-        {/*</View>  */}
+  </ScrollView>        */}
+
 
 
         <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "white", }}></View>
@@ -277,16 +253,16 @@ const styles = StyleSheet.create({
     paddingLeft: 30
   },
   gridicon: {
-    width: 28, //30,
-    height: 29,  //40,
+    width: 27.5, //30,
+    height: 28.5,  //40,
     justifyContent: 'space-between',
     alignItems: "center",       //'flex-start',
     marginLeft: 15,   //10,
     paddingLeft: 30
   },
   listicon: {
-    width: 27, //30,
-    height: 24,  //40,
+    width: 45, //30,
+    height: 40,  //40,
     justifyContent: 'space-between',
     alignItems: "center",       //'flex-start',
     marginLeft: 15,   //10,
@@ -393,8 +369,13 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     flex: 1
-  }
+  },
 
+  margin1: {
+    marginLeft: 20,
+    fontSize: 15,
+    marginTop: 15
+  },
 
 })
 
@@ -445,3 +426,51 @@ const styles = StyleSheet.create({
 
 //             </DrawerLayoutAndroid>
 //           );
+/****************************************************************************************************** */
+
+/***************************************************************************************** */
+
+
+
+// import React,{ Component } from "react";
+
+// import { StyleSheet,View,Text } from "react-native";
+
+// import HomeScreen from "../screens/HomeScreen"
+// import DrawerNavigator from "../navigation/DrawerNavigator"
+
+// export default class Dashboard extends Component {
+
+// static navigationOptions={header:null}
+// render() {       
+//         return(
+//             <View style={styles.container}>       
+
+//                 <DrawerNavigator/>
+
+//             </View>
+//         )
+//     }
+//  }
+
+// const styles=StyleSheet.create({
+//      container:{
+//             flex:1,
+//            // paddingVertical:30,
+//             alignItems:'center',
+//             justifyContent:'center',
+//            // backgroundColor:  "#206bad",
+//            backgroundColor:'#fff'
+//      },
+
+//      writeUp:{
+//          color:"black",
+//          fontSize:30,
+//          fontWeight:'bold'
+//      }
+
+// })
+
+
+
+/********************************************************************************* */

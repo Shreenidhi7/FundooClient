@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.0.16:3000";
+
+const baseUrl = "http://192.168.0.91:3000";
 /*
 export function createNote(data) {
     console.log("Create note data from frontend==>",data);
@@ -36,8 +37,28 @@ function createNote(data)
     })
 }
 
-
+/*function getAllNotes(data)
+{
+    return axios(baseUrl+'/getAllNotes',{
+        method:'GET',
+        data:data
+    })
+}
+*/
+function getTitle(data)
+{
+    return axios(baseUrl+'/getTitle',{
+        method:'GET',
+        data:data,
+       
+    })
+    
+  
+    
+}
 
 export{
-    createNote
+    createNote,
+   // getAllNotes,
+    getTitle
 }
