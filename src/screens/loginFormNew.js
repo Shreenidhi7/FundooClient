@@ -35,7 +35,7 @@ import {  userLogin } from "../services/userService";
 
 export default class LoginNew extends Component {
 
-
+static navigationOptions={header:null}
     constructor() {        //(props)
         super()            //(props)
         this.state = {
@@ -179,7 +179,7 @@ userLogin(data)
 
 }
     }
-    static navigationOptions = { header: null }
+   // static navigationOptions = { header: null }
     render() {
         return (
            

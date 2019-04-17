@@ -21,10 +21,35 @@ export default class TakeNote extends Component {
         this.state = {
             Title: "",
             Description: "",
+            click:false,
             TakeNote:{}
 
         }
     }
+
+    getpin(event) {
+        this.setState({ click: !this.state.click })
+    }
+
+
+   /* getpin = async event => {
+        console.warn(this.state.pin + " before")
+        await this.setState({ pin: !this.state.pin })
+        console.warn(this.state.pin + " after")
+    }   */
+
+   /* getpin=pin((event)=>{
+        console.warn(this.state.pin + " before")
+        this.setState({
+            pin:!this.state.pin
+        })
+        console.log(this.state.pin+"after")
+    })
+*/
+
+
+
+
 
     submit() {
         if (this.state.Title == '') {
@@ -71,12 +96,18 @@ export default class TakeNote extends Component {
                     </TouchableOpacity>
 
                     <Text>                                                     </Text>
-
-                    <TouchableOpacity>
-                        <Image style={styles.pinbutton} source={require('../assets/images/pinicon.png')}>
+                {
+                    this.state.click ?
+                   ( <TouchableOpacity  onPress={(event) => this.getpin(event)}>
+                        <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
                         </Image>
-                    </TouchableOpacity>
-
+                    </TouchableOpacity>)
+                    :
+                    (<TouchableOpacity  onPress={(event) => this.getpin(event)}>
+                        <Image style={styles.unpinbutton} source={require('../assets/images/unpin.png')}>
+                        </Image>
+                        </TouchableOpacity>)
+                }
 
                     <TouchableOpacity>
                         <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
@@ -152,14 +183,26 @@ const styles = StyleSheet.create({
     },
 
     pinbutton: {
-        width: 20,
-        height: 30,
+        width: 10,  //20,
+        height: 20,  //30,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         //marginLeft: 10,  //10,
         marginRight: -15,
         paddingLeft: 50,   // 30,
-        marginTop: 10,
+        marginTop: 20,
+        //paddingTop:20
+
+    },
+    unpinbutton: {
+        width:  10,   //20,
+        height:  20,      //30,
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        //marginLeft: 10,  //10,
+        marginRight: -15,
+        paddingLeft: 50,   // 30,
+        marginTop: 20,
 
     },
     reminderbutton: {

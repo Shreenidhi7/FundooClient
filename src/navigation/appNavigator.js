@@ -6,20 +6,21 @@ import ResetPassword from '../screens/resetPasswordForm';
 import DashBoard from '../screens/dashboard';
 import Drawer from '../navigation/dawerNavigator';
 import TakeNote from '../screens/TakeNote';
-navigationOptions={header : null}
 
+
+//navigationOptions={header : null}
 const MainNavigator=createStackNavigator({
     Login : { screen : LoginNew ,},
     Register : { screen : Register},
     Forgot : {screen : ForgotPassword},
     ResetPassword : {screen:ResetPassword  },
-    DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
+    DashBoard : {screen : DashBoard},//navigationOptions:{header:null}},
     Drawer:{screen:Drawer,navigationOptions:{header:null}},
     TakeNote:{screen : TakeNote,navigationOptions:{header:null}}
-   
+  
 },
 {
-    initialRouteName : 'DashBoard'
+    initialRouteName : "Drawer"   //////'Drawer'
 });
 
 const Container=createAppContainer(MainNavigator);

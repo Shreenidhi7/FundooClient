@@ -6,59 +6,26 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  ScrollView
+  ScrollView, FlatList
 } from 'react-native';
 
-import CardComponent from '../navigation/CardComponent';
 
-import { getTitle } from "../services/noteService";
+
 
 
 
 export default class DashBoard extends Component {
+  static navigationOptions = { header: null }
   constructor() {
     super();
 
     this.state = {
-      note: [],
-      click: false,
-      array: []
+      click:false,
+      dataSource: [],
+      columns:2,
+      key:1
     }
   }
-
-
-  static navigationOptions = { header: null }
-  toggleDrawer = () => {
-    this.props.navigationProps.toggleDrawer();
-  };
-
-  componentDidMount() {
-
-
-    
-    getTitle(arr => {
-     // console.warn(arr)
-      
-      if (arr) {
-        this.setState({
-          note: arr
-        })
-      }
-      else {
-        this.setState({
-          note: []
-        })
-      
-    }
-    alert("data from back====>",arr)
-    }
-    )
-
-  }
-
-    // })
-    // alert("acchha")
-  //}
 
 
 
@@ -66,52 +33,58 @@ export default class DashBoard extends Component {
   grid(event) {
 
     this.setState({ click: !(this.state.click) })
+    let {columns,key}=this.state
+    columns=columns===2 ? 1 : 2
+    this.setState({
+      columns:columns,
+      key:key+1
+    })
   }
 
 
-  render() {
+  componentDidMount() {
+    const url = "http://192.168.0.91:3000/getAllNotes"
 
-    var arrdata = []
-    var arr1 = []
-    var key;
-    var data;
+    fetch(url)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          dataSource: responseJson.result,
 
-    arr1 = Object.keys(this.state.note).map((notes) => {
+        })
+      })
+      .catch((err) => {
+        console.log("error===>", err);
 
-      key = notes;
-      data = this.state.note[key]
+      })
+
+  }
 
 
-      return (
-        <CardComponent Display={data}
-          notekey={key}
-          view={this.state.click}
-          navigation={this.props.navigation}
-        />
-      )
 
-    })
+  renderItem = ({ item }) => {
+    return (
+      <ScrollView style={{ backgroundColor: "white", borderRadius: 10, borderWidth: 1, marginBottom: 10, marginLeft: 10,marginRight:10 }}>
+        <TouchableOpacity>
+          <View style={{ padding: 5, }}>
+            <Text style={{ color: "black"/*"white"*/, fontWeight: '600' }}>
+              {item.title}
+            </Text>
+          </View>
 
-    /*var pinarr=[]
-    var key;
-    var data1;
-    pinarr=Object.keys(this.state.note).map((notes)=>{
-      key=notes;
-      data1=this.state.note[key]
-      if(data1.pin===true)
-    {
-      return(
-      <CardComponent Display={data1}
-      notekey={key}
-      view={this.state.click}
-      navigation={this.props.navigation}
-      />
+          <View style={{ padding: 5, }}>
+            <Text style={{ color: "black"/*"white"*/ }}>
+              {item.description}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </ScrollView>
     )
-    }
-  })
-  */
 
-
+  }
+  render() {
+   // var take = this.props.view ? (style.view1) : (style.view2)
+    const {columns,key}=this.state
     return (
 
       <View style={{ flex: 1 }}>
@@ -125,13 +98,25 @@ export default class DashBoard extends Component {
             </TouchableOpacity>
 
             {/* keep icon */}
-            <Image style={styles.image} source={require('../assets/images/keep_48dp.png')}></Image>
+            <TouchableOpacity onPress={() => this.componentDidMount()}>
+              <Image style={styles.image} source={require('../assets/images/refresh.png')}></Image>
+            </TouchableOpacity>
 
             {/* search onpress navigation */}
             <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
               <Text style={styles.text}>Search your Notes</Text>
             </TouchableOpacity>
 
+  {/*      <TouchableOpacity onPress={()=>{
+          let {columns,key}=this.state
+          columns=columns===2 ? 1 : 2
+          this.setState({
+            columns:columns,
+            key:key+1
+          })
+        }}>
+
+      </TouchableOpacity>         */}
 
             {
               this.state.click ?
@@ -149,17 +134,19 @@ export default class DashBoard extends Component {
             }
 
           </View>
-          
+
         </View>
-
-        <CardComponent />
-
-  {/*      <ScrollView>
-          <View><Text style={styles.margin1}>Others</Text></View>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-            {arr1}
-          </View>
-  </ScrollView>        */}
+        <ScrollView>
+          
+            <FlatList
+              key={key}
+              data={this.state.dataSource}
+              renderItem={this.renderItem}
+              numColumns={columns}
+              keyExtractor={(item,index)=>{index}}
+            />
+          
+        </ScrollView>
 
 
 
@@ -376,6 +363,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: 15
   },
+
+  view1:
+  {
+    width: 100/*160*/
+  },
+
+  view2: { width: 200 /*320*/ }
 
 })
 
