@@ -40,7 +40,7 @@
 
 
 /****************************************************************************************************************************************** */
-//xccx
+
 
 import React, { Component } from 'react'
 import { View, Text, TextInput, StyleSheet, Button, Image, TouchableOpacity, Picker } from 'react-native'

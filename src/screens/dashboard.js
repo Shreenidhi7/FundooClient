@@ -50,7 +50,6 @@ export default class DashBoard extends Component {
       .then((responseJson) => {
         this.setState({
           dataSource: responseJson.result,
-
         })
       })
       .catch((err) => {

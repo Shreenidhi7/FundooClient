@@ -21,22 +21,23 @@ export default class TakeNote extends Component {
         this.state = {
             Title: "",
             Description: "",
-            click:false,
+            clickpin:false,
+            archiveclick:false,
             TakeNote:{}
 
         }
     }
 
-    getpin(event) {
-        this.setState({ click: !this.state.click })
-    }
+   /* getpin(event) {
+        this.setState({ clickpin: !this.state.clickpin })
+    }  */
 
 
-   /* getpin = async event => {
-        console.warn(this.state.pin + " before")
-        await this.setState({ pin: !this.state.pin })
-        console.warn(this.state.pin + " after")
-    }   */
+    getpin = async event => {
+        console.warn(this.state.clickpin + " before")
+        await this.setState({ clickpin: !this.state.clickpin })
+        console.warn(this.state.clickpin + " after")
+    }   
 
    /* getpin=pin((event)=>{
         console.warn(this.state.pin + " before")
@@ -46,7 +47,13 @@ export default class TakeNote extends Component {
         console.log(this.state.pin+"after")
     })
 */
-
+    archive=async event=>{
+        console.warn(this.state.archiveclick+"1st");
+        await this.setState({
+            archive:!this.state.archiveclick
+        })
+        console.warn(this.state.archiveclick+"2nd");        
+    }
 
 
 
@@ -97,7 +104,7 @@ export default class TakeNote extends Component {
 
                     <Text>                                                     </Text>
                 {
-                    this.state.click ?
+                    this.state.clickpin ?
                    ( <TouchableOpacity  onPress={(event) => this.getpin(event)}>
                         <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
                         </Image>
@@ -114,7 +121,7 @@ export default class TakeNote extends Component {
                     </TouchableOpacity>
 
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={(event)=>this.archive(event)}>
                         <Image style={styles.archivebutton} source={require('../assets/images/archivebox.png')}>
                         </Image>
                     </TouchableOpacity>
