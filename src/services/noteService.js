@@ -45,6 +45,19 @@ function createNote(data)
     })
 }
 */
+
+
+function createArchiveNote(data)
+{
+    return axios(baseUrl+'/createArchiveNote',{
+        method:'POST',
+        data:data
+    })
+}
+
+
+
+
 function getTitle(data)
 {
     return axios(baseUrl+'/getTitle',{
@@ -59,6 +72,7 @@ function getTitle(data)
 
 export{
     createNote,
+    createArchiveNote,
    // getAllNotes,
     getTitle
 }

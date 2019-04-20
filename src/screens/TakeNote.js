@@ -4,11 +4,11 @@ import {
     StyleSheet,
     Text,
     View,
-    StatusBar,
+
     Image,
     TouchableOpacity,
     TextInput,
-    Picker
+
 } from 'react-native';
 import { ToastAndroid } from 'react-native';
 import { createNote } from "../services/noteService";
@@ -21,75 +21,79 @@ export default class TakeNote extends Component {
         this.state = {
             Title: "",
             Description: "",
-            clickpin:false,
-            archiveclick:false,
-            TakeNote:{}
+            archive: false,
+            pin: false,
+            trash: false,
+            TakeNote: {},
+            archiveNote: {}
 
         }
     }
 
-   /* getpin(event) {
-        this.setState({ clickpin: !this.state.clickpin })
-    }  */
+    /* getpin(event) {
+         this.setState({ clickpin: !this.state.clickpin })
+     }  */
 
 
     getpin = async event => {
-        console.warn(this.state.clickpin + " before")
-        await this.setState({ clickpin: !this.state.clickpin })
-        console.warn(this.state.clickpin + " after")
-    }   
-
-   /* getpin=pin((event)=>{
         console.warn(this.state.pin + " before")
-        this.setState({
-            pin:!this.state.pin
-        })
-        console.log(this.state.pin+"after")
-    })
-*/
-    archive=async event=>{
-        console.warn(this.state.archiveclick+"1st");
-        await this.setState({
-            archive:!this.state.archiveclick
-        })
-        console.warn(this.state.archiveclick+"2nd");        
+        await this.setState({ pin: !this.state.pin })
+        console.warn(this.state.pin + " after")
     }
 
 
+      archive = async event => {
+          console.warn(this.state.archive + "1st");
+          await this.setState({
+              archive: !this.state.archive
+          })
+          console.warn(this.state.archive + "2nd");
+      }
+  
 
-
-    submit() {
+    validateinput() {
         if (this.state.Title == '') {
-            ToastAndroid.showWithGravity("Enter Title",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+            ToastAndroid.showWithGravity("Enter Title", ToastAndroid.LONG, ToastAndroid.BOTTOM)
         }
-       /* else if (this.state.Description == '') {
-            ToastAndroid.showWithGravity("Enter Description",ToastAndroid.LONG,ToastAndroid.BOTTOM)
-        }*/
+        if (this.state.Description == '') {
+            ToastAndroid.showWithGravity("Enter Description", ToastAndroid.LONG, ToastAndroid.BOTTOM)
+        }
         else {
-            
-                var data = {
-                   
-                    title: this.state.Title,
-                    description: this.state.Description
-                }
-                createNote(data)
-                    .then((result) => {
-                        this.setState({
-                            
-                              TakeNote: result.data.data
-                        })
-                  
-                        this.props.navigation.navigate('DashBoard')
-                    })
-                    .catch((err) => {
-                        ToastAndroid.showWithGravity("Fill all the sections",err,ToastAndroid.LONG,ToastAndroid.BOTTOM)
-
-                    })
+            return true
         }
-
-
     }
 
+    submit = async event => {
+        var check = this.validateinput();
+
+        if (check) {
+            var data = {
+                title: this.state.Title,
+                description: this.state.Description,
+                archive:this.state.archive
+            }
+            createNote(data)
+                .then((result) => {
+                    this.setState({
+                        TakeNote: result.data.data
+                    })
+                    this.props.navigation.navigate('DashBoard')
+                })
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+
+                })
+        }
+        else {
+            console.log("error in validation");
+
+        }
+    }
+
+   
+
+
+ 
 
 
     render() {
@@ -103,25 +107,25 @@ export default class TakeNote extends Component {
                     </TouchableOpacity>
 
                     <Text>                                                     </Text>
-                {
-                    this.state.clickpin ?
-                   ( <TouchableOpacity  onPress={(event) => this.getpin(event)}>
-                        <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
-                        </Image>
-                    </TouchableOpacity>)
-                    :
-                    (<TouchableOpacity  onPress={(event) => this.getpin(event)}>
-                        <Image style={styles.unpinbutton} source={require('../assets/images/unpin.png')}>
-                        </Image>
-                        </TouchableOpacity>)
-                }
+                    {
+                        this.state.pin ?
+                            (<TouchableOpacity onPress={(event) => this.getpin(event)}>
+                                <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
+                                </Image>
+                            </TouchableOpacity>)
+                            :
+                            (<TouchableOpacity onPress={(event) => this.getpin(event)}>
+                                <Image style={styles.unpinbutton} source={require('../assets/images/unpin.png')}>
+                                </Image>
+                            </TouchableOpacity>)
+                    }
 
                     <TouchableOpacity>
                         <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
                     </TouchableOpacity>
 
 
-                    <TouchableOpacity onPress={(event)=>this.archive(event)}>
+                    <TouchableOpacity onPress={(event) => this.archive(event)} >
                         <Image style={styles.archivebutton} source={require('../assets/images/archivebox.png')}>
                         </Image>
                     </TouchableOpacity>
@@ -135,13 +139,13 @@ export default class TakeNote extends Component {
                             style={{ fontSize: 30, fontWeight: "bold" }}
                             placeholder="Title"
                             placeholderTextColor="#a1a5a3"
-                            onChangeText={(text)=>this.setState({Title:text})}
-                            
+                            onChangeText={(text) => this.setState({ Title: text })}
+
                         />
                         <TextInput placeholder="Description"
                             style={{ fontSize: 20, fontWeight: "bold" }}
                             placeholderTextColor="#a1a5a3"
-                            onChangeText={(text)=>this.setState({Description:text})}
+                            onChangeText={(text) => this.setState({ Description: text })}
 
                         />
                     </View>
@@ -202,8 +206,8 @@ const styles = StyleSheet.create({
 
     },
     unpinbutton: {
-        width:  10,   //20,
-        height:  20,      //30,
+        width: 10,   //20,
+        height: 20,      //30,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         //marginLeft: 10,  //10,
@@ -255,4 +259,53 @@ const styles = StyleSheet.create({
         marginTop: -5
     }
 
-}); 
+});
+
+
+{/*onPress={(event) => this.archive(event)}>     */ }
+
+
+
+
+
+
+
+
+
+
+
+
+ // submit() {
+    //     if (this.state.Title == '') {
+    //         ToastAndroid.showWithGravity("Enter Title", ToastAndroid.LONG, ToastAndroid.BOTTOM)
+    //     }
+    //     /* else if (this.state.Description == '') {
+    //          ToastAndroid.showWithGravity("Enter Description",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+    //      }*/
+
+
+    //     else {
+
+    //         var data = {
+
+    //             title: this.state.Title,
+    //             description: this.state.Description
+    //         }
+    //         createNote(data)
+    //             .then((result) => {
+    //                 this.setState({
+
+    //                     TakeNote: result.data.data
+    //                 })
+
+    //                 this.props.navigation.navigate('DashBoard')
+    //             })
+    //             .catch((err) => {
+    //                 ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+
+    //             })
+
+
+
+    //     }
+    // }
