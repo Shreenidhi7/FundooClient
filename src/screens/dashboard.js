@@ -43,11 +43,12 @@ export default class DashBoard extends Component {
 
 
   componentDidMount() {
-    const url = "http://192.168.0.91:3000/getAllNotes"
+    const url = "http://192.168.0.91:3000/getNotes"
 
     fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
+        console.log("response from backend====>",responseJson)
         this.setState({
           dataSource: responseJson.result,
         })

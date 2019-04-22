@@ -2,19 +2,8 @@ import axios from "axios";
 
 
 const baseUrl = "http://192.168.0.91:3000";
-/*
-export function createNote(data) {
-    console.log("Create note data from frontend==>",data);
 
-    var headers={
-        "Content-Type":"application/json",
-        token:localStorage.getItem("token")
-    };
-    return axios.post(baseUrl+'/createNote',data,{
-        headers:headers
-    })
-    
-}
+
 
 export function getNotes() {
     console.log("getting notes in frontend");
@@ -27,13 +16,22 @@ export function getNotes() {
     
 }
 
-*/
+export function getNotes()
+{
+    return axios.get('/getNotes',{
+        headers:{
+            'access-token':
+        }
+    }) 
+}
+
 
 function createNote(data)
 {
     return axios(baseUrl+'/createNote',{
         method:'POST',
-        data:data
+        data:data,
+     
     })
 }
 
@@ -73,6 +71,7 @@ function getTitle(data)
 export{
     createNote,
     createArchiveNote,
-   // getAllNotes,
+  // getAllNotes,
+  getNotes,
     getTitle
 }
