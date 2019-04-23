@@ -1,53 +1,58 @@
 import React, { Component } from "react";
-import { StyleSheet,Text,TextInput,View,TouchableOpacity,Image} from "react-native";
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from "react-native";
 import { ToastAndroid } from "react-native";
-import {  userLogin } from "../services/userService";
+import { userLogin } from "../services/userService";
+import AsyncStorage from '@react-native-community/async-storage';
+
 //import {userLogin} from '../services/userService'
 //var jwt= require('jsonwebtoken');
 //const jwt=require('jsonwebtoken')
 
 
 
- class Blink extends Component {
-     constructor(props) {
-         super(props);
-             this.state={isShowingText:true};
+class Blink extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { isShowingText: true };
 
-             setInterval(()=>(
-                 this.setState(previousState=>(
-                     { isShowingText:!previousState.isShowingText }
-                 ))
-             ),1000);
-         }
+        setInterval(() => (
+            this.setState(previousState => (
+                { isShowingText: !previousState.isShowingText }
+            ))
+        ), 1000);
+    }
 
-         render() {
-            if(!this.state.isShowingText){
-                 return null;
-             }
-        
-         return(
-             <Text>
-             {this.props.text}
-             </Text>
+    render() {
+        if (!this.state.isShowingText) {
+            return null;
+        }
+
+        return (
+            <Text>
+                {this.props.text}
+            </Text>
         );
-         }
-     }
+    }
+}
 
 export default class LoginNew extends Component {
 
-static navigationOptions={header:null}
+    static navigationOptions = { header: null }
     constructor() {        //(props)
         super()            //(props)
         this.state = {
             Email: '',
             Password: '',
-            logform:{}
-           
+            // open: false,
+            // errormsg: "",
+            logform: {},
+            token:''
+
         }
     }
 
 
-   
+
 
     validateEmail(text) {
         testEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -68,7 +73,7 @@ static navigationOptions={header:null}
 
     validatePassword(text) {
         testPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-         ///^[a-zA-Z]\w{3,14}$/
+        ///^[a-zA-Z]\w{3,14}$/
         {
             if (testPassword.test(text)) {
                 this.setState({
@@ -85,13 +90,11 @@ static navigationOptions={header:null}
 
     handleSubmit() {
         if (this.state.Email == '') {
-            //alert("Invalid Email")
-            ToastAndroid.showWithGravity("Enter Valid Email",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+            ToastAndroid.showWithGravity("Enter Valid Email", ToastAndroid.LONG, ToastAndroid.BOTTOM)
         }
 
         else if (this.state.Password == '') {
-           // alert("password should contain only letters and numbers")
-           ToastAndroid.showWithGravity("Must contain at least one number and one uppercase and lowercase letter,and at least 6 or more characters",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+            ToastAndroid.showWithGravity("Must contain at least one number and one uppercase and lowercase letter,and at least 6 or more characters", ToastAndroid.LONG, ToastAndroid.BOTTOM)
         }
 
         else {  /*
@@ -101,7 +104,7 @@ static navigationOptions={header:null}
                     })  
                     // this.props.navigation.navigate('DashBoard')
                     }*/
-                  //  this.props.navigation.navigate('DashBoard')
+            //  this.props.navigation.navigate('DashBoard')
             /*   try{
                   // if(formValid(this.state)){
                        userLogin(this.state.Email,this.state.Password)
@@ -140,26 +143,60 @@ static navigationOptions={header:null}
     }
 }
 */
+            /*
+            userLogin(this.state.Email,this.state.Password)
+            .then((result)=>{
+            console.log("Response from Backend==>",result.data);
+            jwt.verify(res.data,'secretkeyAuthentication',(err,decoded)=>{
+                if(err){
+                    console.log("Token Invalid--->");
+                } else {
+                    console.log("decoded data==>",decoded.payload);
+            
+                    localStorage.setItem('firstname',decoded.payload.firstName);
+                    localStorage.setItem('email',decoded.payload.email);
+                    localStorage.setItem('userId',decoded.payload.user_id);
+                    localStorage.setItem('token',res.data);
+                    this.setState({open:true,errormsg:"Login Successfull!!!!!"});
+                     this.props.navigation.navigate('DashBoard')
+                    
+                }
+            })        
+            }) */
 
-var data={
-    
-    email:this.state.Email,
-    password:this.state.Password,
-}
+            var data = {
 
-userLogin(data)
-.then((result) => {
-    this.setState({
-        
-        logform:result.data.data
-        
-    })
-    this.props.navigation.navigate('DashBoard')
-})
-.catch((error) => {
-    ToastAndroid.showWithGravity("The User Doesnot Exists,Register Now",ToastAndroid.LONG,ToastAndroid.BOTTOM,error)
-    //alert(error);
-})
+                email: this.state.Email,
+                password: this.state.Password,
+            }
+            
+            userLogin(data)
+           
+                .then((result) => {
+                    const token1=result.data.token
+                    console.log("dstgedrst",token1);
+                    AsyncStorage.setItem('token', 'token1')
+                   
+               //    localStorage.setItem('token',token1)
+                 
+              //  console.log("response from backend====>",token1)
+                    this.setState({
+
+                        logform: result.data.data,
+                        
+                    })
+                     
+                    
+                    this.props.navigation.navigate('DashBoard')
+                })
+                .catch((error) => {
+                    ToastAndroid.showWithGravity("The User Doesnot Exists,Register Now", ToastAndroid.LONG, ToastAndroid.BOTTOM, error)
+
+                })
+                
+                
+
+                // userLogin(data)
 
 
 
@@ -175,27 +212,25 @@ userLogin(data)
 
 
 
-
-
-}
+        }
     }
-   // static navigationOptions = { header: null }
+    // static navigationOptions = { header: null }
     render() {
         return (
-           
-            <View style={styles.loginform}>
-            
-            <Image style={{borderRadius:120,width:150,height:150}}    
-            source={require('../assets/images/sample.jpg')}/>
 
-        <Text style={styles.logoWriteUp}>
-           <Blink text="Welcome to Fundoo"/> 
-        </Text>   
+            <View style={styles.loginform}>
+
+                <Image style={{ borderRadius: 120, width: 150, height: 150 }}
+                    source={require('../assets/images/sample.jpg')} />
+
+                <Text style={styles.logoWriteUp}>
+                    <Blink text="Welcome to Fundoo" />
+                </Text>
 
 
                 <Text style={styles.header}>Login Form</Text>
-                  <TextInput style={[styles.inputbox,
-                     !this.state.Email? styles.error:null]}
+                <TextInput style={[styles.inputbox,
+                !this.state.Email ? styles.error : null]}
                     onChangeText={(text) => this.validateEmail(text)}
                     placeholder="Email"
                     fontWeight='bold'
@@ -205,19 +240,19 @@ userLogin(data)
 
 
                 <TextInput style={[styles.inputbox,
-                      !this.state.Password? styles.error:null]}
+                !this.state.Password ? styles.error : null]}
                     onChangeText={(text) => this.validatePassword(text)}
                     placeholder="Password"
                     fontWeight='bold'
-                     // onChangeText={(password)=>this.setState({password})}
+                    // onChangeText={(password)=>this.setState({password})}
                     secureTextEntry={true}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholderTextColor='#ffffff' />
 
 
-                <TouchableOpacity style={styles.button}  
-                onPress={()=>this.handleSubmit()}>
-               {/* onPress={() => this.props.navigation.navigate('dashboard')}>  */}
+                <TouchableOpacity style={styles.button}
+                    onPress={() => this.handleSubmit()}>
+                    {/* onPress={() => this.props.navigation.navigate('dashboard')}>  */}
                     <Text style={styles.buttontext}>Submit</Text>
                 </TouchableOpacity>
 
@@ -235,7 +270,7 @@ userLogin(data)
 
 
                 <TouchableOpacity
-                     onPress={()=> this.props.navigation.navigate('Forgot')}>  
+                    onPress={() => this.props.navigation.navigate('Forgot')}>
                     <Text style={styles.forgotButton}>Forgot Password!?</Text>
                 </TouchableOpacity>
 
@@ -244,7 +279,7 @@ userLogin(data)
             </View>
 
 
-            
+
 
 
         )
@@ -254,24 +289,24 @@ userLogin(data)
 }
 //export {userLogin}
 
-const styles=StyleSheet.create({
-    loginform:{
-        flex:1,
-        paddingVertical:30,
-        alignItems:'center',
-        justifyContent:'center',
-        backgroundColor:  "#206bad",
+const styles = StyleSheet.create({
+    loginform: {
+        flex: 1,
+        paddingVertical: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "#206bad",
     },
 
-    logoWriteUp:{
-        padding:10,
-        fontWeight:'bold',
-        fontSize:22,
-        color:"white"
+    logoWriteUp: {
+        padding: 10,
+        fontWeight: 'bold',
+        fontSize: 22,
+        color: "white"
     },
 
-    header:{
-        fontWeight:'bold',
+    header: {
+        fontWeight: 'bold',
         fontSize: 25,
         color: 'white',  //  'black',
         paddingBottom: 10,
@@ -288,12 +323,12 @@ const styles=StyleSheet.create({
         // color: "black",
         // borderBottomColor: 'rgb(7, 7, 7)',
         // borderBottomWidth: 1,
-        fontSize:18,
-         width:300,
-         backgroundColor:'rgba(255,255,255,0.3)',
-         borderRadius:25,
-         paddingHorizontal:10,
-         marginVertical:10,
+        fontSize: 18,
+        width: 300,
+        backgroundColor: 'rgba(255,255,255,0.3)',
+        borderRadius: 25,
+        paddingHorizontal: 10,
+        marginVertical: 10,
     },
 
     button: {
@@ -302,53 +337,53 @@ const styles=StyleSheet.create({
         padding: 10,
         backgroundColor: 'black',      //'rgb(28, 27, 27)',
         marginTop: 30,
-        borderRadius:40,
-        marginLeft:80,
-        marginRight:80,
+        borderRadius: 40,
+        marginLeft: 80,
+        marginRight: 80,
     },
 
     buttontext: {
-        fontSize:26,
-       // backgroundColor: "white",
-       color:'#ffffff',
+        fontSize: 26,
+        // backgroundColor: "white",
+        color: '#ffffff',
         fontWeight: "900",
-        paddingRight:0,
+        paddingRight: 0,
     },
 
 
-    signUpTextCont:{
-        flexGrow:1,
-        alignItems:'flex-end',
-        justifyContent:'flex-end',
-        paddingVertical:25,
-        flexDirection:'row',
+    signUpTextCont: {
+        flexGrow: 1,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        paddingVertical: 25,
+        flexDirection: 'row',
     },
 
-    signUpText:{
-        color:'rgba(255,255,255,0.7)',
-        fontSize:20,
-    },
-
-
-    signUpButton:{
-        color:'#ffffff',
-        fontSize:20,
-        fontWeight:"bold"
+    signUpText: {
+        color: 'rgba(255,255,255,0.7)',
+        fontSize: 20,
     },
 
 
+    signUpButton: {
+        color: '#ffffff',
+        fontSize: 20,
+        fontWeight: "bold"
+    },
 
-    forgotButton:{
-        color:'#ffffff',
-        fontSize:20,
-        fontWeight:"bold"
+
+
+    forgotButton: {
+        color: '#ffffff',
+        fontSize: 20,
+        fontWeight: "bold"
 
 
     },
-    error:{
+    error: {
         //borderBottomColor
-        borderBottomColor:'red',
-        borderColor:'red'
+        borderBottomColor: 'red',
+        borderColor: 'red'
     }
 
 

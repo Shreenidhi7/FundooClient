@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
 
     StyleSheet,
@@ -24,6 +26,7 @@ export default class TakeNote extends Component {
             archive: false,
             pin: false,
             trash: false,
+            newline:true,
             TakeNote: {},
             archiveNote: {}
 
@@ -74,6 +77,7 @@ export default class TakeNote extends Component {
             }
             createNote(data)
                 .then((result) => {
+                   // AsyncStorage.getItem('token')
                     this.setState({
                         TakeNote: result.data.data
                     })
@@ -140,13 +144,15 @@ export default class TakeNote extends Component {
                             placeholder="Title"
                             placeholderTextColor="#a1a5a3"
                             onChangeText={(text) => this.setState({ Title: text })}
+                            multiline={this.state.newline}
+                        
 
                         />
                         <TextInput placeholder="Description"
                             style={{ fontSize: 20, fontWeight: "bold" }}
                             placeholderTextColor="#a1a5a3"
                             onChangeText={(text) => this.setState({ Description: text })}
-
+                            multiline={this.state.newline}
                         />
                     </View>
                 </View>

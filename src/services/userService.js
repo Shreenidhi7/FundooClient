@@ -28,6 +28,7 @@ function userRegister(data) {
     
     return axios(baseUrl + '/registration', {
         method: "POST",
+        
         data:data
     })
 }
@@ -48,14 +49,7 @@ function userRegister(data) {
 // }
 
 
-/*function userLogin(email,password){
-    return axios.post('/login',
-    {
-        email:email,
-        password:password,
-    })
-}
-*/
+
 
 function userLogin(data) {
 
@@ -64,6 +58,28 @@ function userLogin(data) {
         data:data
     })
 }
+
+
+// function userLogin(data){
+//     axios.post(baseUrl+'/login',data)
+//     .then(function(response){
+//         localStorage.setItem('token',response.data.token)
+//        // localStorage.setItem('firstName',response.data.firstName)
+//         ToastAndroid.showWithGravity("Login Successfull!!",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+//         localStorage.setItem('token1',true)
+//         this.props.props.navigation.navigate('DashBoard')
+//       // windows.location.href('DashBoard')
+   
+//     })
+//     .catch(function(err){
+//         console.log(err);
+//         ToastAndroid.showWithGravity("Enter Valid Email or Password",ToastAndroid.LONG,ToastAndroid.BOTTOM)
+        
+//     }) 
+// }
+
+
+
 
 
 /*

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerActions } from 'react-navigation';
 import {
   View,
@@ -48,7 +49,11 @@ export default class DashBoard extends Component {
     fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("response from backend====>",responseJson)
+       // var token1=responseJson.token
+       // localStorage.setItem("token",token1)
+        //console.log("response from backend====>",token1)
+       // AsyncStorage.getItem('token')
+        
         this.setState({
           dataSource: responseJson.result,
         })

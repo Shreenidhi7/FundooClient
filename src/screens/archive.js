@@ -82,23 +82,7 @@ export default class Archive extends Component {
   }
 
 
-  // render() {
-  //   var take = this.props.view ? (style.view1) : (style.view2)
-  //   return (
-  //     <View style={take}>
-
-
-  //       <FlatList
-  //         data={this.state.dataSource}
-  //         renderItem={this.renderItem}
-  //         numColumns={numColumns}
-  //       />
-
-
-  //     </View>
-  //   );
-  // }
-
+  
 
 
 
