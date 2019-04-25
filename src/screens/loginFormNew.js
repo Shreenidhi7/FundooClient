@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, } from "react-native";
 import { ToastAndroid } from "react-native";
 import { userLogin } from "../services/userService";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -46,7 +46,7 @@ export default class LoginNew extends Component {
             // open: false,
             // errormsg: "",
             logform: {},
-            token:''
+            token: ''
 
         }
     }
@@ -97,106 +97,44 @@ export default class LoginNew extends Component {
             ToastAndroid.showWithGravity("Must contain at least one number and one uppercase and lowercase letter,and at least 6 or more characters", ToastAndroid.LONG, ToastAndroid.BOTTOM)
         }
 
-        else {  /*
-                    userLogin({
-                        'email':this.state.Email,
-                        'password':this.state.Password
-                    })  
-                    // this.props.navigation.navigate('DashBoard')
-                    }*/
-            //  this.props.navigation.navigate('DashBoard')
-            /*   try{
-                  // if(formValid(this.state)){
-                       userLogin(this.state.Email,this.state.Password)
-                       .then((res)=>{
-                           console.log("Response from Backend",res.data);
-                           jwt.verify(res.data,'secretkeyAuthentication',(err,decoded)=>{
-                               if(err){
-                                   console.log("Token Invalid--->");
-                               } else {
-                                   console.log("decoded data==>",decoded.payload);
+        else {
 
-                                   localStorage.setItem('firstname',decoded.payload.firstName);
-                                   localStorage.setItem('email',decoded.payload.email);
-                                   localStorage.setItem('userId',decoded.payload.user_id);
-                                   localStorage.setItem('token',res.data);
-                                   this.setState({open:true,errormsg:"Login Successfull!!!!!"});
-                                    this.props.navigation.navigate('DashBoard')
-                                    //this.props.props.history.push('DashBoard')
-                               }
-                           })                           
-                       })
-                       .catch((err)=>{
-                           this.setState({open:true,errormsg:"Login Unsuccessfull!!!!"})
-                           console.log(err);
-                           
-                       });
-                 //  }
-                 //  else{
-                   //    this.setState({open:true,errormsg:"invalid user"})
-                  // }
-               }
-               catch(err){
-                   console.log(err,"error in submit");
-                   
-               }     
-    }
-}
-*/
-            /*
-            userLogin(this.state.Email,this.state.Password)
-            .then((result)=>{
-            console.log("Response from Backend==>",result.data);
-            jwt.verify(res.data,'secretkeyAuthentication',(err,decoded)=>{
-                if(err){
-                    console.log("Token Invalid--->");
-                } else {
-                    console.log("decoded data==>",decoded.payload);
-            
-                    localStorage.setItem('firstname',decoded.payload.firstName);
-                    localStorage.setItem('email',decoded.payload.email);
-                    localStorage.setItem('userId',decoded.payload.user_id);
-                    localStorage.setItem('token',res.data);
-                    this.setState({open:true,errormsg:"Login Successfull!!!!!"});
-                     this.props.navigation.navigate('DashBoard')
-                    
-                }
-            })        
-            }) */
 
             var data = {
 
                 email: this.state.Email,
                 password: this.state.Password,
             }
-            
+
             userLogin(data)
-           
+
                 .then((result) => {
-                    const token1=result.data.token
-                    console.log("dstgedrst",token1);
-                    AsyncStorage.setItem('token', 'token1')
-                   
-               //    localStorage.setItem('token',token1)
-                 
-              //  console.log("response from backend====>",token1)
+                    const token1 = result.data.token
+                    console.log("Token Generated at Login Time", token1);
+
+                    AsyncStorage.setItem('token', token1);
+
+                    AsyncStorage.getItem('token').then(value => {
+                        console.log("In Login(@getitem)", value);
+
+                    })
+
                     this.setState({
 
                         logform: result.data.data,
-                        
+
                     })
-                     
-                    
+
+
                     this.props.navigation.navigate('DashBoard')
                 })
                 .catch((error) => {
                     ToastAndroid.showWithGravity("The User Doesnot Exists,Register Now", ToastAndroid.LONG, ToastAndroid.BOTTOM, error)
 
                 })
-                
-                
 
-                // userLogin(data)
+
+
 
 
 

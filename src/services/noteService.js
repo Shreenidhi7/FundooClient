@@ -2,38 +2,68 @@ import axios from "axios";
 import AsyncStorage from '@react-native-community/async-storage';
 
 
-const baseUrl = "http://192.168.0.91:3000";
+const baseUrl = "http://192.168.0.13:3000";
 
 
-export function getNotes() {
 
-    return axios.get(baseUrl + '/getNotes', {
-        headers: {
-            'token': AsyncStorage.getItem('token')
-        }
-    })
-}
 
-/*
-function createNote(data)
-{
-    return axios(baseUrl+'/createNote',{
-        method:'POST',
-        data:data,
-     
-    })
-} */
+
+
 
 export function createNote(data) {
-    console.log("create note call", data);
-    return axios(baseUrl+'/createNote', {
+    console.log("CreateNote Method===>\n", data);
+    return axios(baseUrl + '/createNote', {
         method: "POST",
         headers: {
-            "token": AsyncStorage.getItem("token")
+            'token': data.token
         },
         data: data
     })
 }
+
+
+
+
+export function getNotes() {
+
+    // return axios(baseUrl + '/getNotes', {
+    //     method: "GET",
+    //     headers: {
+    //         'token':""
+    //     },
+
+    // })
+
+    /* axios.get("http://192.168.0.13:3000/getNotes", {
+         headers: {
+             'Authorization': 'token'
+         }
+     }).then((response) => {
+         console.log("responcer service",response.data);
+     })
+     */
+    return axios.get("http://192.168.0.13:3000/getNotes", {
+        headers: {
+            'token': AsyncStorage.getItem('token')
+        },
+    }).then((response) => {
+        console.log("Response From Database====>", response);
+
+    })
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

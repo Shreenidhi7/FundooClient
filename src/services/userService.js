@@ -3,23 +3,10 @@
 /************************************************************************************************************************************************* */
 
 import axios from "axios" ;
-//import { toast } from "react-toastify";
 
 import { ToastAndroid } from "react-native";
 
-const baseUrl = "http://192.168.0.91:3000";
-
-/*
-function userRegister(firstName,lastName,email,password)
-{
-    return axios.post('/registration',{
-        firstName:firstName,
-        lastName:lastName,
-        email:email,
-        password:password
-    })
-}
-*/
+const baseUrl = "http://192.168.0.13:3000";
 
 
 
@@ -27,8 +14,7 @@ function userRegister(data) {
 
     
     return axios(baseUrl + '/registration', {
-        method: "POST",
-        
+        method: "POST", 
         data:data
     })
 }
@@ -82,26 +68,6 @@ function userLogin(data) {
 
 
 
-/*
-function userLogin(Email,Password){
-     axios.post('/login',
-    {
-        'email':Email,
-        'password':Password
-    })
-    .then(function(response){
-        console.log("inside login response is--",response.data);
-        const token1=response.data;
-        const token2=token1.substring(34)
-        localStorage.setItem('verifyUserToken',token2);
-        this.props.navigation.navigate('DashBoard')
-    })
-    .catch(function(err){
-        console.log("error in login",err);
-     
-    })
-}
-*/
 function forgot(data) {
      return axios(baseUrl+'/verifyUser',{
          method:'POST',
@@ -111,7 +77,7 @@ function forgot(data) {
         console.log("inside forgetPassword response is--",response.data);
         const token1=response.data;
         const token2=token1.substring(34)
-        localStorage.setItem('verifyUserToken',token2);
+        AsyncStorage.setItem('verifyUserToken',token2);
        // toast('plz check your email..')
        ToastAndroid.showWithGravity("Enter Valid Email",ToastAndroid.LONG,ToastAndroid.BOTTOM)
     })

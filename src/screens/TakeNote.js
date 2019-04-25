@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     TextInput,
 
+
 } from 'react-native';
 import { ToastAndroid } from 'react-native';
 import { createNote } from "../services/noteService";
@@ -23,12 +24,14 @@ export default class TakeNote extends Component {
         this.state = {
             Title: "",
             Description: "",
+            token: '',
             archive: false,
             pin: false,
             trash: false,
-            newline:true,
+            newline: true,
             TakeNote: {},
-            archiveNote: {}
+            archiveNote: {},
+
 
         }
     }
@@ -45,14 +48,14 @@ export default class TakeNote extends Component {
     }
 
 
-      archive = async event => {
-          console.warn(this.state.archive + "1st");
-          await this.setState({
-              archive: !this.state.archive
-          })
-          console.warn(this.state.archive + "2nd");
-      }
-  
+    archive = async event => {
+        console.warn(this.state.archive + "1st");
+        await this.setState({
+            archive: !this.state.archive
+        })
+        console.warn(this.state.archive + "2nd");
+    }
+
 
     validateinput() {
         if (this.state.Title == '') {
@@ -66,27 +69,65 @@ export default class TakeNote extends Component {
         }
     }
 
+
+
+
+
+
+    /*
+        _storeData = async () => {
+            try {
+              await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+            } catch (error) {
+              // Error saving data
+            }
+          };
+    
+          _retrieveData = async () => {
+            try {
+              const value = await AsyncStorage.getItem('TASKS');
+              if (value !== null) {
+                // We have data!!
+                console.log(value);
+              }
+            } catch (error) {
+              // Error retrieving data
+            }
+          };
+    
+    */
+
     submit = async event => {
         var check = this.validateinput();
 
         if (check) {
-            var data = {
-                title: this.state.Title,
-                description: this.state.Description,
-                archive:this.state.archive
-            }
-            createNote(data)
-                .then((result) => {
-                   // AsyncStorage.getItem('token')
-                    this.setState({
-                        TakeNote: result.data.data
-                    })
-                    this.props.navigation.navigate('DashBoard')
-                })
-                .catch((err) => {
-                    ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
 
-                })
+            //   var token=AsyncStorage.getItem('token')
+            // console.log("Getting Token while creating Note(Take Note)  ",token);
+
+            var token;
+            AsyncStorage.getItem('token').then(value => {
+                console.log("Getting token while Creating Note", value);
+                var data = {
+                    title: this.state.Title,
+                    description: this.state.Description,
+                    archive: this.state.archive,
+                    token: value
+                }
+                createNote(data)
+                    .then((result) => {
+
+                        this.setState({
+                            TakeNote: result.data.data
+                        })
+                        this.props.navigation.navigate('DashBoard')
+                    })
+                    .catch((err) => {
+                        ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+
+                    })
+            })
+           
         }
         else {
             console.log("error in validation");
@@ -94,10 +135,10 @@ export default class TakeNote extends Component {
         }
     }
 
-   
 
 
- 
+
+
 
 
     render() {
@@ -145,7 +186,7 @@ export default class TakeNote extends Component {
                             placeholderTextColor="#a1a5a3"
                             onChangeText={(text) => this.setState({ Title: text })}
                             multiline={this.state.newline}
-                        
+
 
                         />
                         <TextInput placeholder="Description"

@@ -9,8 +9,8 @@ import {
   Text,
   ScrollView, FlatList
 } from 'react-native';
-
-
+import { ToastAndroid } from "react-native";
+import { getNotes} from '../services/noteService'
 
 
 
@@ -43,27 +43,102 @@ export default class DashBoard extends Component {
   }
 
 
-  componentDidMount() {
-    const url = "http://192.168.0.91:3000/getNotes"
+  // componentDidMount() {
+  //   const url = "http://192.168.0.13:3000/getNotes"
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((responseJson) => {
-       // var token1=responseJson.token
-       // localStorage.setItem("token",token1)
-        //console.log("response from backend====>",token1)
-       // AsyncStorage.getItem('token')
-        
-        this.setState({
-          dataSource: responseJson.result,
-        })
-      })
-      .catch((err) => {
-        console.log("error===>", err);
 
-      })
+  //   getNotes(url)
+  //  //   .then((response) => response.json())
+  //     .then((responseJson) => {
+  //     // var token1=responseJson.token
+  //     // AsyncStorage.setItem("token",token1)
+  //       console.log("response from backend====>",responseJson)
+  //       AsyncStorage.getItem('token')
+       
+  //        this.setState({
+  //          dataSource: responseJson.result,
+  //        })
+  //     })
+  //     .catch((err) => {
+  //       console.log("error===>", err);
 
+  //     })
+
+  // }
+
+
+ /// .then((result) => {
+  //  const token1 = result.data.token
+    //console.log("Token Generated at Login Time", token1);
+  
+
+
+
+
+
+componentDidMount(){
+
+
+  getNotes()
+  .then((response) => {
+    // const token1 = response.data.token
+    // console.log("Token Generated at retriving Time", token1);
+
+    // AsyncStorage.setItem('token', token1);
+
+    // AsyncStorage.getItem('token')
+    //  .then(value => {
+    //      console.log("In retriving(@getitem)", value);
+
+    //  })
+
+     this.setState({
+
+      dataSource: response,
+
+  })
+
+})
+}
+
+/*
+displaydata=async()=>{
+  try{
+    let token= await AsyncStorage.getItem('token')
+      alert("token===>",token.token)
+  }catch(err){
+    alert("error here==>",err)
   }
+  
+}
+
+
+componentDidMount(){
+
+  getNotes()
+
+
+  .then((result)=>{
+
+
+    this.setState({
+
+        logform: result.data,
+
+    })
+
+
+})
+
+
+}
+
+*/
+
+
+
+
+
 
 
 
@@ -148,7 +223,7 @@ export default class DashBoard extends Component {
               data={this.state.dataSource}
               renderItem={this.renderItem}
               numColumns={columns}
-              keyExtractor={(item,index)=>{index}}
+              keyExtractor={(item,index)=>{item,index}}
             />
           
         </ScrollView>
