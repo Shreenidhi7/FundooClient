@@ -17,6 +17,20 @@ import { ToastAndroid } from 'react-native';
 import { createNote } from "../services/noteService";
 
 
+// module.exports = {
+//     setToken() {
+//         AsyncStorage.getItem('token')
+//             .then(value => {
+//                 return value;
+//             })
+//             .catch(err => {
+//                 console.error("failede to fetch the token");
+//                 return null;
+//             })
+//     }
+
+// }
+
 
 export default class TakeNote extends Component {
     constructor() {
@@ -40,6 +54,17 @@ export default class TakeNote extends Component {
          this.setState({ clickpin: !this.state.clickpin })
      }  */
 
+    //  setToken() {
+    //     AsyncStorage.getItem('token')
+    //         .then(value => {
+    //             return value;
+    //         })
+    //         .catch(err => {
+    //             console.error("failede to fetch the token");
+    //             return null;
+    //         })
+    // }
+  
 
     getpin = async event => {
         console.warn(this.state.pin + " before")
@@ -97,6 +122,7 @@ export default class TakeNote extends Component {
     
     */
 
+
     submit = async event => {
         var check = this.validateinput();
 
@@ -105,9 +131,10 @@ export default class TakeNote extends Component {
             //   var token=AsyncStorage.getItem('token')
             // console.log("Getting Token while creating Note(Take Note)  ",token);
 
-            var token;
+
             AsyncStorage.getItem('token').then(value => {
                 console.log("Getting token while Creating Note", value);
+                this.token = value
                 var data = {
                     title: this.state.Title,
                     description: this.state.Description,
@@ -127,7 +154,7 @@ export default class TakeNote extends Component {
 
                     })
             })
-           
+
         }
         else {
             console.log("error in validation");

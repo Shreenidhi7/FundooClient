@@ -110,12 +110,12 @@ export default class LoginNew extends Component {
 
                 .then((result) => {
                     const token1 = result.data.token
-                    console.log("Token Generated at Login Time", token1);
+                    console.log("Token Generated at Login Time===>\n", token1,"\n");
 
                     AsyncStorage.setItem('token', token1);
 
                     AsyncStorage.getItem('token').then(value => {
-                        console.log("In Login(@getitem)", value);
+                        console.log("In Login(@getitem)====>\n", value,"\n");
 
                     })
 

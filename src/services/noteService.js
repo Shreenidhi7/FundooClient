@@ -2,13 +2,8 @@ import axios from "axios";
 import AsyncStorage from '@react-native-community/async-storage';
 
 
+
 const baseUrl = "http://192.168.0.13:3000";
-
-
-
-
-
-
 
 export function createNote(data) {
     console.log("CreateNote Method===>\n", data);
@@ -23,34 +18,20 @@ export function createNote(data) {
 
 
 
-
-export function getNotes() {
-
-    // return axios(baseUrl + '/getNotes', {
-    //     method: "GET",
-    //     headers: {
-    //         'token':""
-    //     },
-
-    // })
-
-    /* axios.get("http://192.168.0.13:3000/getNotes", {
-         headers: {
-             'Authorization': 'token'
-         }
-     }).then((response) => {
-         console.log("responcer service",response.data);
-     })
-     */
-    return axios.get("http://192.168.0.13:3000/getNotes", {
+export function getNotes(data) {
+    console.log("came into this pit hole");
+    return axios(baseUrl + '/getNotes', {
+        method: "GET",
         headers: {
-            'token': AsyncStorage.getItem('token')
+            "token": data.token
         },
-    }).then((response) => {
-        console.log("Response From Database====>", response);
 
+    }).then(function (response) {
+        const result = response.data;
+       // console.log("===================================>",response.data);
+
+        return result;
     })
-
 
 }
 

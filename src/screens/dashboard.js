@@ -10,10 +10,8 @@ import {
   ScrollView, FlatList
 } from 'react-native';
 import { ToastAndroid } from "react-native";
-import { getNotes} from '../services/noteService'
-
-
-
+import { getNotes } from '../services/noteService'
+// import { setToken } from '../screens/TakeNote'
 
 export default class DashBoard extends Component {
   static navigationOptions = { header: null }
@@ -21,10 +19,12 @@ export default class DashBoard extends Component {
     super();
 
     this.state = {
-      click:false,
+      title:'',
+      description:'',
+      click: false,
       dataSource: [],
-      columns:2,
-      key:1
+      columns: 2,
+      key: 1
     }
   }
 
@@ -34,11 +34,11 @@ export default class DashBoard extends Component {
   grid(event) {
 
     this.setState({ click: !(this.state.click) })
-    let {columns,key}=this.state
-    columns=columns===2 ? 1 : 2
+    let { columns, key } = this.state
+    columns = columns === 2 ? 1 : 2
     this.setState({
-      columns:columns,
-      key:key+1
+      columns: columns,
+      key: key + 1
     })
   }
 
@@ -54,7 +54,7 @@ export default class DashBoard extends Component {
   //     // AsyncStorage.setItem("token",token1)
   //       console.log("response from backend====>",responseJson)
   //       AsyncStorage.getItem('token')
-       
+
   //        this.setState({
   //          dataSource: responseJson.result,
   //        })
@@ -67,84 +67,81 @@ export default class DashBoard extends Component {
   // }
 
 
- /// .then((result) => {
+  /// .then((result) => {
   //  const token1 = result.data.token
-    //console.log("Token Generated at Login Time", token1);
-  
+  //console.log("Token Generated at Login Time", token1);
 
 
 
 
 
-componentDidMount(){
 
+  componentDidMount() {
+    //  var token=AsyncStorage.getItem('token') 
 
-  getNotes()
-  .then((response) => {
-    // const token1 = response.data.token
-    // console.log("Token Generated at retriving Time", token1);
-
-    // AsyncStorage.setItem('token', token1);
+    //var token1 = AsyncStorage.getItem('token')
+    // AsyncStorage.setItem("token", token1)
 
     // AsyncStorage.getItem('token')
-    //  .then(value => {
-    //      console.log("In retriving(@getitem)", value);
 
-    //  })
+    // getNotes()
 
-     this.setState({
+    //   .then((result) => {
+    //     this.setState({
+    //       dataSource: result,
+    //     //  token1: token
+    //     })
 
-      dataSource: response,
+    //   })
+    //   .catch((err) => {
+    //     ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+    //   })
 
-  })
+    AsyncStorage.getItem('token').then(value => {
+      console.log("Getting token while ReCreating Note", value);
+      this.token = value
+      var data = {
+        title: this.state.Title,
+        description: this.state.Description,
+        archive: this.state.archive,
+        token: value
+      }
+      getNotes(data)
+        .then((result) => {
 
-})
-}
+          this.setState({
+            dataSource: result  /*.data*/
+          })
+          console.log("Result in Datasoure Frontend===>\n")
+          console.log(result)
 
-/*
-displaydata=async()=>{
-  try{
-    let token= await AsyncStorage.getItem('token')
-      alert("token===>",token.token)
-  }catch(err){
-    alert("error here==>",err)
-  }
-  
-}
+            .catch((err) => {
+              ToastAndroid.showWithGravity("Error occured while Retriving Notes ", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
 
-
-componentDidMount(){
-
-  getNotes()
-
-
-  .then((result)=>{
-
-
-    this.setState({
-
-        logform: result.data,
-
+            })
+        })
     })
-
-
-})
-
-
-}
-
-*/
+  }
 
 
 
 
-
-
-
+  /*
+   displaydata=async()=>{
+     try{
+       let token= await AsyncStorage.getItem('token')
+         alert("token===>",token.token)
+     }catch(err){
+       alert("error here==>",err)
+     }
+     
+   }
+     
+   */
 
   renderItem = ({ item }) => {
     return (
-      <ScrollView style={{ backgroundColor: "white", borderRadius: 10, borderWidth: 1, marginBottom: 10, marginLeft: 10,marginRight:10 }}>
+      <ScrollView style={{ backgroundColor: "white", borderRadius: 10, borderWidth: 1, marginBottom: 10, marginLeft: 10, marginRight: 10 }}>
         <TouchableOpacity>
           <View style={{ padding: 5, }}>
             <Text style={{ color: "black"/*"white"*/, fontWeight: '600' }}>
@@ -163,8 +160,8 @@ componentDidMount(){
 
   }
   render() {
-   // var take = this.props.view ? (style.view1) : (style.view2)
-    const {columns,key}=this.state
+    // var take = this.props.view ? (style.view1) : (style.view2)
+    const { columns, key } = this.state
     return (
 
       <View style={{ flex: 1 }}>
@@ -187,7 +184,7 @@ componentDidMount(){
               <Text style={styles.text}>Search your Notes</Text>
             </TouchableOpacity>
 
-  {/*      <TouchableOpacity onPress={()=>{
+            {/*      <TouchableOpacity onPress={()=>{
           let {columns,key}=this.state
           columns=columns===2 ? 1 : 2
           this.setState({
@@ -217,15 +214,15 @@ componentDidMount(){
 
         </View>
         <ScrollView>
-          
-            <FlatList
-              key={key}
-              data={this.state.dataSource}
-              renderItem={this.renderItem}
-              numColumns={columns}
-              keyExtractor={(item,index)=>{item,index}}
-            />
-          
+
+          <FlatList
+            key={key}
+            data={this.state.dataSource}
+            renderItem={this.renderItem}
+            numColumns={columns}
+            keyExtractor={(item, index) => { item, index }}
+          />
+
         </ScrollView>
 
 

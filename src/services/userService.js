@@ -38,6 +38,7 @@ function userRegister(data) {
 
 
 function userLogin(data) {
+console.log("user login ==>",data);
 
     return axios(baseUrl+ '/login',{
         method:"POST",
