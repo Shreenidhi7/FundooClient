@@ -6,7 +6,7 @@ import axios from "axios" ;
 
 import { ToastAndroid } from "react-native";
 
-const baseUrl = "http://192.168.0.13:3000";
+const baseUrl = "http://192.168.0.17:3000";
 
 
 

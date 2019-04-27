@@ -14,13 +14,15 @@ import { getNotes } from '../services/noteService'
 // import { setToken } from '../screens/TakeNote'
 
 export default class DashBoard extends Component {
+
+  getCards;
   static navigationOptions = { header: null }
   constructor() {
     super();
 
     this.state = {
-      title:'',
-      description:'',
+      title: '',
+      description: '',
       click: false,
       dataSource: [],
       columns: 2,
@@ -77,50 +79,36 @@ export default class DashBoard extends Component {
 
 
   componentDidMount() {
-    //  var token=AsyncStorage.getItem('token') 
+ 
+    AsyncStorage.getItem('token')
+      .then(value => {
+        console.log("Getting token while ReCreating Note", value);
+        this.token = value
+        var data = {
+          title: this.state.Title,
+          description: this.state.Description,
+          archive: this.state.archive,
+          token: value
+        }
+        getNotes(data)
+          .then((result) => {
 
-    //var token1 = AsyncStorage.getItem('token')
-    // AsyncStorage.setItem("token", token1)
-
-    // AsyncStorage.getItem('token')
-
-    // getNotes()
-
-    //   .then((result) => {
-    //     this.setState({
-    //       dataSource: result,
-    //     //  token1: token
-    //     })
-
-    //   })
-    //   .catch((err) => {
-    //     ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-    //   })
-
-    AsyncStorage.getItem('token').then(value => {
-      console.log("Getting token while ReCreating Note", value);
-      this.token = value
-      var data = {
-        title: this.state.Title,
-        description: this.state.Description,
-        archive: this.state.archive,
-        token: value
-      }
-      getNotes(data)
-        .then((result) => {
-
-          this.setState({
-            dataSource: result  /*.data*/
-          })
-          console.log("Result in Datasoure Frontend===>\n")
-          console.log(result)
-
-            .catch((err) => {
-              ToastAndroid.showWithGravity("Error occured while Retriving Notes ", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-
+            this.setState({
+              dataSource:result.result
             })
-        })
-    })
+            console.log("Result in Datasoure Frontend===>\n")
+            console.log(result.result)
+          //  console.log("state in dash ->",this.state.dataSource);
+            
+          })
+          .catch((err) => {
+            ToastAndroid.showWithGravity("Error occured while Retriving Notes ", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+
+          })
+      })
+      .catch(err => {
+        console.log("error has got its time to show off:", err);
+      })
   }
 
 

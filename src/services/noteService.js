@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 
-const baseUrl = "http://192.168.0.13:3000";
+const baseUrl = "http://192.168.0.17:3000";
 
 export function createNote(data) {
     console.log("CreateNote Method===>\n", data);
@@ -19,7 +19,7 @@ export function createNote(data) {
 
 
 export function getNotes(data) {
-    console.log("came into this pit hole");
+    console.log("Getting Notes Yet to Achieve\n Yet to hit the api");
     return axios(baseUrl + '/getNotes', {
         method: "GET",
         headers: {
@@ -32,7 +32,9 @@ export function getNotes(data) {
 
         return result;
     })
-
+    .catch((err)=>{
+        console.log("ERROR IN SERVICES",err);
+    })
 }
 
 
