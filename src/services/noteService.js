@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 
-const baseUrl = "http://192.168.0.17:3000";
+const baseUrl = "http://192.168.0.26:3000";
 
 export function createNote(data) {
     console.log("CreateNote Method===>\n", data);

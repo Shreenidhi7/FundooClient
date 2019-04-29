@@ -45,6 +45,8 @@ export default class DashBoard extends Component {
   }
 
 
+  
+
   // componentDidMount() {
   //   const url = "http://192.168.0.13:3000/getNotes"
 
@@ -72,9 +74,6 @@ export default class DashBoard extends Component {
   /// .then((result) => {
   //  const token1 = result.data.token
   //console.log("Token Generated at Login Time", token1);
-
-
-
 
 
 

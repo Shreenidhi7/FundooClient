@@ -16,21 +16,7 @@ import {
 import { ToastAndroid } from 'react-native';
 import { createNote } from "../services/noteService";
 
-
-// module.exports = {
-//     setToken() {
-//         AsyncStorage.getItem('token')
-//             .then(value => {
-//                 return value;
-//             })
-//             .catch(err => {
-//                 console.error("failede to fetch the token");
-//                 return null;
-//             })
-//     }
-
-// }
-
+import Menu from '../navigation/Menu'
 
 export default class TakeNote extends Component {
     constructor() {
@@ -42,12 +28,16 @@ export default class TakeNote extends Component {
             archive: false,
             pin: false,
             trash: false,
+            click: false,
             newline: true,
             TakeNote: {},
             archiveNote: {},
+            color: '',
 
 
         }
+        this.onChangeColor = this.onChangeColor.bind(this)
+        this.handleTrash = this.handleTrash.bind(this)
     }
 
     /* getpin(event) {
@@ -64,7 +54,7 @@ export default class TakeNote extends Component {
     //             return null;
     //         })
     // }
-  
+
 
     getpin = async event => {
         console.warn(this.state.pin + " before")
@@ -81,6 +71,25 @@ export default class TakeNote extends Component {
         console.warn(this.state.archive + "2nd");
     }
 
+    getmenu() {
+        this.setState({
+            click: !this.state.click
+        })
+    }
+
+    async handleTrash(value) {
+        console.log("trash", value);
+        this.setState({
+            trash: value
+        })
+    }
+
+    async onChangeColor(newColor) {
+        console.log("color", newColor);
+        this.setState({
+            color: newColor
+        })
+    }
 
     validateinput() {
         if (this.state.Title == '') {
@@ -204,45 +213,63 @@ export default class TakeNote extends Component {
                 </View>
 
 
-                <View>
 
-                    <View style={{ marginLeft: 30 }}>
-                        <TextInput
-                            style={{ fontSize: 30, fontWeight: "bold" }}
-                            placeholder="Title"
-                            placeholderTextColor="#a1a5a3"
-                            onChangeText={(text) => this.setState({ Title: text })}
-                            multiline={this.state.newline}
+                <View style={{ marginLeft: 30 }}>
+                    <TextInput
+                        style={{ fontSize: 30, fontWeight: "bold" }}
+                        placeholder="Title"
+                        placeholderTextColor="#a1a5a3"
+                        onChangeText={(text) => this.setState({ Title: text })}
+                        multiline={this.state.newline}
 
 
-                        />
-                        <TextInput placeholder="Description"
-                            style={{ fontSize: 20, fontWeight: "bold" }}
-                            placeholderTextColor="#a1a5a3"
-                            onChangeText={(text) => this.setState({ Description: text })}
-                            multiline={this.state.newline}
-                        />
-                    </View>
+                    />
+                    <TextInput placeholder="Description"
+                        style={{ fontSize: 20, fontWeight: "bold" }}
+                        placeholderTextColor="#a1a5a3"
+                        onChangeText={(text) => this.setState({ Description: text })}
+                        multiline={this.state.newline}
+                    />
                 </View>
 
 
-                <View>
-                    <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end' }}></View>
-                    <View style={styles.last}>
-
-                        <TouchableOpacity>
-                            <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity>
-                            <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
-
-                        </TouchableOpacity>
-                    </View>
+                <Menu
+                    view={this.state.click}
+                    color={this.onChangeColor}
+                    trash={this.handleTrash}
+                    navigation={this.props.navigation}>
+                </Menu>
 
 
+
+                <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
+              
+
+
+
+                <View style={styles.last}>
+
+
+
+                    <TouchableOpacity>
+                        <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => { this.getmenu() }}>
+                        <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
+
+                    </TouchableOpacity>
                 </View>
+              
+              
+               
+           
+           
+           
             </View>
+
+
+
 
         );
     }
@@ -254,8 +281,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     last: {
-        position: 'relative',
-        bottom: /*-375*/  -555,
+        position: 'absolute',
+        bottom: -500,  //-555,
         flexDirection: "row"
 
     },
@@ -328,7 +355,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         // marginRight:300,
-        marginLeft: 290,
+        marginLeft:  290,
         paddingLeft: 85,
         marginTop: -5
     }
