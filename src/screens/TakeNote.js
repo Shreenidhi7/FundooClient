@@ -176,8 +176,8 @@ export default class TakeNote extends Component {
 
 
 
-
-    render() {
+  
+    render() { 
         return (
             <View>
                 <View style={styles.container}>
@@ -233,14 +233,6 @@ export default class TakeNote extends Component {
                 </View>
 
 
-                <Menu
-                    view={this.state.click}
-                    color={this.onChangeColor}
-                    trash={this.handleTrash}
-                    navigation={this.props.navigation}>
-                </Menu>
-
-
 
                 <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
               
@@ -248,6 +240,14 @@ export default class TakeNote extends Component {
 
 
                 <View style={styles.last}>
+
+
+                <Menu
+                    view={this.state.click}
+                    color={this.onChangeColor}
+                    trash={this.handleTrash}
+                    navigation={this.props.navigation}>
+                </Menu>
 
 
 
