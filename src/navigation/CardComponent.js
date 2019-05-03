@@ -4,7 +4,7 @@ import { View,Text,StyleSheet,TouchableOpacity,ScrollView,FlatList, } from "reac
 
 
 const numColumns=2
-export default class CardComponent extends Component {
+export default class CardComponent1 extends Component {
     static navigationOptions={header:null};
 
      /*   data=()=>{
@@ -68,7 +68,7 @@ export default class CardComponent extends Component {
         )
 
     }
-
+//not used 
     // render() {
 
     //     var take=this.props.view ? (style.view1):(style.view2)

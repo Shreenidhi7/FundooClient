@@ -84,7 +84,7 @@ export default class Menu extends Component {
     }
 
     render() {
-        let take=this.props.view?styles.view1:styles.view2 
+        let take=this.props.view ? styles.view1 : styles.view2 
         
         return(
             <View style={take}>

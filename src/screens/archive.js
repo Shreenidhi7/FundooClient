@@ -1,87 +1,129 @@
 import React, { Component } from "react";
 
+import { ToastAndroid } from "react-native";
 import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, FlatList } from "react-native";
-//import { TouchableOpacity } from "react-native-gesture-handler";
+import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerActions } from "react-navigation";
-
+import CardComponent from '../navigation/CardCompo'
+import { getNotes } from "../services/noteService";
 export default class Archive extends Component {
   static navigationOptions = { header: null }
   constructor() {
     super();
 
     this.state = {
-      title: '',
-      description: '',
+    
       click: false,
-      dataSource: [],
-      columns: 2,
-      key: 1
+      archiveNote: [],
+    //  columns: 2,
+    //  key: 1
     }
 
   }
 
-
-
-
-
-
-
-  grid(event) {
-    this.setState({ click: !(this.state.click) })
-    let { columns, key } = this.state
-    columns = columns === 2 ? 1 : 2
-    this.setState({
-      columns: columns,
-      key: key + 1
-      // this.setState({ click: !(this.state.click) })
-    })
-  }
-
   componentDidMount() {
-    const url = "http://192.168.0.91:3000/getNotes"
+ 
+    AsyncStorage.getItem('token')
+      .then(value => {
+        console.log("Getting token while ReCreating Note", value);
+        this.token = value
+        var data = {
+          title: this.state.Title,
+          description: this.state.Description,
+          archive: this.state.archive,
+          
+          token: value
+        }
+        getNotes(data)
+          .then((result) => {
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dataSource: responseJson.result,
-        })
+            this.setState({
+              archiveNote:result.result
+            })
+            console.log("Result in Datasoure Frontend===>\n")
+            console.log(result.result)
+          //  console.log("state in dash ->",this.state.dataSource);
+            
+          })
+          .catch((err) => {
+            ToastAndroid.showWithGravity("Error occured while Retriving Notes ", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+
+          })
       })
-      .catch((err) => {
-        console.log("error===>", err);
-
+      .catch(err => {
+        console.log("error has got its time to show off:", err);
       })
-
   }
 
 
 
-
-
-
-
-  renderItem = ({ item }) => {
-    return (
-      <ScrollView style={{ backgroundColor: "white", borderRadius: 10, borderWidth: 1, marginBottom: 10, marginLeft: 10 }}>
-        <TouchableOpacity>
-          <View style={{ padding: 5, }}>
-            <Text style={{ color: "black"/*"white"*/, fontWeight: '600' }}>
-              {item.title}
-            </Text>
-          </View>
-
-          <View style={{ padding: 5, }}>
-            <Text style={{ color: "black"/*"white"*/ }}>
-              {item.description}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
-    )
-
+  grid(event){
+    this.setState({click:!(this.state.click)})
   }
 
+render(){
 
+  var arr1=[]
+  var key;
+  arr1=Object.keys(this.state.archiveNote).map((notes)=>{
+    key=notes;
+    var data=this.state.archiveNote[key]
+
+    if(( data.trash===false && data.archive===true && data.pinned!==true ))
+    {
+      return(
+        <CardComponent Display={data}
+        notekey={key}
+        view={this.state.click}
+        navigation={this.props.navigation}/>
+      )
+    }
+  })
+
+
+
+
+
+  // grid(event) {
+  //   this.setState({ click: !(this.state.click) })
+  //   let { columns, key } = this.state
+  //   columns = columns === 2 ? 1 : 2
+  //   this.setState({
+  //     columns: columns,
+  //     key: key + 1
+  //     // this.setState({ click: !(this.state.click) }) not included
+  //   })
+  // }
+
+ 
+
+
+
+
+  // renderItem = ({ item }) => {
+  //   return (
+  //     <ScrollView style={{ backgroundColor: "white", borderRadius: 10, borderWidth: 1, marginBottom: 10, marginLeft: 10 }}>
+  //       <TouchableOpacity>
+  //         <View style={{ padding: 5, }}>
+  //           <Text style={{ color: "black"/*"white"*/, fontWeight: '600' }}>
+  //             {item.title}
+  //           </Text>
+  //         </View>
+
+  //         <View style={{ padding: 5, }}>
+  //           <Text style={{ color: "black"/*"white"*/ }}>
+  //             {item.description}
+  //           </Text>
+  //         </View>
+  //       </TouchableOpacity>
+  //     </ScrollView>
+  //   )
+
+  // }
+
+
+ // render() {
+   // const { columns, key } = this.state
   
 
 
@@ -89,8 +131,6 @@ export default class Archive extends Component {
 
 
 
-  render() {
-    const { columns, key } = this.state
     return (
       // <View style={{flex:1,flexDirection:'column'}}>
       // <View style={{ flex: 1, flexDirection: "row", marginTop: 10 }}>
@@ -103,6 +143,10 @@ export default class Archive extends Component {
 
             <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
               <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.componentDidMount()}>
+              <Image style={styles.image} source={require('../assets/images/refresh.png')}></Image>
             </TouchableOpacity>
 
             <Text style={styles.text}>
@@ -129,11 +173,13 @@ export default class Archive extends Component {
                 </View>)
             }
           </View>
+          
+
 
         </View>
 
 
-        <ScrollView>
+        {/* <ScrollView>
 
           <FlatList
             key={key}
@@ -143,14 +189,25 @@ export default class Archive extends Component {
             keyExtractor={(item, index) => { index }}
           />
 
-        </ScrollView>
+        </ScrollView> */}
 
+
+<ScrollView>
+    <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between'}}>
+    {arr1}
+    </View>
+
+</ScrollView>
 
       </View>
 
     )
   }
 }
+
+
+
+
 
 const styles = StyleSheet.create({
   drawericon: {
@@ -175,7 +232,7 @@ const styles = StyleSheet.create({
     alignItems: "center",       //'flex-start',
     //marginLeft: 60,   //10,
     // paddingLeft: 30,
-    marginHorizontal: 130,
+    marginHorizontal: 80,
     marginRight: 30
 
 
@@ -207,6 +264,14 @@ const styles = StyleSheet.create({
   },
 
   */
+ image: {
+  width: 30, //30,
+  height: 30,  //40,
+  justifyContent: 'space-between',
+  alignItems: "center",       //'flex-start',
+  marginLeft: 15,   //10,
+  paddingLeft: 30,
+ },
 gridicon:{
   marginLeft:-10,
   width:24,
@@ -224,3 +289,27 @@ justifyContent:'flex-end'
 }
 
 })
+
+
+
+
+
+
+ // componentDidMount() {
+  //   const url = "http://192.168.0.91:3000/getNotes"
+
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((responseJson) => {
+  //       this.setState({
+  //         dataSource: responseJson.result,
+  //       })
+  //     })
+  //     .catch((err) => {
+  //       console.log("error===>", err);
+
+  //     })
+
+  // }
+
+  

@@ -26,7 +26,7 @@ export default class TakeNote extends Component {
             Description: "",
             token: '',
             archive: false,
-            pin: false,
+            pinned: false,
             trash: false,
             click: false,
             newline: true,
@@ -57,9 +57,9 @@ export default class TakeNote extends Component {
 
 
     getpin = async event => {
-        console.warn(this.state.pin + " before")
-        await this.setState({ pin: !this.state.pin })
-        console.warn(this.state.pin + " after")
+        console.warn(this.state.pinned + " before")
+        await this.setState({ pinned: !this.state.pinned })
+        console.warn(this.state.pinned + " after")
     }
 
 
@@ -148,6 +148,7 @@ export default class TakeNote extends Component {
                     title: this.state.Title,
                     description: this.state.Description,
                     archive: this.state.archive,
+                    pinned:this.state.pinned,
                     token: value
                 }
                 createNote(data)
@@ -237,17 +238,17 @@ export default class TakeNote extends Component {
                 <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
               
 
-
-
-                <View style={styles.last}>
-
-
                 <Menu
                     view={this.state.click}
                     color={this.onChangeColor}
                     trash={this.handleTrash}
                     navigation={this.props.navigation}>
                 </Menu>
+
+
+                <View style={styles.last}>
+
+
 
 
 

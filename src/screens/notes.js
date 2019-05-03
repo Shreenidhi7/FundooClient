@@ -67,6 +67,7 @@ export default HomeScreen;
 import React,{ Component } from "react";
 
 import {StyleSheet, View,Text } from "react-native";
+import DashBoard from "./dashboard";
 
 
 export default class Notes extends Component {
@@ -74,7 +75,7 @@ export default class Notes extends Component {
     return(
       <View style={styles.container}>
           <Text style={styles.text} >
-            Notes 
+            <DashBoard/>
           </Text>
       </View>
     )
