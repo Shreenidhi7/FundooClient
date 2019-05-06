@@ -1,9 +1,9 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-community/async-storage';
+import {API} from '../../appconfig';
 
 
-
-const baseUrl = "http://192.168.0.26:3000";
+const baseUrl = API.BASE_URL;
 
 export function createNote(data) {
     console.log("CreateNote Method===>\n", data);

@@ -13,6 +13,7 @@ import NewLabel from '../screens/createNewLabel';
 import Archive from '../screens/archive';
 import Trash from '../screens/trash';
 import LoginNew from '../screens/loginFormNew';
+import Search from '../screens/search'
 import Register from '../screens/registerForm';
 //import CardComponent from './CardComponent';
 
@@ -29,6 +30,8 @@ const MyDrawer = createDrawerNavigator(
     Archive: { screen: Archive },
     Trash: { screen: Trash },
     Settings: { screen: DashBoard },
+    Search:{screen:Search},
+    Login :{screen:LoginNew}, 
     DashBoard: { screen: DashBoard, navigationOptions: { header: null } },
     /*  CardComponent:{screen:CardComponent},
       
@@ -52,7 +55,7 @@ const MyDrawer = createDrawerNavigator(
       gesturesEnabled: false,
       header: null,
     },
-    initialRouteName: "DashBoard",      //"Notes",
+    initialRouteName: "Login",      //"Notes",
     contentOptions: {
       //activeTintColor: "#009688"  //"#e91e63"
     },

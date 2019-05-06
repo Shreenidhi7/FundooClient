@@ -11,7 +11,7 @@ export default class Search extends Component {
             <View style={styles.container}>
         
        
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("Reminders")}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("DashBoard")}>
             <Image style={styles.arrow} source={require('../assets/images/leftarrow.png')} />
           </TouchableOpacity>
 

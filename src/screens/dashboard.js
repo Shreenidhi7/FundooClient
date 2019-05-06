@@ -10,10 +10,18 @@ import {
   ScrollView, FlatList
 } from 'react-native';
 import { ToastAndroid } from "react-native";
-import { getNotes } from '../services/noteService'
 
-import { Card } from 'react-native-elements'
-import CardComponent from '../navigation/CardCompo'
+import { getNotes } from "../services/noteService";
+import { Card } from 'react-native-elements';
+import CardComponent from "../navigation/CardCompo";
+
+
+
+
+import {dateFormat} from 'dateformat'
+
+
+
 export default class DashBoard extends Component {
 
 
@@ -22,12 +30,12 @@ export default class DashBoard extends Component {
     super();
 
     this.state = {
-      title: '',
-      description: '',
-
+      Title: '',
+      Description: '',
+      dataArray: [],
       archive: false,
       click: false,
-      dataArray: [],
+
 
       //columns: 2,
       //key: 1
@@ -40,7 +48,9 @@ export default class DashBoard extends Component {
     })
   }
 
-
+SearchNote(event) {
+  this.props.navigation.navigate('Search')
+}
   // grid(event) {
 
   //   this.setState({ click: !(this.state.click) })
@@ -54,36 +64,9 @@ export default class DashBoard extends Component {
   //required for flatlist
 
 
+ 
 
-  // componentDidMount() {
-  //   const url = "http://192.168.0.13:3000/getNotes"
-
-
-  //   getNotes(url)
-  //  //   .then((response) => response.json())
-  //     .then((responseJson) => {
-  //     // var token1=responseJson.token
-  //     // AsyncStorage.setItem("token",token1)
-  //       console.log("response from backend====>",responseJson)
-  //       AsyncStorage.getItem('token')
-
-  //        this.setState({
-  //          date: responseJson.result,
-  //        })
-  //     })
-  //     .catch((err) => {
-  //       console.log("error===>", err);
-
-  //     })
-
-  // }
-
-
-  /// .then((result) => {
-  //  const token1 = result.data.token
-  //console.log("Token Generated at Login Time", token1);
-
-
+ result = new Date();
 
   componentDidMount() {
 
@@ -95,6 +78,8 @@ export default class DashBoard extends Component {
           title: this.state.Title,
           description: this.state.Description,
           archive: this.state.archive,
+          pinned: this.state.pinned,
+          reminder: this.state.reminder,
           token: value
         }
         getNotes(data)
@@ -106,6 +91,8 @@ export default class DashBoard extends Component {
             })
             console.log("Result in Datasoure Frontend===>\n")
             console.log(result.result)
+            dateFormat(result.result, "longTime")
+            dateFormat(result.result,"shortTime")
             //  console.log("state in dash ->",this.state.dataSoure);
 
           })
@@ -121,39 +108,15 @@ export default class DashBoard extends Component {
 
 
 
-  // renderItem = ({ item,item1 }) => {
-
-  //   return (
-  //     <ScrollView style={{ backgroundColor: "white", borderRadius: 10, borderWidth: 1, marginBottom: 10, marginLeft: 10, marginRight: 10 }}>
-  //      <View><Text style={styles.margin}> Pinned </Text></View>
-  //       <TouchableOpacity>
-  //         <View style={{ padding: 5, }}>
-  //           <Text style={{ color: "black"/*"white"*/, fontWeight: '600' }}>
-  //             {item.title}
-  //           </Text>
-  //         </View>
-
-  //         <View style={{ padding: 5, }}>
-  //           <Text style={{ color: "black"/*"white"*/ }}>
-  //             {item.description}
-  //           </Text>
-  //         </View>
-  //       </TouchableOpacity>
-  //     </ScrollView>
-  //   )
-  // required for flatlist
 
 
   render() {
-    // var take = this.props.view ? (style.view1) : (style.view2)
-    // const { columns, key } = this.state
-    // required for flatlist
 
 
-    var arr1 = []
+    var arr = []
     var key;
     var data;
-    arr1 = Object.keys(this.state.dataArray).map((notes) => {
+    arr = Object.keys(this.state.dataArray).map((notes) => {
       key = notes;
       data = this.state.dataArray[key]
 
@@ -169,14 +132,14 @@ export default class DashBoard extends Component {
 
     var pinarr = [];
     var key;
-    var data1;
+    var data;
 
     pinarr = Object.keys(this.state.dataArray).map((notes) => {
       key = notes;
-      data1 = this.state.dataArray[key]
-      if (data1.pinned === true && data1.trash !== true) {
+      data = this.state.dataArray[key]
+      if (data.pinned === true && data.trash !== true) {
         return (
-          <CardComponent Display={data1}
+          <CardComponent Display={data}
             notekey={key}
             view={this.state.click}
             navigation={this.props.navigation} />
@@ -205,20 +168,10 @@ export default class DashBoard extends Component {
             </TouchableOpacity>
 
             {/* search onpress navigation */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
+            <TouchableOpacity onPress={(event)=>this.SearchNote(event)}>
               <Text style={styles.text}>Search your Notes</Text>
             </TouchableOpacity>
 
-            {/*      <TouchableOpacity onPress={()=>{
-          let {columns,key}=this.state
-          columns=columns===2 ? 1 : 2
-          this.setState({
-            columns:columns,
-            key:key+1
-          })
-        }}>
-
-      </TouchableOpacity>         */}
 
             {
               this.state.click ?
@@ -238,21 +191,6 @@ export default class DashBoard extends Component {
           </View>
 
         </View>
-        {/* <ScrollView>
-
-          <FlatList
-            key={key}
-           
-            data={this.state.dataArray}
-
-            renderItem={this.renderItem}
-            numColumns={columns}
-            keyExtractor={(item, index) => { item, index }}
-          />
-
-        </ScrollView> */}
-
-
 
 
         <ScrollView>
@@ -263,7 +201,7 @@ export default class DashBoard extends Component {
 
           <View><Text style={styles.margin}> Others </Text></View>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-            {arr1}
+            {arr}
           </View>
 
         </ScrollView>
@@ -505,96 +443,3 @@ const styles = StyleSheet.create({
 
 
 
-
-/****************************old dashboard with drawer navigator****************************** */
-
-// import React,{ Component } from "react";
-
-// import {StyleSheet,View,Text,DrawerLayoutAndroid,Image} from 'react-native';
-// var navigationView = (
-//     <View style={{flex: 1, backgroundColor: '#fff'}}>
-//     <Image style={{borderRadius:120,alignSelf:'center',justifyContent:'center',width:80,height:80}}    
-//     source={require('../components/images/sample.jpg')}/>
-//       <Text style={{margin: 10,
-//          fontSize: 25,
-//           textAlign: 'left',
-//           color:'black',
-//           fontWeight:'bold',
-//           borderBottomColor:'black',
-//           borderBottomWidth:3}}>Drawer Items</Text>
-//     </View>);
-
-// export default class Dashboard extends Component {
-
-//     static navigationOptions={header:null}
-//     render() {
-//         return (
-//             <DrawerLayoutAndroid
-//               drawerWidth={300}
-//               drawerPosition={DrawerLayoutAndroid.positions.Left}
-//               renderNavigationView={() => navigationView}>
-//               <View style={{flex: 1, alignItems: 'center',backgroundColor:/*'#206bad'*/'white'}}>
-//                 <Text style={{margin: 10, fontSize: 25, textAlign: 'right',justifyContent:'center',fontWeight:'bold'}}>Haii</Text>
-//                 <Text style={{margin: 10,
-//                  fontSize: 25,
-//                   textAlign: 'right',
-//                   justifyContent:'center',
-//                   fontWeight:'bold',
-//                    borderBottomColor:'black',
-//                     borderBottomWidth:3}}>Welcome to Fundoo Dashboard </Text>
-//               </View>
-
-
-
-
-
-//             </DrawerLayoutAndroid>
-//           );
-/****************************************************************************************************** */
-
-/***************************************************************************************** */
-
-
-
-// import React,{ Component } from "react";
-
-// import { StyleSheet,View,Text } from "react-native";
-
-// import HomeScreen from "../screens/HomeScreen"
-// import DrawerNavigator from "../navigation/DrawerNavigator"
-
-// export default class Dashboard extends Component {
-
-// static navigationOptions={header:null}
-// render() {       
-//         return(
-//             <View style={styles.container}>       
-
-//                 <DrawerNavigator/>
-
-//             </View>
-//         )
-//     }
-//  }
-
-// const styles=StyleSheet.create({
-//      container:{
-//             flex:1,
-//            // paddingVertical:30,
-//             alignItems:'center',
-//             justifyContent:'center',
-//            // backgroundColor:  "#206bad",
-//            backgroundColor:'#fff'
-//      },
-
-//      writeUp:{
-//          color:"black",
-//          fontSize:30,
-//          fontWeight:'bold'
-//      }
-
-// })
-
-
-
-/********************************************************************************* */

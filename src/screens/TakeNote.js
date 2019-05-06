@@ -10,15 +10,27 @@ import {
     Image,
     TouchableOpacity,
     TextInput,
-
+    Picker
 
 } from 'react-native';
 import { ToastAndroid } from 'react-native';
 import { createNote } from "../services/noteService";
-
+import Reminder from '../screens/reminder';
+import DashBoard from '../screens/dashboard'
 import Menu from '../navigation/Menu'
+import DateTimePicker from 'react-native-modal-datetime-picker'
+
+import Dialog from 'react-native-dialog'
+
+import dateFormat from 'dateformat'
+//var dateFormat = require('dateformat');
+
+
+
 
 export default class TakeNote extends Component {
+
+    
     constructor() {
         super();
         this.state = {
@@ -27,12 +39,17 @@ export default class TakeNote extends Component {
             token: '',
             archive: false,
             pinned: false,
+            reminder: '',
             trash: false,
             click: false,
             newline: true,
             TakeNote: {},
             archiveNote: {},
             color: '',
+            dialogVisible: false,
+            PickerValue: '',
+            isDateTimePickerVisible: false,
+            isTimePickerVisible: false,
 
 
         }
@@ -40,56 +57,15 @@ export default class TakeNote extends Component {
         this.handleTrash = this.handleTrash.bind(this)
     }
 
-    /* getpin(event) {
-         this.setState({ clickpin: !this.state.clickpin })
-     }  */
+    showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true, date: '' })
+    showTimePicker = () => this.setState({ isTimePickerVisible: true, time: '' })
 
-    //  setToken() {
-    //     AsyncStorage.getItem('token')
-    //         .then(value => {
-    //             return value;
-    //         })
-    //         .catch(err => {
-    //             console.error("failede to fetch the token");
-    //             return null;
-    //         })
-    // }
+    hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false })
+    hideTimePicker = () => this.setState({ isTimePickerVisible: false })
 
 
-    getpin = async event => {
-        console.warn(this.state.pinned + " before")
-        await this.setState({ pinned: !this.state.pinned })
-        console.warn(this.state.pinned + " after")
-    }
 
-
-    archive = async event => {
-        console.warn(this.state.archive + "1st");
-        await this.setState({
-            archive: !this.state.archive
-        })
-        console.warn(this.state.archive + "2nd");
-    }
-
-    getmenu() {
-        this.setState({
-            click: !this.state.click
-        })
-    }
-
-    async handleTrash(value) {
-        console.log("trash", value);
-        this.setState({
-            trash: value
-        })
-    }
-
-    async onChangeColor(newColor) {
-        console.log("color", newColor);
-        this.setState({
-            color: newColor
-        })
-    }
+    
 
     validateinput() {
         if (this.state.Title == '') {
@@ -102,35 +78,6 @@ export default class TakeNote extends Component {
             return true
         }
     }
-
-
-
-
-
-
-    /*
-        _storeData = async () => {
-            try {
-              await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
-            } catch (error) {
-              // Error saving data
-            }
-          };
-    
-          _retrieveData = async () => {
-            try {
-              const value = await AsyncStorage.getItem('TASKS');
-              if (value !== null) {
-                // We have data!!
-                console.log(value);
-              }
-            } catch (error) {
-              // Error retrieving data
-            }
-          };
-    
-    */
-
 
     submit = async event => {
         var check = this.validateinput();
@@ -148,7 +95,8 @@ export default class TakeNote extends Component {
                     title: this.state.Title,
                     description: this.state.Description,
                     archive: this.state.archive,
-                    pinned:this.state.pinned,
+                    pinned: this.state.pinned,
+                    reminder:this.state.reminder,
                     token: value
                 }
                 createNote(data)
@@ -173,12 +121,106 @@ export default class TakeNote extends Component {
     }
 
 
+    getmenu() {
+        this.setState({
+            click: !this.state.click
+        })
+    }
+
+    showDialog = () => {
+        this.setState({ dialogVisible: true })
+    }
+
+    handleCancel = () => {
+        this.setState({ dialogVisible: false })
+    }
+
+    handleDatePicker = (date) => {
+        console.log('A date have been picked', date);
+        var d = '' + date;
+        var da = d.slice(4, 10)
+        console.log('date--', da);
+        this.setState({
+            date: da
+        })
+        this.hideDateTimePicker();
+    }
+
+    getpin = async event => {
+        console.warn(this.state.pinned + " before")
+        await this.setState({ pinned: !this.state.pinned })
+        console.warn(this.state.pinned + " after")
+    }
 
 
+    archive = async event => {
+        console.warn(this.state.archive + "1st");
+        await this.setState({
+            archive: !this.state.archive
+        })
+        console.warn(this.state.archive + "2nd");
+    }
 
+    handleTimePicker = (date,time) => {
+        console.log('A Time has been picked',date+ time);
+        var t = '' + time;
+        var ta = t.slice(16, 21)
+        console.log('time--', ta);
+        this.setState({
+            time: date+ta
+        })
+        this.hideTimePicker();
+    }
 
-  
-    render() { 
+    async handleTrash(value) {
+        console.log("trash", value);
+        this.setState({
+            trash: value
+        })
+    }
+
+    async onChangeColor(newColor) {
+        console.log("color", newColor);
+        this.setState({
+            color: newColor
+        })
+    }
+
+    handleSave = () => {
+      //  var date = this.state.date + ' ' + this.state.time
+      var date=this.state.date
+      var time=this.state.time
+        console.log("Given Date Input"+date);
+        console.log("GIven Time Input"+time);
+        
+        if (date!=='' && time!== '') {
+            this.setState({
+                reminder: date,
+                reminder:time,
+                dialogVisible: false
+            });
+        };
+
+        //extra madirodu
+        // if(time!==''){
+        //     this.setState({
+        //         reminder:time,
+        //         dialogVisible:false
+        //     })
+        // }
+    }
+    dateNotification() { }
+
+    handlerem(value) {
+        if (value !== '') {
+            this.setState({
+                reminder: value,
+                dialogVisible: false
+            })
+        }
+    }
+
+    render() {
         return (
             <View>
                 <View style={styles.container}>
@@ -202,7 +244,7 @@ export default class TakeNote extends Component {
                             </TouchableOpacity>)
                     }
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={(event)=>this.showDialog(event)}>
                         <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
                     </TouchableOpacity>
 
@@ -236,7 +278,7 @@ export default class TakeNote extends Component {
 
 
                 <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
-              
+
 
                 <Menu
                     view={this.state.click}
@@ -261,12 +303,65 @@ export default class TakeNote extends Component {
 
                     </TouchableOpacity>
                 </View>
-              
-              
-               
-           
-           
-           
+
+
+                <Dialog.Container visible={this.state.dialogVisible}>
+
+                    <Dialog.Title> Add Reminder </Dialog.Title>
+                    <View>
+
+                    </View>
+
+                    <View>
+                        <Picker
+                            style={{ width: '100%' }}
+                            selectedValue={this.state.PickerValue}
+                            onValueChange={(itemValue, itemIndex) => this.handlerem(itemValue)}>
+
+                            <Picker.Item label="Select Predefined" value="" />
+                            <Picker.Item label="Today 8pm" value='Today *pm' />
+                            <Picker.Item label="Tomorrow 8am" value="Tomorrow 8am" />
+                            <Picker.Item label="Next Monday" value="Next Monday" />
+                        </Picker>
+                        <Text>{this.state.PickerValue}</Text>
+                    </View>
+
+                    <Text>---OR----</Text>
+                    <View>
+
+                        <TouchableOpacity onPress={this.showDateTimePicker}>
+                            <Text> Select a Date</Text>
+                        </TouchableOpacity>
+
+                        <Text>{this.state.date}</Text>
+                        <DateTimePicker
+                            mode='date'
+                            isVisible={this.state.isDateTimePickerVisible}
+                            onConfirm={this.handleDatePicker}
+                            onCancel={this.hideDateTimePicker} />
+                    </View>
+
+
+                    <View>
+
+                        <TouchableOpacity onPress={this.showTimePicker}>
+                            <Text> Select a Time</Text>
+                        </TouchableOpacity>
+
+                        <Text>{this.state.time}</Text>
+                        <DateTimePicker
+                            mode='time'
+                            isVisible={this.state.isTimePickerVisible}
+                            onConfirm={this.handleTimePicker}
+                            onCancel={this.hideDateTimePicker} />
+                    </View>
+
+                    <Dialog.Button label="Cancel" onPress={() => this.props.navigation.handleCancel()/*goBack()*/} />
+                    <Dialog.Button label="Save" onPress={() => this.handleSave()} />
+                </Dialog.Container>
+
+
+
             </View>
 
 
@@ -356,7 +451,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         // marginRight:300,
-        marginLeft:  290,
+        marginLeft: 290,
         paddingLeft: 85,
         marginTop: -5
     }
@@ -410,4 +505,16 @@ const styles = StyleSheet.create({
 
 
     //     }
+    // }
+
+
+    //  setToken() {
+    //     AsyncStorage.getItem('token')
+    //         .then(value => {
+    //             return value;
+    //         })
+    //         .catch(err => {
+    //             console.error("failede to fetch the token");
+    //             return null;
+    //         })
     // }
