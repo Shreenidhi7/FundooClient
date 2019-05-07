@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { StyleSheet, View, Text, Image, TouchableOpacity,ScrollView } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 
 import { DrawerActions } from "react-navigation";
 
@@ -17,7 +17,7 @@ export default class Trash extends Component {
         super()
 
         this.state = {
-            trashNote:[],
+            trashNote: [],
             click: false
         }
     }
@@ -37,7 +37,7 @@ export default class Trash extends Component {
                     title: this.state.Title,
                     description: this.state.Description,
                     archive: this.state.archive,
-                    trash:this.state.trash,
+                    trash: this.state.trash,
                     token: value
                 }
                 getNotes(data)
@@ -67,12 +67,12 @@ export default class Trash extends Component {
 
         var array = [];
         var key;
-        var  data;
+        var data;
 
         var array = Object.keys(this.state.trashNote).map((notes) => {
             key = notes;
 
-             data = this.state.trashNote[key]
+            data = this.state.trashNote[key]
 
             if ((data.trash === true && data.archive === false)) {
                 return (

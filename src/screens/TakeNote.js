@@ -30,7 +30,7 @@ import dateFormat from 'dateformat'
 
 export default class TakeNote extends Component {
 
-    
+
     constructor() {
         super();
         this.state = {
@@ -65,7 +65,7 @@ export default class TakeNote extends Component {
 
 
 
-    
+
 
     validateinput() {
         if (this.state.Title == '') {
@@ -96,7 +96,8 @@ export default class TakeNote extends Component {
                     description: this.state.Description,
                     archive: this.state.archive,
                     pinned: this.state.pinned,
-                    reminder:this.state.reminder,
+                    reminder: this.state.reminder,
+                    color:this.state.color,
                     token: value
                 }
                 createNote(data)
@@ -138,7 +139,10 @@ export default class TakeNote extends Component {
     handleDatePicker = (date) => {
         console.log('A date have been picked', date);
         var d = '' + date;
-        var da = d.slice(4, 10)
+        console.log("1st step t value=====>", d);
+
+        console.log("====================>><<><>", d.slice(4, 15));
+        var da = d.slice(4, 15)
         console.log('date--', da);
         this.setState({
             date: da
@@ -161,13 +165,30 @@ export default class TakeNote extends Component {
         console.warn(this.state.archive + "2nd");
     }
 
-    handleTimePicker = (date,time) => {
-        console.log('A Time has been picked',date+ time);
-        var t = '' + time;
-        var ta = t.slice(16, 21)
-        console.log('time--', ta);
+    /*   handleTimePicker = (date,time) => {
+           console.log('A Time has been picked',date+ time);
+           var t = '' + time;
+           var ta = t.slice(16, 21)
+           console.log('time--', ta);
+           this.setState({
+               time: date+ta
+           })
+           this.hideTimePicker();
+       } */
+
+    handleTimePicker = (time) => {
+        console.log("A Time has been picked", time);
+        var d = '' + time;
+        console.log("1st step t value=====>", d);
+
+        console.log("====================>><<><>", d.slice(16, 21));
+
+        var da = d.slice(16, 21)
+
+
+        console.log('time picked is--', da);
         this.setState({
-            time: date+ta
+            time: da
         })
         this.hideTimePicker();
     }
@@ -186,28 +207,40 @@ export default class TakeNote extends Component {
         })
     }
 
+    // handleSave = () => {
+    //   //  var date = this.state.date + ' ' + this.state.time
+    //   var date=this.state.date
+    //   var time=this.state.time
+    //     console.log("Given Date Input  "+date);
+    //     console.log("GIven Time Input  "+time);
+
+    //     if (date!=='' && time!== '') {
+    //         this.setState({
+    //             reminder:date,
+    //             reminder:time,
+    //             dialogVisible: false
+    //         });
+    //     };
+
+    //extra madirodu
+    // if(time!==''){
+    //     this.setState({
+    //         reminder:time,
+    //         dialogVisible:false
+    //     })
+    // }
+    // }
+
     handleSave = () => {
-      //  var date = this.state.date + ' ' + this.state.time
-      var date=this.state.date
-      var time=this.state.time
-        console.log("Given Date Input"+date);
-        console.log("GIven Time Input"+time);
-        
-        if (date!=='' && time!== '') {
+        var date = this.state.date + "  " + this.state.time
+        console.log("date==>", date);
+        if (date !== '') {
             this.setState({
                 reminder: date,
-                reminder:time,
                 dialogVisible: false
-            });
-        };
+            })
+        }
 
-        //extra madirodu
-        // if(time!==''){
-        //     this.setState({
-        //         reminder:time,
-        //         dialogVisible:false
-        //     })
-        // }
     }
     dateNotification() { }
 
@@ -244,7 +277,7 @@ export default class TakeNote extends Component {
                             </TouchableOpacity>)
                     }
 
-                    <TouchableOpacity onPress={(event)=>this.showDialog(event)}>
+                    <TouchableOpacity onPress={(event) => this.showDialog(event)}>
                         <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
                     </TouchableOpacity>
 
@@ -330,7 +363,7 @@ export default class TakeNote extends Component {
                     <View>
 
                         <TouchableOpacity onPress={this.showDateTimePicker}>
-                            <Text> Select a Date</Text>
+                            <Text style={{ fontWeight: "bold" }}> Select a Date</Text>
                         </TouchableOpacity>
 
                         <Text>{this.state.date}</Text>
@@ -345,7 +378,7 @@ export default class TakeNote extends Component {
                     <View>
 
                         <TouchableOpacity onPress={this.showTimePicker}>
-                            <Text> Select a Time</Text>
+                            <Text style={{ fontWeight: "bold" }}> Select a Time</Text>
                         </TouchableOpacity>
 
                         <Text>{this.state.time}</Text>
@@ -356,7 +389,7 @@ export default class TakeNote extends Component {
                             onCancel={this.hideDateTimePicker} />
                     </View>
 
-                    <Dialog.Button label="Cancel" onPress={() => this.props.navigation.handleCancel()/*goBack()*/} />
+                    <Dialog.Button label="Cancel" onPress={() => this.handleCancel()/*goBack()*/} />
                     <Dialog.Button label="Save" onPress={() => this.handleSave()} />
                 </Dialog.Container>
 

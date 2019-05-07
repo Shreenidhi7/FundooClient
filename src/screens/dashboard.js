@@ -12,16 +12,16 @@ import {
 import { ToastAndroid } from "react-native";
 
 import { getNotes } from "../services/noteService";
-import { Card } from 'react-native-elements';
+//import { Card } from 'react-native-elements';
 import CardComponent from "../navigation/CardCompo";
 
 
 
 
-import {dateFormat} from 'dateformat'
+//import {dateFormat} from 'dateformat'
 
-
-
+var dateFormat = require('dateformat');
+var dataArray = new Date();
 export default class DashBoard extends Component {
 
 
@@ -35,12 +35,15 @@ export default class DashBoard extends Component {
       dataArray: [],
       archive: false,
       click: false,
-
+      profile:''
 
       //columns: 2,
       //key: 1
     }
+    this.onChangeProfile=this.onChangeProfile.bind(this)
   }
+
+
 
   grid(event) {
     this.setState({
@@ -48,9 +51,9 @@ export default class DashBoard extends Component {
     })
   }
 
-SearchNote(event) {
-  this.props.navigation.navigate('Search')
-}
+  SearchNote(event) {
+    this.props.navigation.navigate('Search')
+  }
   // grid(event) {
 
   //   this.setState({ click: !(this.state.click) })
@@ -64,11 +67,12 @@ SearchNote(event) {
   //required for flatlist
 
 
- 
 
- result = new Date();
+
 
   componentDidMount() {
+
+
 
     AsyncStorage.getItem('token')
       .then(value => {
@@ -91,8 +95,9 @@ SearchNote(event) {
             })
             console.log("Result in Datasoure Frontend===>\n")
             console.log(result.result)
-            dateFormat(result.result, "longTime")
-            dateFormat(result.result,"shortTime")
+            console.log(
+              dateFormat("mediumDate"),
+              dateFormat("shortTime"))
             //  console.log("state in dash ->",this.state.dataSoure);
 
           })
@@ -164,30 +169,38 @@ SearchNote(event) {
 
             {/* keep icon */}
             <TouchableOpacity onPress={() => this.componentDidMount()}>
-              <Image style={styles.image} source={require('../assets/images/refresh.png')}></Image>
+              <Image style={styles.refresh} source={require('../assets/images/refresh.png')}></Image>
             </TouchableOpacity>
 
             {/* search onpress navigation */}
-            <TouchableOpacity onPress={(event)=>this.SearchNote(event)}>
+            <TouchableOpacity onPress={(event) => this.SearchNote(event)}>
               <Text style={styles.text}>Search your Notes</Text>
             </TouchableOpacity>
 
 
             {
               this.state.click ?
-                (<View>
+                (
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
                     <Image style={styles.gridicon} source={require('../assets/images/gridicon1.png')}></Image>
                   </TouchableOpacity>
-                </View>)
+                )
                 :
-                (<View>
+                (
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
                     <Image style={styles.listicon} source={require('../assets/images/list1.png')}></Image>
                   </TouchableOpacity>
-                </View>)
+                )
             }
 
+            <TouchableOpacity >
+              <Image style={styles.profile} source={require('../assets/images/user.png')}></Image>
+            </TouchableOpacity>
+
+            <Profile
+              view={this.state.profile}
+              profile={this.onChangeProfile}
+              navigation={this.props.navigation} />
           </View>
 
         </View>
@@ -284,38 +297,108 @@ const styles = StyleSheet.create({
     padding: 50,
     borderRadius: 35,
   },
+
   drawericon: {
-    width: 38, //30,
-    height: 38,  //40,
-    justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    marginLeft: 10,   //10,
-    paddingLeft: 30
+    width: 30,
+    height: 40,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    marginRight: 10
   },
-  image: {
-    width: 30, //30,
-    height: 30,  //40,
-    justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    marginLeft: 15,   //10,
-    paddingLeft: 30
+
+  refresh: {
+    width: 30,
+    height: 30,
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginRight: 50,
+    marginLeft: 10
+  },
+  text: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    fontSize: 20,
+    fontWeight: "bold",
+    padding: 2,
+    marginLeft: -35,
+
   },
   gridicon: {
-    width: 27.5, //30,
-    height: 28.5,  //40,
+    width: 27,
+    height: 28,
     justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    marginLeft: 15,   //10,
+    alignItems: 'center',
+    marginLeft: 15,
+    marginRight: 10,
     paddingLeft: 30
   },
+
   listicon: {
-    width: 45, //30,
-    height: 40,  //40,
+    width: 30,
+    height: 40,
     justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    marginLeft: 15,   //10,
+    alignItems: 'center',
+    marginLeft: 15,
+    marginRight: 10,
     paddingLeft: 30
   },
+
+  profile: {
+    width: 35,
+    height: 35,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginLeft: 15,
+    marginRight: 10,
+    //  paddingLeft:30
+  },
+
+
+
+  // drawericon: {
+  //   width: 38, //30,
+  //   height: 38,  //40,
+  //   justifyContent: 'space-between',
+  //   alignItems: "center",       //'flex-start',
+  //   marginLeft: 10,   //10,
+  //   paddingLeft: 30
+  // },
+  // refresh: {
+  //   width: 30, //30,
+  //   height: 30,  //40,
+  //   justifyContent: 'space-between',
+  //   alignItems: "center",       //'flex-start',
+  //   marginLeft: 15,   //10,
+  //  marginRight:50,
+
+  // },
+  // gridicon: {
+  //   width: 27.5, //30,
+  //   height: 28.5,  //40,
+  //   justifyContent: 'space-between',
+  //   alignItems: "center",       //'flex-start',
+  //  // marginLeft: 15,   //10, not present
+  //  marginRight:100,
+  //  marginLeft:10,
+  //   paddingLeft: 30
+  // },
+  // listicon: {
+  //   width: 45, //30,
+  //   height: 40,  //40,
+  //   justifyContent: 'space-between',
+  //   alignItems: "center",       //'flex-start',
+  //   //marginLeft: 15,   //10, not present
+  //   marginRight:100,
+  //   paddingLeft: 30
+  // },
+  // profile: {
+  //   width: 45, //30,
+  //   height: 40,  //40,
+  //   justifyContent: 'space-between',
+  //   alignItems: "center",       //'flex-start',
+  // //  marginRight: 50,   //10, not present
+  //  //  paddingLeft: 30   not present
+  //   },
 
   data1: {
 
@@ -325,13 +408,15 @@ const styles = StyleSheet.create({
 
   },
 
-  text: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 20
-  },
+  // text: {
+  //   justifyContent: 'center',
+  //   alignItems: 'flex-start',
+  //   fontSize: 20,
+  //   fontWeight: "bold",
+  //   padding: 2,
+  //   marginLeft:-35,
+
+  // },
   data: {
     height: 70,
     width: 340,
@@ -340,12 +425,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: 10,
     alignItems: 'center',
-    // padding: 25,
-    //borderRadius: 15,
+    // padding: 25,  not present
+    //borderRadius: 15,  not present
   },
   last: {
-    // position: 'relative',
-    // bottom: 0,
+    // position: 'relative',  not present
+    // bottom: 0,  not present
     height: 50,
     backgroundColor: '#ffffff',
     flexDirection: "row",
@@ -354,9 +439,9 @@ const styles = StyleSheet.create({
     width: /*350*/ 390,
     marginLeft: 10,  //7,
     marginVertical: 10,
-    // borderRadius: 1, //9,
+    // borderRadius: 1, //9, not present
     borderColor: "#C1C1C1",
-    // borderWidth:1
+    // borderWidth:1  not present
 
   },
 
@@ -365,10 +450,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 22,
     fontWeight: "bold",
-    // marginHorizontal:  3,  //0.5,
-    // marginRight:5,
-    // marginLeft:-55,
-    // marginLeft:-30
+    // marginHorizontal:  3,  //0.5, not
+    // marginRight:5, not
+    // marginLeft:-55, not 
+    // marginLeft:-30 not
 
   },
   image1: {

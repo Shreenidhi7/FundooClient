@@ -22,11 +22,11 @@ export default class Reminder extends Component {
   }
   
   showDialog=()=>{
-
+    
   }
 
   handleCancel(){
-    this.props.navigation.navigate('TakeNote')
+    this.setState({dialogVisible:false})
   }
 
   handleDelete=()=>{
@@ -134,7 +134,7 @@ export default class Reminder extends Component {
             onConfirm={this.handleTimePicker}
             onCancel={this.hideDateTimePicker}/>
 
-            <Dialog.Button label="Cancel" onPress={()=>this.props.navigation.goBack()}/>
+            <Dialog.Button label="Cancel" onPress={()=>this.handleCancel()}/>
             <Dialog.Button label="Save" onPress={()=>this.handleSave()}/>
       </Dialog.Container>
       </View>

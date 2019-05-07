@@ -55,7 +55,7 @@ const MyDrawer = createDrawerNavigator(
       gesturesEnabled: false,
       header: null,
     },
-    initialRouteName: "Login",      //"Notes",
+    initialRouteName: "DashBoard",      //"Notes",
     contentOptions: {
       //activeTintColor: "#009688"  //"#e91e63"
     },
