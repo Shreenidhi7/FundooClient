@@ -80,7 +80,9 @@ export default class Menu extends Component {
         await this.setState({
             trash:!this.state.trash
         })
+        this.props.navigation.navigate('Trash')
         this.props.trash(this.state.trash)
+     
     }
 
     render() {
@@ -89,35 +91,29 @@ export default class Menu extends Component {
         return(
             <View style={take}>
             
-                <View>
+                
                     <TouchableOpacity onPress={this.handleTrash.bind(this)}>
                         <Text style={take}> Delete </Text>
                     </TouchableOpacity>
-                </View>
-            
-                <View>
+               
                     <TouchableOpacity>
                         <Text style={take}> Make a Copy </Text>
                     </TouchableOpacity>
-               </View>
-
-               <View>
+              
                    <TouchableOpacity>
                        <Text style={take}> Send </Text>
                    </TouchableOpacity>
-               </View>
-
-                <View>
+              
                     <TouchableOpacity>
                         <Text style={take}> Collaborator </Text>
                     </TouchableOpacity>
-                </View>
+              
 
-                <View>
+        
                     <TouchableOpacity>
                         <Text style={take}> Labels </Text>
                     </TouchableOpacity>
-                </View>
+             
 
 
                 <View>
@@ -135,6 +131,6 @@ export default class Menu extends Component {
 }
 
 const styles=StyleSheet.create({
-    view1:{height:40,marginLeft:10},
+    view1:{height:40,marginLeft:10,marginBottom:10},
     view2:{height:0}
 })

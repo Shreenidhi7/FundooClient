@@ -7,7 +7,7 @@ import { DrawerActions } from "react-navigation";
 import CardComponent from '../navigation/CardCompo'
 import { getNotes } from "../services/noteService";
 export default class Archive extends Component {
-  static navigationOptions = { header: null }
+  static navigationOptions={headers:null}
   constructor() {
     super();
 
@@ -18,8 +18,17 @@ export default class Archive extends Component {
       //  columns: 2,
       //  key: 1
     }
-
   }
+    // static navigationOptions = { 
+    //   drawerLabel:'Archive',
+    //   inactiveTintcolor:'black',
+    //   drawerIcon:()=>{
+    //     <Image
+    //     source={require('../assets/images/searchicon.png')}
+    //     style={[styles.icon]}/>
+    //   }
+    //  }
+  
 
   componentDidMount() {
 
@@ -141,7 +150,7 @@ export default class Archive extends Component {
 
 
 
-            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+            <TouchableOpacity onPress={() =>   this.props.navigation.dispatch(DrawerActions.openDrawer())}>
               <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
             </TouchableOpacity>
 
@@ -210,6 +219,10 @@ export default class Archive extends Component {
 
 
 const styles = StyleSheet.create({
+  icon:{
+    width:20,
+    height:20,
+  },
   drawericon: {
 
     width: 38, //30,

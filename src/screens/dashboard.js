@@ -35,12 +35,12 @@ export default class DashBoard extends Component {
       dataArray: [],
       archive: false,
       click: false,
-      profile:''
+     // profile:''
 
       //columns: 2,
       //key: 1
     }
-    this.onChangeProfile=this.onChangeProfile.bind(this)
+   // this.onChangeProfile=this.onChangeProfile.bind(this)
   }
 
 
@@ -95,9 +95,9 @@ export default class DashBoard extends Component {
             })
             console.log("Result in Datasoure Frontend===>\n")
             console.log(result.result)
-            console.log(
-              dateFormat("mediumDate"),
-              dateFormat("shortTime"))
+         //   console.log(
+           //   dateFormat("mediumDate"),
+             // dateFormat("shortTime"))
             //  console.log("state in dash ->",this.state.dataSoure);
 
           })
@@ -197,10 +197,10 @@ export default class DashBoard extends Component {
               <Image style={styles.profile} source={require('../assets/images/user.png')}></Image>
             </TouchableOpacity>
 
-            <Profile
+            {/* <Profile
               view={this.state.profile}
               profile={this.onChangeProfile}
-              navigation={this.props.navigation} />
+              navigation={this.props.navigation} /> */}
           </View>
 
         </View>

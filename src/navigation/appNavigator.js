@@ -10,7 +10,7 @@ import TakeNote from '../screens/TakeNote';
 
 //navigationOptions={header : null}
 const MainNavigator=createStackNavigator({
-    Login : { screen : LoginNew ,},
+    Login : { screen : LoginNew },
     Register : { screen : Register},
     Forgot : {screen : ForgotPassword},
     ResetPassword : {screen:ResetPassword  },

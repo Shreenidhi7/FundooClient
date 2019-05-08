@@ -74,7 +74,7 @@ export default class Trash extends Component {
 
             data = this.state.trashNote[key]
 
-            if ((data.trash === true && data.archive === false)) {
+            if ((data.trash === true /*&& data.archive === false*/)) {
                 return (
                     <CardComponent Display={data}
                         notekey={key}

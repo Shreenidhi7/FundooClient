@@ -21,7 +21,7 @@ navigationOptions = { header: null };
 const MyDrawer = createDrawerNavigator(
   {
 
- 
+   
     Notes: { screen: LoginNew, navigationOptions: { header: null } },
    // Notes: { screen: Register, navigationOptions: { header: null } },
    // Notes: { screen: DashBoard, navigationOptions: { header: null } },
@@ -52,10 +52,11 @@ const MyDrawer = createDrawerNavigator(
   },*/
   {
     navigationOptions: {
+      
       gesturesEnabled: false,
       header: null,
     },
-    initialRouteName: "DashBoard",      //"Notes",
+    initialRouteName: "Login",      //"Notes",
     contentOptions: {
       //activeTintColor: "#009688"  //"#e91e63"
     },

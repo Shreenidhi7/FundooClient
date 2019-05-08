@@ -14,7 +14,7 @@ import {
 
 } from 'react-native';
 import { ToastAndroid } from 'react-native';
-import { createNote } from "../services/noteService";
+import { createNote, UpdateColor, UpdateArchive, UpdatePinned, UpdateReminder } from "../services/noteService";
 import Reminder from '../screens/reminder';
 import DashBoard from '../screens/dashboard'
 import Menu from '../navigation/Menu'
@@ -97,10 +97,11 @@ export default class TakeNote extends Component {
                     archive: this.state.archive,
                     pinned: this.state.pinned,
                     reminder: this.state.reminder,
-                    color:this.state.color,
+                    color: this.state.color,
                     token: value
                 }
-                createNote(data)
+            
+                createNote(data.title, data.description)
                     .then((result) => {
 
                         this.setState({
@@ -112,8 +113,53 @@ export default class TakeNote extends Component {
                         ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
 
                     })
-            })
 
+                UpdateArchive(data.archive)
+                    .then((result) => {
+                        this.setState({
+                            TakeNote: result.data.data.archive
+                        })
+                        this.props.navigation.navigate('DashBoard')
+                    })
+                    .catch((err) => {
+                        ToastAndroid.showWithGravity("Archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                    })
+
+
+                UpdatePinned(data.pinned)
+                    .then((result) => {
+                        this.setState({
+                            TakeNote: result.data.data.pinned
+                        })
+                        this.props.navigation.navigate('DashBoard')
+                    })
+                    .catch((err) => {
+                        ToastAndroid.showWithGravity("Pinned is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                    })
+
+                UpdateReminder(data.reminder)
+                    .then((result) => {
+                        this.setState({
+                            TakeNote: result.data.data.reminder
+                        })
+                        this.props.navigation.navigate('DashBoard')
+                    })
+                    .catch((err) => {
+                        ToastAndroid.showWithGravity("Reminder is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                    })
+
+                UpdateColor(data.color)
+                    .then((result) => {
+                        this.setState({
+                            TakeNote: result.data.data.color
+                        })
+                        this.props.navigation.navigate('DashBoard')
+                    })
+                    .catch((err) => {
+                        ToastAndroid.showWithGravity("Color is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                    })
+            })
+                           
         }
         else {
             console.log("error in validation");
@@ -309,10 +355,6 @@ export default class TakeNote extends Component {
                 </View>
 
 
-
-                <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
-
-
                 <Menu
                     view={this.state.click}
                     color={this.onChangeColor}
@@ -320,18 +362,18 @@ export default class TakeNote extends Component {
                     navigation={this.props.navigation}>
                 </Menu>
 
+                <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
+
+
+               
 
                 <View style={styles.last}>
-
-
-
-
 
                     <TouchableOpacity>
                         <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => { this.getmenu() }}>
+                    <TouchableOpacity onPress={() =>  this.getmenu() }>
                         <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
 
                     </TouchableOpacity>
@@ -486,7 +528,8 @@ const styles = StyleSheet.create({
         // marginRight:300,
         marginLeft: 290,
         paddingLeft: 85,
-        marginTop: -5
+        marginTop: -5,
+        //marginBottom:50
     }
 
 });

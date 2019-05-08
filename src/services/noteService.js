@@ -37,7 +37,46 @@ export function getNotes(data) {
     })
 }
 
-
+export function UpdateColor(data){
+    console.log("Update Color==>\n",data);
+    return axios(baseUrl+'/UpdateColor',{
+        method:'PUT',
+        headers:{
+            'token':data.token
+        },
+        data:data
+    })
+}
+export function UpdateArchive(data){
+    console.log("Update Archive==>\n",data);
+    return axios(baseUrl+'/isArchived',{
+        method:'PUT',
+        headers:{
+            'token':data.token
+        },
+        data:data
+    })
+}
+export function UpdatePinned(data){
+    console.log("Update Pinned==>\n",data);
+    return axios(baseUrl+'/isPinned',{
+        method:'PUT',
+        headers:{
+            'token':data.token
+        },
+        data:data
+    })
+}
+export function UpdateReminder(data){
+    console.log("Update Remindewr==>\n",data);
+    return axios(baseUrl+'/setReminder',{
+        method:'PUT',
+        headers:{
+            'token':data.token
+        },
+        data:data
+    })
+}
 
 
 
