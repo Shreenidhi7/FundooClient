@@ -15,6 +15,8 @@ import Trash from '../screens/trash';
 import LoginNew from '../screens/loginFormNew';
 import Search from '../screens/search'
 import Register from '../screens/registerForm';
+import Profile from './Profile';
+import Signout from '../screens/signout';
 //import CardComponent from './CardComponent';
 
 navigationOptions = { header: null };
@@ -22,7 +24,7 @@ const MyDrawer = createDrawerNavigator(
   {
 
    
-    Notes: { screen: LoginNew, navigationOptions: { header: null } },
+    Notes: { screen:DashBoard, navigationOptions: { header: null } },
    // Notes: { screen: Register, navigationOptions: { header: null } },
    // Notes: { screen: DashBoard, navigationOptions: { header: null } },
     Reminders: { screen: Reminder },
@@ -31,8 +33,9 @@ const MyDrawer = createDrawerNavigator(
     Trash: { screen: Trash },
     Settings: { screen: DashBoard },
     Search:{screen:Search},
-    Login :{screen:LoginNew}, 
-    DashBoard: { screen: DashBoard, navigationOptions: { header: null } },
+    SignOut :{screen:Signout},
+    
+    DashBoard: { screen:DashBoard, navigationOptions: { header: null } },
     /*  CardComponent:{screen:CardComponent},
       
     Search:{screen:Search},
@@ -47,20 +50,20 @@ const MyDrawer = createDrawerNavigator(
   */
 
   },
-  /*{
-    initialRouteName:'DashBoard'
-  },*/
+
   {
     navigationOptions: {
       
       gesturesEnabled: false,
       header: null,
     },
-    initialRouteName: "Login",      //"Notes",
+    initialRouteName: "DashBoard",    //"Login",      //"Notes",
     contentOptions: {
-      //activeTintColor: "#009688"  //"#e91e63"
+      activeTintColor: 'black',
+      activeBackgroundColor:'#ffe082'
     },
     drawerPosition: 'left',
+   //drawerWidth:300
 
   }
 );

@@ -3,6 +3,13 @@ import React, { Component } from "react";
 import { StyleSheet,View,Text,TouchableOpacity,Image,TextInput} from "react-native";
 
 export default class NewLabel extends Component {
+    static navigationOptions = {
+        header: null,
+        drawerLabel: 'Create New Label',
+        backgroundColor:'yellow',
+        drawerIcon:
+          <Image style={{width:24,height:30}}source={require('../assets/images/plus.png')} />
+      }
     render() {
         return(
             <View>

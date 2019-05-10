@@ -1,159 +1,413 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { StyleSheet,View,Text,TouchableOpacity } from "react-native";
-
-import DateTimePicker from 'react-native-modal-datetime-picker'
-
-import Dialog from 'react-native-dialog'
-
-
-
+import { ToastAndroid } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, FlatList } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
+import { DrawerActions } from "react-navigation";
+import CardComponent from '../navigation/CardCompo'
+import { getNotes } from "../services/noteService";
 export default class Reminder extends Component {
-  constructor(){
-    super()
-
-    this.state={
-      dialogVisible:false,
-      isDatePickerVisible:false,
-      isTimePickerVisible:false,
-      time:'',
-      date:''
-    };
+  //static navigationOptions={headers:null}
+  static navigationOptions = {
+    header: null,
+    drawerLabel:'Reminder',
+    backgroundColor:'yellow',
+    drawerIcon:
+      <Image style={{width:24,height:30}}source={require('../assets/images/archivebox.png')} />
   }
+  constructor() {
+    super();
+
+    this.state = {
+
+      click: false,
+      reminderNote: [],
+      //  columns: 2,
+      //  key: 1
+    }
+  }
+    // static navigationOptions = { 
+    //   drawerLabel:'Archive',
+    //   inactiveTintcolor:'black',
+    //   drawerIcon:()=>{
+    //     <Image
+    //     source={require('../assets/images/searchicon.png')}
+    //     style={[styles.icon]}/>
+    //   }
+    //  }
   
-  showDialog=()=>{
-    
-  }
 
-  handleCancel(){
-    this.setState({dialogVisible:false})
-  }
+  componentDidMount() {
 
-  handleDelete=()=>{
+    AsyncStorage.getItem('token')
+      .then(value => {
+        console.log("Getting token while ReCreating Note", value);
+        this.token = value
+        var data = {
+          title: this.state.Title,
+          description: this.state.Description,
+          archive: this.state.archive,
+          reminder:this.state.reminder,
+          color:this.state.color,
+          token: value
+        }
+        getNotes(data)
+          .then((result) => {
 
-  }
+            this.setState({
+         //  original   //archiveNote: result.result
+         reminderNote:result.result
+            })
+            console.log("Result in Datasoure Frontend===>\n")
+            console.log(result.result)
+            //  console.log("state in dash ->",this.state.dataSource);
 
-  hideDateTimePicker=()=>{
-    this.setState({
-       isDateTimePickerVisible :false
-    })
-  }
+          })
+          .catch((err) => {
+            ToastAndroid.showWithGravity("Error occured while Retriving Notes ", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
 
-  showDateTimePiker=()=>{
-    this.setState({
-      isDatePickerVisible:true
-    })
-  }
-
-  TimePicker=()=>{
-    this.setState({
-      isTimePickerVisible:true
-    })
-  }
-
-  handleDatePicker=(date)=>{
-    console.log(date+'data of datepicker');
-    var d=''+date;
-    var da=d.slice(4,10)
-    console.log('date--',da);
-    this.setState({
-      date:da
-    })
-  }
-    handleTimePicker=(time)=>{
-      console.log(time+'time of timepicker');
-      var t=''+time;
-      var ta=t.slice(16,21)
-      console.log('time--',ta);
-      this.setState({
-        time:ta
+          })
       })
-      this.hideDateTimePicker();
-    }
-    handleSave(){
-      console.log("Bartidya");
-      var date1=this.state.date+','+this.state.time;
-      console.log("time and date"+date1);
-           
-    }
-  
-  render(){
-  // const newLocal = <DateTimePicker isVisible={this.state.isVisible} onConfirm={this.handlePicker} onCancel={this.hidePicker} />;
-  const{selectedHours,selectedMinutes}=this.state  
-   
-   return(
-      <View>
-      <TouchableOpacity onPress={this.showDialog}>
-        <Text>Show Dialog </Text>
-      </TouchableOpacity>
-      <Dialog.Container visible={true}>
-     
-      <Dialog.Title>
-        Set Date and Time
-      </Dialog.Title>
-      
-      <Dialog.Description>
-        Do you want to set time?
-      </Dialog.Description>
-      
+      .catch(err => {
+        console.log("error has got its time to show off:", err);
+      })
+  }
 
-      <TouchableOpacity onPress={this.showDateTimePiker}>
-        {
-          this.state.date ?
-          (<Text>
-            {this.state.date}
-          </Text>)
-          :
-          (<Text>
-            Select a Date
-          </Text>)
-        }
-      </TouchableOpacity>
 
-      <DateTimePicker
-          mode='date'
-          isVisible={this.state.isDatePickerVisible}
-          onConfirm={this.handleDatePicker}
-          onCancel={this.hideDateTimePicker}/>
 
-          <TouchableOpacity onPress={this.TimePicker}>
-          {
-            this.state.time ? 
-            (<Text>
-                {this.state.time}
-            </Text>)        :
-            (<Text>
-              Select a Time
-            </Text>)
-          }
-          </TouchableOpacity>
+  grid(event) {
+    this.setState({ click: !(this.state.click) })
+  }
 
-          <DateTimePicker
-            mode='time'
-            isVisible={this.state.isTimePickerVisible}
-            onConfirm={this.handleTimePicker}
-            onCancel={this.hideDateTimePicker}/>
+  render() {
 
-            <Dialog.Button label="Cancel" onPress={()=>this.handleCancel()}/>
-            <Dialog.Button label="Save" onPress={()=>this.handleSave()}/>
-      </Dialog.Container>
+    var arr1 = []
+    var key;
+    arr1 = Object.keys(this.state.reminderNote).map((notes) => {
+      key = notes;
+      var data = this.state.reminderNote[key]
+
+     // if ((data.trash === false && data.archive === true && data.pinned !== true)) {
+       if(data.reminder===true){
+        return (
+          <CardComponent Display={data}
+            notekey={key}
+            view={this.state.click}
+            navigation={this.props.navigation} />
+        )
+      }
+    })
+
+
+
+
+    return (
+    
+
+      <View style={{ flex: 1 }}>
+        <View style={{ height: 80, backgroundColor:     /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
+          <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390, marginLeft: 7, borderRadius: 9, borderColor: "#C1C1C1", borderWidth: 2, marginRight: 60 }}>
+
+
+
+            <TouchableOpacity onPress={() =>   this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+              <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.componentDidMount()}>
+              <Image style={styles.image} source={require('../assets/images/refresh.png')}></Image>
+            </TouchableOpacity>
+
+            <Text style={styles.text}>Reminder
+            </Text>
+
+
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
+              <Image style={styles.searchicon} source={require('../assets/images/searchicon.png')} />
+            </TouchableOpacity>
+
+            {
+              this.state.click ?
+                (<View>
+                  <TouchableOpacity onPress={(event) => this.grid(event)}>
+                    <Image style={styles.gridicon} source={require('../assets/images/gridicon1.png')}></Image>
+                  </TouchableOpacity>
+                </View>)
+                :
+                (<View>
+                  <TouchableOpacity onPress={(event) => this.grid(event)}>
+                    <Image style={styles.listicon} source={require('../assets/images/list1.png')}></Image>
+                  </TouchableOpacity>
+                </View>)
+            }
+          </View>
+
+
+
+        </View>
+
+
+
+
+        <ScrollView>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+            {arr1}
+          </View>
+
+        </ScrollView>
+
       </View>
+
     )
-        }
+  }
 }
 
 
 
 
-const styles=StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    backgroundColor:'#F5FcFF',
-    
+
+const styles = StyleSheet.create({
+  icon:{
+    width:20,
+    height:20,
+  },
+  drawericon: {
+   width: 38, //30,
+    height: 38,  //40,
+    justifyContent: 'space-between',
+    alignItems: "center",       //'flex-start',
+    marginLeft: 5,   //10,
+    paddingLeft: 30
+  },
+  text: {
+    marginLeft: 30,
+    fontSize: 25,
+    color: "black",
+
+  },
+  searchicon: {
+    width: 35, //30,
+    height: 35,  //40,
+    justifyContent: 'space-between',
+    alignItems: "center",      
+    marginRight: 30,
+    marginLeft:20,
+    marginVertical:10
+
+  },
+
+  image: {
+    width: 30, //30,
+    height: 30,  //40,
+    justifyContent: 'space-between',
+    alignItems: "center",       //'flex-start',
+    marginLeft: 15,   //10,
+    paddingLeft: 30,
+  },
+  gridicon: {
+   
+    width: 24,
+    height: 24,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end'
+  },
+
+  listicon: {
+
+    width: 42,
+    height: 42,
+    alignItems: "flex-end",
+    justifyContent: 'flex-end'
   }
+
 })
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************************************************************************************************************************** */
+// import React, { Component } from 'react';
+
+// import { StyleSheet,View,Text,TouchableOpacity,Image } from "react-native";
+
+// import DateTimePicker from 'react-native-modal-datetime-picker'
+
+// import Dialog from 'react-native-dialog'
+
+
+
+// export default class Reminder extends Component {
+//   static navigationOptions = {
+//     header: null,
+//     drawerLabel: 'Reminders',
+//     drawerIcon:
+//       <Image style={{width:24,height:30}}source={require('../assets/images/remaindericon.png')} />
+//   }
+//   constructor(){
+//     super()
+
+//     this.state={
+//       dialogVisible:false,
+//       isDatePickerVisible:false,
+//       isTimePickerVisible:false,
+//       time:'',
+//       date:''
+//     };
+//   }
+  
+//   showDialog=()=>{
+    
+//   }
+
+//   handleCancel(){
+//     this.setState({dialogVisible:false})
+//   }
+
+//   handleDelete=()=>{
+
+//   }
+
+//   hideDateTimePicker=()=>{
+//     this.setState({
+//        isDateTimePickerVisible :false
+//     })
+//   }
+
+//   showDateTimePiker=()=>{
+//     this.setState({
+//       isDatePickerVisible:true
+//     })
+//   }
+
+//   TimePicker=()=>{
+//     this.setState({
+//       isTimePickerVisible:true
+//     })
+//   }
+
+//   handleDatePicker=(date)=>{
+//     console.log(date+'data of datepicker');
+//     var d=''+date;
+//     var da=d.slice(4,10)
+//     console.log('date--',da);
+//     this.setState({
+//       date:da
+//     })
+//   }
+//     handleTimePicker=(time)=>{
+//       console.log(time+'time of timepicker');
+//       var t=''+time;
+//       var ta=t.slice(16,21)
+//       console.log('time--',ta);
+//       this.setState({
+//         time:ta
+//       })
+//       this.hideDateTimePicker();
+//     }
+//     handleSave(){
+//       console.log("Bartidya");
+//       var date1=this.state.date+','+this.state.time;
+//       console.log("time and date"+date1);
+           
+//     }
+  
+//   render(){
+//   // const newLocal = <DateTimePicker isVisible={this.state.isVisible} onConfirm={this.handlePicker} onCancel={this.hidePicker} />;
+//   const{selectedHours,selectedMinutes}=this.state  
+   
+//    return(
+//       <View>
+//       <TouchableOpacity onPress={this.showDialog}>
+//         <Text>Show Dialog </Text>
+//       </TouchableOpacity>
+//       <Dialog.Container visible={true}>
+     
+//       <Dialog.Title>
+//         Set Date and Time
+//       </Dialog.Title>
+      
+//       <Dialog.Description>
+//         Do you want to set time?
+//       </Dialog.Description>
+      
+
+//       <TouchableOpacity onPress={this.showDateTimePiker}>
+//         {
+//           this.state.date ?
+//           (<Text>
+//             {this.state.date}
+//           </Text>)
+//           :
+//           (<Text>
+//             Select a Date
+//           </Text>)
+//         }
+//       </TouchableOpacity>
+
+//       <DateTimePicker
+//           mode='date'
+//           isVisible={this.state.isDatePickerVisible}
+//           onConfirm={this.handleDatePicker}
+//           onCancel={this.hideDateTimePicker}/>
+
+//           <TouchableOpacity onPress={this.TimePicker}>
+//           {
+//             this.state.time ? 
+//             (<Text>
+//                 {this.state.time}
+//             </Text>)        :
+//             (<Text>
+//               Select a Time
+//             </Text>)
+//           }
+//           </TouchableOpacity>
+
+//           <DateTimePicker
+//             mode='time'
+//             isVisible={this.state.isTimePickerVisible}
+//             onConfirm={this.handleTimePicker}
+//             onCancel={this.hideDateTimePicker}/>
+
+//             <Dialog.Button label="Cancel" onPress={()=>this.handleCancel()}/>
+//             <Dialog.Button label="Save" onPress={()=>this.handleSave()}/>
+//       </Dialog.Container>
+//       </View>
+//     )
+//         }
+// }
+
+
+
+
+// const styles=StyleSheet.create({
+//   container:{
+//     flex:1,
+//     justifyContent:'center',
+//     alignItems:'center',
+//     backgroundColor:'#F5FcFF',
+    
+//   }
+// })
 
 
 

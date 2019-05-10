@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, } from "rea
 import { ToastAndroid } from "react-native";
 import { userLogin } from "../services/userService";
 import AsyncStorage from '@react-native-community/async-storage';
-
+import Signout from "../screens/signout";
 //import {userLogin} from '../services/userService'
 //var jwt= require('jsonwebtoken');
 //const jwt=require('jsonwebtoken')
@@ -46,6 +46,7 @@ export default class LoginNew extends Component {
             // open: false,
             // errormsg: "",
             logform: {},
+            
             token: ''
 
         }
@@ -132,22 +133,6 @@ export default class LoginNew extends Component {
                     ToastAndroid.showWithGravity("The User Doesnot Exists,Register Now", ToastAndroid.LONG, ToastAndroid.BOTTOM, error)
 
                 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         }

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-import { StyleSheet,Text,View,TextInput,FlatList,ScrollView,TouchableOpacity } from 'react-native';
+import { StyleSheet,Text,View,TextInput,FlatList,ScrollView,TouchableOpacity,Image } from 'react-native';
 
 
 
@@ -93,6 +93,8 @@ export default class Menu extends Component {
             
                 
                     <TouchableOpacity onPress={this.handleTrash.bind(this)}>
+                    <Image style={styles.delete} source={require('../assets/images/checkbox.png')} >
+                  </Image>
                         <Text style={take}> Delete </Text>
                     </TouchableOpacity>
                
@@ -132,5 +134,9 @@ export default class Menu extends Component {
 
 const styles=StyleSheet.create({
     view1:{height:40,marginLeft:10,marginBottom:10},
-    view2:{height:0}
+    view2:{height:0},
+    delete:{
+        width:20,height:20, flexDirection: 'row'
+    }
+
 })

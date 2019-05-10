@@ -7,7 +7,14 @@ import { DrawerActions } from "react-navigation";
 import CardComponent from '../navigation/CardCompo'
 import { getNotes } from "../services/noteService";
 export default class Archive extends Component {
-  static navigationOptions={headers:null}
+  //static navigationOptions={headers:null}
+  static navigationOptions = {
+    header: null,
+    drawerLabel: 'Archive',
+    backgroundColor:'yellow',
+    drawerIcon:
+      <Image style={{width:24,height:30}}source={require('../assets/images/archivebox.png')} />
+  }
   constructor() {
     super();
 
@@ -48,7 +55,7 @@ export default class Archive extends Component {
 
             this.setState({
          //  original   //archiveNote: result.result
-         archiveNote:result
+         archiveNote:result.result
             })
             console.log("Result in Datasoure Frontend===>\n")
             console.log(result.result)

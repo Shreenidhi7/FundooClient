@@ -12,7 +12,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { getNotes } from "../services/noteService";
 
 export default class Trash extends Component {
-    static navigationOptions = { headers: null }
+  //  static navigationOptions = { headers: null }
+  static navigationOptions = {
+    header: null,
+    drawerLabel: 'Trash',
+    backgroundColor:'yellow',
+    drawerIcon:
+      <Image style={{width:24,height:30}}source={require('../assets/images/delete.png')} />
+  }
     constructor() {
         super()
 

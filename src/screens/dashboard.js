@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  ScrollView, FlatList
+  ScrollView,
 } from 'react-native';
 import { ToastAndroid } from "react-native";
 
@@ -15,17 +15,23 @@ import { getNotes } from "../services/noteService";
 //import { Card } from 'react-native-elements';
 import CardComponent from "../navigation/CardCompo";
 
+//var dateFormat = require('dateformat');
+//var dataArray = new Date();
 
 
 
-//import {dateFormat} from 'dateformat'
-
-var dateFormat = require('dateformat');
-var dataArray = new Date();
 export default class DashBoard extends Component {
 
 
-  static navigationOptions = { header: null }
+  static navigationOptions = {
+    header: null,
+    drawerLabel: 'Notes',
+    inactiveTintColor:'black',
+    backgroundColor:'yellow',
+    drawerIcon:
+      <Image style={{width:24,height:30}}source={require('../assets/images/notesicon.png')} />
+  }
+  
   constructor() {
     super();
 
@@ -35,14 +41,16 @@ export default class DashBoard extends Component {
       dataArray: [],
       archive: false,
       click: false,
-     // profile:''
+
+      // profile:''
 
       //columns: 2,
       //key: 1
     }
-   // this.onChangeProfile=this.onChangeProfile.bind(this)
+    // this.onChangeProfile=this.onChangeProfile.bind(this)
   }
 
+ // https://aboutreact.com/react-native-image-icon-inside-navigation-bar/
 
 
   grid(event) {
@@ -54,17 +62,6 @@ export default class DashBoard extends Component {
   SearchNote(event) {
     this.props.navigation.navigate('Search')
   }
-  // grid(event) {
-
-  //   this.setState({ click: !(this.state.click) })
-  //   let { columns, key } = this.state
-  //   columns = columns === 2 ? 1 : 2
-  //   this.setState({
-  //     columns: columns,
-  //     key: key + 1
-  //   })
-  // }
-  //required for flatlist
 
 
 
@@ -95,9 +92,9 @@ export default class DashBoard extends Component {
             })
             console.log("Result in Datasoure Frontend===>\n")
             console.log(result.result)
-         //   console.log(
-           //   dateFormat("mediumDate"),
-             // dateFormat("shortTime"))
+            //   console.log(
+            //   dateFormat("mediumDate"),
+            // dateFormat("shortTime"))
             //  console.log("state in dash ->",this.state.dataSoure);
 
           })
@@ -110,7 +107,6 @@ export default class DashBoard extends Component {
         console.log("error has got its time to show off:", err);
       })
   }
-
 
 
 
@@ -264,7 +260,7 @@ export default class DashBoard extends Component {
               </View>
 
               <View>
-                <TouchableOpacity>
+                <TouchableOpacity /*onPress={this.imagePopUp()}*/>
                   <Image style={styles.photo} source={require('../assets/images/image.png')}>
                   </Image>
                 </TouchableOpacity>
@@ -289,7 +285,7 @@ const styles = StyleSheet.create({
   data: {
     height: 70,
     width: 300,
-    backgroundColor: "#ffffff", //"#206bad",   /* '#1c313a' */
+   // backgroundColor: "#ffffff", //"#206bad",   /* '#1c313a' */
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginVertical: 10,
@@ -350,7 +346,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 15,
     marginRight: 10,
-    //  paddingLeft:30
+
   },
 
 
@@ -420,7 +416,7 @@ const styles = StyleSheet.create({
   data: {
     height: 70,
     width: 340,
-    backgroundColor: '#ffffff',
+ //   backgroundColor: '#ffffff',
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginVertical: 10,
@@ -432,7 +428,7 @@ const styles = StyleSheet.create({
     // position: 'relative',  not present
     // bottom: 0,  not present
     height: 50,
-    backgroundColor: '#ffffff',
+   // backgroundColor: '#ffffff',
     flexDirection: "row",
     paddingLeft: 25,  //10,
     alignItems: 'center',
@@ -528,3 +524,14 @@ const styles = StyleSheet.create({
 
 
 
+// grid(event) {
+
+  //   this.setState({ click: !(this.state.click) })
+  //   let { columns, key } = this.state
+  //   columns = columns === 2 ? 1 : 2
+  //   this.setState({
+  //     columns: columns,
+  //     key: key + 1
+  //   })
+  // }
+  //required for flatlist

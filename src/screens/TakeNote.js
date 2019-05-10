@@ -22,7 +22,7 @@ import DateTimePicker from 'react-native-modal-datetime-picker'
 
 import Dialog from 'react-native-dialog'
 
-import dateFormat from 'dateformat'
+//import dateFormat from 'dateformat'
 //var dateFormat = require('dateformat');
 
 
@@ -101,7 +101,7 @@ export default class TakeNote extends Component {
                     token: value
                 }
             
-                createNote(data.title, data.description)
+                createNote(data)
                     .then((result) => {
 
                         this.setState({
@@ -111,55 +111,55 @@ export default class TakeNote extends Component {
                     })
                     .catch((err) => {
                         ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-
+                    
                     })
 
-                UpdateArchive(data.archive)
-                    .then((result) => {
-                        this.setState({
-                            TakeNote: result.data.data.archive
-                        })
-                        this.props.navigation.navigate('DashBoard')
-                    })
-                    .catch((err) => {
-                        ToastAndroid.showWithGravity("Archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                    })
+            //     UpdateArchive(data.archive)
+            //         .then((result) => {
+            //             this.setState({
+            //                 TakeNote: result.data.data.archive
+            //             })
+            //             this.props.navigation.navigate('DashBoard')
+            //         })
+            //         .catch((err) => {
+            //             ToastAndroid.showWithGravity("Archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+            //         })
 
 
-                UpdatePinned(data.pinned)
-                    .then((result) => {
-                        this.setState({
-                            TakeNote: result.data.data.pinned
-                        })
-                        this.props.navigation.navigate('DashBoard')
-                    })
-                    .catch((err) => {
-                        ToastAndroid.showWithGravity("Pinned is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                    })
+            //     UpdatePinned(data.pinned)
+            //         .then((result) => {
+            //             this.setState({
+            //                 TakeNote: result.data.data.pinned
+            //             })
+            //             this.props.navigation.navigate('DashBoard')
+            //         })
+            //         .catch((err) => {
+            //             ToastAndroid.showWithGravity("Pinned is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+            //         })
 
-                UpdateReminder(data.reminder)
-                    .then((result) => {
-                        this.setState({
-                            TakeNote: result.data.data.reminder
-                        })
-                        this.props.navigation.navigate('DashBoard')
-                    })
-                    .catch((err) => {
-                        ToastAndroid.showWithGravity("Reminder is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                    })
+            //     UpdateReminder(data.reminder)
+            //         .then((result) => {
+            //             this.setState({
+            //                 TakeNote: result.data.data.reminder
+            //             })
+            //             this.props.navigation.navigate('DashBoard')
+            //         })
+            //         .catch((err) => {
+            //             ToastAndroid.showWithGravity("Reminder is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+            //         })
 
-                UpdateColor(data.color)
-                    .then((result) => {
-                        this.setState({
-                            TakeNote: result.data.data.color
-                        })
-                        this.props.navigation.navigate('DashBoard')
-                    })
-                    .catch((err) => {
-                        ToastAndroid.showWithGravity("Color is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                    })
-            })
-                           
+            //     UpdateColor(data.color)   
+            //         .then((result) => {
+            //             this.setState({
+            //                 TakeNote: result.data.data.color
+            //             })
+            //             this.props.navigation.navigate('DashBoard')
+            //         })
+            //         .catch((err) => {
+            //             ToastAndroid.showWithGravity("Color is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+            //         })
+            // })
+            })           
         }
         else {
             console.log("error in validation");
@@ -355,17 +355,23 @@ export default class TakeNote extends Component {
                 </View>
 
 
-                <Menu
+                {/* <Menu
                     view={this.state.click}
                     color={this.onChangeColor}
                     trash={this.handleTrash}
                     navigation={this.props.navigation}>
-                </Menu>
+                </Menu> */}
 
                 <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
 
 
                
+                <Menu style={{bottom:20}}
+                    view={this.state.click}
+                    color={this.onChangeColor}
+                    trash={this.handleTrash}
+                    navigation={this.props.navigation}>
+                </Menu>
 
                 <View style={styles.last}>
 
@@ -459,22 +465,29 @@ const styles = StyleSheet.create({
     },
 
     arrow: {
+        marginTop:10,
         marginLeft: 10,
-        width: 30,
-        height: 40,
+        width: 35,
+        height: 45,
+        paddingLeft:10.1,
+        paddingRight:10.1
 
     },
 
     pinbutton: {
-        width: 10,  //20,
-        height: 20,  //30,
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        //marginLeft: 10,  //10,
-        marginRight: -15,
-        paddingLeft: 50,   // 30,
-        marginTop: 20,
-        //paddingTop:20
+        width:20,
+        height:30,
+        marginTop:20,
+
+        // width: 20,  //20,
+        // height: 20,  //30,
+        // justifyContent: 'space-between',
+        // alignItems: 'flex-start',
+      
+        // marginRight: -25,
+        // paddingLeft: 50,   // 30,
+        // marginTop: 70,
+        
 
     },
     unpinbutton: {
@@ -503,10 +516,10 @@ const styles = StyleSheet.create({
         height: 30,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        //marginLeft:  10,    // 10,
-        marginRight: 50,
-        paddingLeft: 20,    //  30,
-        marginTop: 10
+       
+        // marginRight: 50,
+        // paddingLeft: 20,    //  30,
+        // marginTop: 10
     },
 
     plusicon: {
@@ -516,19 +529,19 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginLeft: 10,
         paddingLeft: 30,
-        marginTop: -10
+        marginTop: 10
     },
 
 
     dots: {
-        width: 40,
-        height: 40,
+        width: 60,
+        height: 60,
         justifyContent: 'space-between',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         // marginRight:300,
         marginLeft: 290,
         paddingLeft: 85,
-        marginTop: -5,
+        marginTop: 10,
         //marginBottom:50
     }
 
