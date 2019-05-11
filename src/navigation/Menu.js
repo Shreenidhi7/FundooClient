@@ -11,7 +11,7 @@ const colorPaletteClassName=[
         colorName:"White",
     },
     {
-        colorCode:"rgb(242,139130)",
+        colorCode:"rgb(242,139,130)",
         colorName:"Red",
     },
     {
@@ -43,11 +43,11 @@ const colorPaletteClassName=[
         colorName:"Blue"
     },
     {
-        colorCode:"rgb(230,201,168",
+        colorCode:"rgb(230,201,168)",
         colorName:"Brown",
     },
     {
-        colorCode:"rgb(255,255,0",
+        colorCode:"rgb(255,255,0)",
         colorName:"Yellow"
     },
     {
@@ -99,20 +99,25 @@ export default class Menu extends Component {
                     </TouchableOpacity>
                
                     <TouchableOpacity>
+
+                        <Image style={{width:24,height:24,flexDirection:'row'}} source={require('../assets/images/signout.png')}></Image>
                         <Text style={take}> Make a Copy </Text>
                     </TouchableOpacity>
               
                    <TouchableOpacity>
+                   <Image style={{width:24,height:24,flexDirection:'row'}} source={require('../assets/images/signout.png')}></Image>
                        <Text style={take}> Send </Text>
                    </TouchableOpacity>
               
                     <TouchableOpacity>
+                    <Image style={{width:24,height:24,flexDirection:'row'}} source={require('../assets/images/signout.png')}></Image>
                         <Text style={take}> Collaborator </Text>
                     </TouchableOpacity>
               
 
         
                     <TouchableOpacity>
+                    <Image style={{width:24,height:24,flexDirection:'row'}} source={require('../assets/images/signout.png')}></Image>
                         <Text style={take}> Labels </Text>
                     </TouchableOpacity>
              
@@ -133,7 +138,7 @@ export default class Menu extends Component {
 }
 
 const styles=StyleSheet.create({
-    view1:{height:40,marginLeft:10,marginBottom:10},
+    view1:{height:40,marginLeft:10,marginBottom:10,fontWeight:'bold'},
     view2:{height:0},
     delete:{
         width:20,height:20, flexDirection: 'row'

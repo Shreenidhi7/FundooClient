@@ -21,7 +21,7 @@ export default class Reminder extends Component {
     this.state = {
 
       click: false,
-      reminderNote: [],
+      dataArray: [],
       //  columns: 2,
       //  key: 1
     }
@@ -56,7 +56,7 @@ export default class Reminder extends Component {
 
             this.setState({
          //  original   //archiveNote: result.result
-         reminderNote:result.result
+         dataArray:result.result
             })
             console.log("Result in Datasoure Frontend===>\n")
             console.log(result.result)
@@ -83,12 +83,12 @@ export default class Reminder extends Component {
 
     var arr1 = []
     var key;
-    arr1 = Object.keys(this.state.reminderNote).map((notes) => {
+    arr1 = Object.keys(this.state.dataArray).map((notes) => {
       key = notes;
-      var data = this.state.reminderNote[key]
+      var data = this.state.dataArray[key]
 
      // if ((data.trash === false && data.archive === true && data.pinned !== true)) {
-       if(data.reminder===true){
+       if(data.reminder === true && data.archive===true){
         return (
           <CardComponent Display={data}
             notekey={key}

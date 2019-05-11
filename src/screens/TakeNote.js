@@ -98,6 +98,7 @@ export default class TakeNote extends Component {
                     pinned: this.state.pinned,
                     reminder: this.state.reminder,
                     color: this.state.color,
+                    trash:this.state.trash,
                     token: value
                 }
             
@@ -186,7 +187,7 @@ export default class TakeNote extends Component {
         console.log('A date have been picked', date);
         var d = '' + date;
         console.log("1st step t value=====>", d);
-
+ 
         console.log("====================>><<><>", d.slice(4, 15));
         var da = d.slice(4, 15)
         console.log('date--', da);
@@ -242,7 +243,7 @@ export default class TakeNote extends Component {
     async handleTrash(value) {
         console.log("trash", value);
         this.setState({
-            trash: value
+            trash: !(value)
         })
     }
 

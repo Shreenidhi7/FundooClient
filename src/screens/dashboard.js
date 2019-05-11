@@ -121,14 +121,16 @@ export default class DashBoard extends Component {
       key = notes;
       data = this.state.dataArray[key]
 
-      if (data.trash === false && data.archive !== true && data.pinned !== true) {
+      if(data.trash!==true && data.pinned===false )
         return (
           <CardComponent Display={data}
             notekey={key}
             view={this.state.click}
             navigation={this.props.navigation} />
         )
-      }
+      
+      
+      
     })
 
     var pinarr = [];
@@ -148,7 +150,7 @@ export default class DashBoard extends Component {
 
         )
       }
-    })
+   })
 
 
     return (
