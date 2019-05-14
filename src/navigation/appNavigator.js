@@ -20,7 +20,7 @@ const MainNavigator=createStackNavigator({
   
 },
 {
-    initialRouteName : "Drawer"   //////'Drawer'
+    initialRouteName :"Drawer"   //////'Drawer'
 });
 
 const Container=createAppContainer(MainNavigator);

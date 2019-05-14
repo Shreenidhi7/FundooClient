@@ -21,7 +21,7 @@ import Menu from '../navigation/Menu'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
 import Dialog from 'react-native-dialog'
-
+import RBSheet from 'react-native-raw-bottom-sheet'
 //import dateFormat from 'dateformat'
 //var dateFormat = require('dateformat');
 
@@ -98,10 +98,10 @@ export default class TakeNote extends Component {
                     pinned: this.state.pinned,
                     reminder: this.state.reminder,
                     color: this.state.color,
-                    trash:this.state.trash,
+                    trash: this.state.trash,
                     token: value
                 }
-            
+
                 createNote(data)
                     .then((result) => {
 
@@ -112,55 +112,55 @@ export default class TakeNote extends Component {
                     })
                     .catch((err) => {
                         ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                    
+
                     })
 
-            //     UpdateArchive(data.archive)
-            //         .then((result) => {
-            //             this.setState({
-            //                 TakeNote: result.data.data.archive
-            //             })
-            //             this.props.navigation.navigate('DashBoard')
-            //         })
-            //         .catch((err) => {
-            //             ToastAndroid.showWithGravity("Archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-            //         })
+                //     UpdateArchive(data.archive)
+                //         .then((result) => {
+                //             this.setState({
+                //                 TakeNote: result.data.data.archive
+                //             })
+                //             this.props.navigation.navigate('DashBoard')
+                //         })
+                //         .catch((err) => {
+                //             ToastAndroid.showWithGravity("Archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                //         })
 
 
-            //     UpdatePinned(data.pinned)
-            //         .then((result) => {
-            //             this.setState({
-            //                 TakeNote: result.data.data.pinned
-            //             })
-            //             this.props.navigation.navigate('DashBoard')
-            //         })
-            //         .catch((err) => {
-            //             ToastAndroid.showWithGravity("Pinned is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-            //         })
+                //     UpdatePinned(data.pinned)
+                //         .then((result) => {
+                //             this.setState({
+                //                 TakeNote: result.data.data.pinned
+                //             })
+                //             this.props.navigation.navigate('DashBoard')
+                //         })
+                //         .catch((err) => {
+                //             ToastAndroid.showWithGravity("Pinned is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                //         })
 
-            //     UpdateReminder(data.reminder)
-            //         .then((result) => {
-            //             this.setState({
-            //                 TakeNote: result.data.data.reminder
-            //             })
-            //             this.props.navigation.navigate('DashBoard')
-            //         })
-            //         .catch((err) => {
-            //             ToastAndroid.showWithGravity("Reminder is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-            //         })
+                //     UpdateReminder(data.reminder)
+                //         .then((result) => {
+                //             this.setState({
+                //                 TakeNote: result.data.data.reminder
+                //             })
+                //             this.props.navigation.navigate('DashBoard')
+                //         })
+                //         .catch((err) => {
+                //             ToastAndroid.showWithGravity("Reminder is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                //         })
 
-            //     UpdateColor(data.color)   
-            //         .then((result) => {
-            //             this.setState({
-            //                 TakeNote: result.data.data.color
-            //             })
-            //             this.props.navigation.navigate('DashBoard')
-            //         })
-            //         .catch((err) => {
-            //             ToastAndroid.showWithGravity("Color is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-            //         })
-            // })
-            })           
+                //     UpdateColor(data.color)   
+                //         .then((result) => {
+                //             this.setState({
+                //                 TakeNote: result.data.data.color
+                //             })
+                //             this.props.navigation.navigate('DashBoard')
+                //         })
+                //         .catch((err) => {
+                //             ToastAndroid.showWithGravity("Color is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                //         })
+                // })
+            })
         }
         else {
             console.log("error in validation");
@@ -187,7 +187,7 @@ export default class TakeNote extends Component {
         console.log('A date have been picked', date);
         var d = '' + date;
         console.log("1st step t value=====>", d);
- 
+
         console.log("====================>><<><>", d.slice(4, 15));
         var da = d.slice(4, 15)
         console.log('date--', da);
@@ -312,7 +312,7 @@ export default class TakeNote extends Component {
 
                     <Text>                                                     </Text>
                     {
-                        this.state.pin ?
+                        this.state.pinned ?
                             (<TouchableOpacity onPress={(event) => this.getpin(event)}>
                                 <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
                                 </Image>
@@ -330,7 +330,7 @@ export default class TakeNote extends Component {
 
 
                     <TouchableOpacity onPress={(event) => this.archive(event)} >
-                        <Image style={styles.archivebutton} source={require('../assets/images/archivebox.png')}>
+                        <Image style={styles.archivebutton} source={require('../assets/images/archive.svg')}>
                         </Image>
                     </TouchableOpacity>
                 </View>
@@ -366,13 +366,13 @@ export default class TakeNote extends Component {
                 <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
 
 
-               
-                <Menu style={{bottom:20}}
+
+                {/* <Menu style={{ bottom: 20 }}
                     view={this.state.click}
                     color={this.onChangeColor}
                     trash={this.handleTrash}
                     navigation={this.props.navigation}>
-                </Menu>
+                </Menu> */}
 
                 <View style={styles.last}>
 
@@ -380,10 +380,37 @@ export default class TakeNote extends Component {
                         <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() =>  this.getmenu() }>
+
+                    <TouchableOpacity onPress={() => this.RBSheet.open()}>
+                        <RBSheet
+                            ref={ref => {
+                                this.RBSheet = ref;
+                            }}
+                            height={300}
+                            duration={250}
+                            customStyles={{
+                                container: {
+                                    // justifyContent: "center",
+                                    marginBottom: 50,
+
+                                }
+                            }}>
+
+                            <Menu
+                                view={this.state.click}
+                                color={this.onChangeColor}
+                                trash={this.handleTrash}
+                                navigation={this.props.navigation} />
+                        </RBSheet>
+
+                        <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
+                    </TouchableOpacity>
+
+
+                    {/* <TouchableOpacity onPress={() => this.getmenu()}>
                         <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
 
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
 
@@ -459,36 +486,38 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     last: {
-        position: 'absolute',
-        bottom: -500,  //-555,
-        flexDirection: "row"
+        flexDirection: 'row',
+        marginTop: 525
+        // position: 'absolute',
+        // bottom: -500,  //-555,
+        //flexDirection: "row"
 
     },
 
     arrow: {
-        marginTop:10,
+        marginTop: 10,
         marginLeft: 10,
         width: 35,
         height: 45,
-        paddingLeft:10.1,
-        paddingRight:10.1
+        paddingLeft: 10.1,
+        paddingRight: 10.1
 
     },
 
     pinbutton: {
-        width:20,
-        height:30,
-        marginTop:20,
+        width: 20,
+        height: 30,
+        marginTop: 20,
 
         // width: 20,  //20,
         // height: 20,  //30,
         // justifyContent: 'space-between',
         // alignItems: 'flex-start',
-      
+
         // marginRight: -25,
         // paddingLeft: 50,   // 30,
         // marginTop: 70,
-        
+
 
     },
     unpinbutton: {
@@ -517,7 +546,7 @@ const styles = StyleSheet.create({
         height: 30,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-       
+
         // marginRight: 50,
         // paddingLeft: 20,    //  30,
         // marginTop: 10

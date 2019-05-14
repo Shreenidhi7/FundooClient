@@ -37,6 +37,26 @@ export function getNotes(data) {
     })
 }
 
+export function editTitle(data){
+    console.log("Update title==>\n",data);
+    return axios(baseUrl+'editTitle',{
+        method:'PUT',
+        headers:{
+            'token':data.token
+        },
+        data:data
+    })
+}
+export function editDescription(data){
+    console.log("Update Description==>\n",data);
+    return axios(baseUrl+'/editDescription',{
+        method:'PUT',
+        headers:{
+            'token':data.token
+        },
+        data:data
+    })
+}
 export function UpdateColor(data){
     console.log("Update Color==>\n",data);
     return axios(baseUrl+'/UpdateColor',{
@@ -47,7 +67,7 @@ export function UpdateColor(data){
         data:data
     })
 }
-export function UpdateArchive(data){
+export function isArchived(data){
     console.log("Update Archive==>\n",data);
     return axios(baseUrl+'/isArchived',{
         method:'PUT',
@@ -57,7 +77,7 @@ export function UpdateArchive(data){
         data:data
     })
 }
-export function UpdatePinned(data){
+export function isPinned(data){
     console.log("Update Pinned==>\n",data);
     return axios(baseUrl+'/isPinned',{
         method:'PUT',
@@ -67,7 +87,7 @@ export function UpdatePinned(data){
         data:data
     })
 }
-export function UpdateReminder(data){
+export function setReminder(data){
     console.log("Update Remindewr==>\n",data);
     return axios(baseUrl+'/setReminder',{
         method:'PUT',
@@ -78,7 +98,16 @@ export function UpdateReminder(data){
     })
 }
 
-
+export function isTrashed(data){
+    console.log("Update isTrashed==>\n",data);
+    return axios(baseUrl+'/isTrashed',{
+        method:'PUT',
+        headers:{
+            'token':data.token
+        },
+        data:data
+    })
+}
 
 
 

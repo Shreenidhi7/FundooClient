@@ -17,53 +17,55 @@ import Search from '../screens/search'
 import Register from '../screens/registerForm';
 import Profile from './Profile';
 import Signout from '../screens/signout';
+import Edit from '../screens/Edit';
 //import CardComponent from './CardComponent';
 
 navigationOptions = { header: null };
 const MyDrawer = createDrawerNavigator(
   {
 
-   
-    Notes: { screen:DashBoard, navigationOptions: { header: null } },
-   // Notes: { screen: Register, navigationOptions: { header: null } },
-   // Notes: { screen: DashBoard, navigationOptions: { header: null } },
+
+    Notes: { screen: DashBoard, navigationOptions: { header: null } },
+    // Notes: { screen: Register, navigationOptions: { header: null } },
+    // Notes: { screen: DashBoard, navigationOptions: { header: null } },
     Reminders: { screen: Reminder },
     Createlabel: { screen: NewLabel },
     Archive: { screen: Archive },
     Trash: { screen: Trash },
     Settings: { screen: DashBoard },
-    Search:{screen:Search},
-    SignOut :{screen:Signout},
+    Search: { screen: Search },
+    SignOut: { screen: Signout },
+    Edit: { screen: Edit },
+    DashBoard: {screen:Archive}
+     
+      /*  CardComponent:{screen:CardComponent},
+        
+      Search:{screen:Search},
     
-    DashBoard: { screen:DashBoard, navigationOptions: { header: null } },
-    /*  CardComponent:{screen:CardComponent},
-      
-    Search:{screen:Search},
-  
-  
-      Login :{screen:LoginNew}, 
-      Register : { screen : Register},
-      Forgot : {screen : ForgotPassword},
-      ResetPassword : {screen:ResetPassword  },
-      DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
-      TakeNote:{screen : TakeNote,navigationOptions:{header:null}}
-  */
+    
+        Login :{screen:LoginNew}, 
+        Register : { screen : Register},
+        Forgot : {screen : ForgotPassword},
+        ResetPassword : {screen:ResetPassword  },
+        DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
+        TakeNote:{screen : TakeNote,navigationOptions:{header:null}}
+    */
 
-  },
+    },
 
   {
     navigationOptions: {
-      
+
       gesturesEnabled: false,
       header: null,
     },
-    initialRouteName: "DashBoard",    //"Login",      //"Notes",
+    initialRouteName: "Archive",    //"Login",      //"Notes",
     contentOptions: {
       activeTintColor: 'black',
-      activeBackgroundColor:'#ffe082'
+      activeBackgroundColor: '#ffe082'
     },
     drawerPosition: 'left',
-   //drawerWidth:300
+    //drawerWidth:300
 
   }
 );

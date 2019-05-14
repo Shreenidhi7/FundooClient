@@ -8,7 +8,7 @@ import Signout from "../screens/signout";
 //var jwt= require('jsonwebtoken');
 //const jwt=require('jsonwebtoken')
 
-
+var FloatingLabel = require('react-native-floating-labels');
 
 class Blink extends Component {
     constructor(props) {
@@ -46,14 +46,16 @@ export default class LoginNew extends Component {
             // open: false,
             // errormsg: "",
             logform: {},
-            
+
             token: ''
 
         }
     }
 
 
-
+    onBlur() {
+        console.log('#####: onBlur');
+    }
 
     validateEmail(text) {
         testEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -111,12 +113,12 @@ export default class LoginNew extends Component {
 
                 .then((result) => {
                     const token1 = result.data.token
-                    console.log("Token Generated at Login Time===>\n", token1,"\n");
+                    console.log("Token Generated at Login Time===>\n", token1, "\n");
 
                     AsyncStorage.setItem('token', token1);
 
                     AsyncStorage.getItem('token').then(value => {
-                        console.log("In Login(@getitem)====>\n", value,"\n");
+                        console.log("In Login(@getitem)====>\n", value, "\n");
 
                     })
 
@@ -160,7 +162,18 @@ export default class LoginNew extends Component {
                     // onChangeText={(email)=>this.setState({email})}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholderTextColor='#ffffff' />
-
+{/* 
+<FloatingLabel>
+                <Text style={styles.header}>Login Form</Text>
+                <TextInput style={[styles.inputbox,
+                !this.state.Email ? styles.error : null]}
+                    onChangeText={(text) => this.validateEmail(text)}
+                    placeholder="Email"
+                    fontWeight='bold'
+                    // onChangeText={(email)=>this.setState({email})}
+                    underlineColorAndroid='rgba(0,0,0,0)'
+                    placeholderTextColor='#ffffff' />
+</FloatingLabel> */}
 
                 <TextInput style={[styles.inputbox,
                 !this.state.Password ? styles.error : null]}

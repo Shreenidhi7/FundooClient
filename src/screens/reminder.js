@@ -88,7 +88,7 @@ export default class Reminder extends Component {
       var data = this.state.dataArray[key]
 
      // if ((data.trash === false && data.archive === true && data.pinned !== true)) {
-       if(data.reminder === true && data.archive===true){
+       if(data.reminder === true && data.archive===false){
         return (
           <CardComponent Display={data}
             notekey={key}

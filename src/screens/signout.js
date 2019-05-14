@@ -27,60 +27,60 @@ export default class Signout extends Component {
     // }
 
 
-  componentDidMount() {
+  componentDidMount() {}
 
 
 
-    AsyncStorage.getItem('token')
-      .then(value => {
-        console.log("Getting token while ReCreating Note", value);
-        this.token = value
-        var data = {
-          title: this.state.Title,
-          description: this.state.Description,
-          archive: this.state.archive,
-          pinned: this.state.pinned,
-          reminder: this.state.reminder,
-          token: value
-        }
-        getNotes(data)
-          .then((result) => {
+//     AsyncStorage.getItem('token')
+//       .then(value => {
+//         console.log("Getting token while ReCreating Note", value);
+//         this.token = value
+//         var data = {
+//           title: this.state.Title,
+//           description: this.state.Description,
+//           archive: this.state.archive,
+//           pinned: this.state.pinned,
+//           reminder: this.state.reminder,
+//           token: value
+//         }
+//         getNotes(data)
+//           .then((result) => {
 
-            this.setState({
-              dataArray:
-                result.result
-            })
-            console.log("Result in Datasoure Frontend===>\n")
-            console.log(result.result)
+//             this.setState({
+//               dataArray:
+//                 result.result
+//             })
+//             console.log("Result in Datasoure Frontend===>\n")
+//             console.log(result.result)
             
 
-          })
-          .catch((err) => {
-            ToastAndroid.showWithGravity("Error occured while Retriving Notes ", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+//           })
+//           .catch((err) => {
+//             ToastAndroid.showWithGravity("Error occured while Retriving Notes ", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
 
-          })
+//           })
 
-          handleLogOut = (dataArray) => {
+//           handleLogOut = (dataArray) => {
 
-            AsyncStorage.getItem('token')
-                token=dataArray.token
-                AsyncStorage.removeItem('token',token);
-                console.log("You have been Logged Out");
-                alert('You have been logged out.');
+//             AsyncStorage.getItem('token')
+//                 token=dataArray.token
+//                 AsyncStorage.removeItem('token',token);
+//                 console.log("You have been Logged Out");
+//                 alert('You have been logged out.');
               
                 
-                this.props.navigation.navigate('Login')
-                this.setState({ dialogVisible: !this.state.dialogVisible })
-            }
+//                 this.props.navigation.navigate('Login')
+//                 this.setState({ dialogVisible: !this.state.dialogVisible })
+//             }
 
 
-      })
-      .catch(err => {
-        console.log("error has got its time to show off:", err);
-      })
-  }
+//       })
+//       .catch(err => {
+//         console.log("error has got its time to show off:", err);
+//       })
+//   }
 
-    handleLogOut = (dataArray) => {
+    handleLogOut = () => {
 
     AsyncStorage.getItem('token')
         token=dataArray.token
