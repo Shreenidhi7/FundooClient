@@ -8,7 +8,8 @@ export default class NewLabel extends Component {
         drawerLabel: 'Create New Label',
         backgroundColor:'yellow',
         drawerIcon:
-          <Image style={{width:24,height:30}}source={require('../assets/images/plus.png')} />
+          <Image style={{width:24,height:30}}source={require('../assets/images/plus.png')} />,
+        backgroundColor:"green" 
       }
     render() {
         return(

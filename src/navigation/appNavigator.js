@@ -6,6 +6,7 @@ import ResetPassword from '../screens/resetPasswordForm';
 import DashBoard from '../screens/dashboard';
 import Drawer from '../navigation/dawerNavigator';
 import TakeNote from '../screens/TakeNote';
+import Edit from '../screens/Edit';
 
 
 //navigationOptions={header : null}
@@ -14,13 +15,13 @@ const MainNavigator=createStackNavigator({
     Register : { screen : Register},
     Forgot : {screen : ForgotPassword},
     ResetPassword : {screen:ResetPassword  },
-    DashBoard : {screen : DashBoard},//navigationOptions:{header:null}},
+    DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
     Drawer:{screen:Drawer,navigationOptions:{header:null}},
-    TakeNote:{screen : TakeNote,navigationOptions:{header:null}}
-  
+    TakeNote:{screen : TakeNote,navigationOptions:{header:null}},
+    Edit:{screen:Edit,navigationOptions:{header:null}}
 },
 {
-    initialRouteName :"Drawer"   //////'Drawer'
+    initialRouteName :    "Drawer"   //////'Drawer'
 });
 
 const Container=createAppContainer(MainNavigator);

@@ -1,6 +1,6 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-community/async-storage';
-import {API} from '../../appconfig';
+import { API } from '../../appconfig';
 
 
 const baseUrl = API.BASE_URL;
@@ -28,84 +28,106 @@ export function getNotes(data) {
 
     }).then(function (response) {
         const result = response.data;
-       // console.log("===================================>",response.data);
+        // console.log("===================================>",response.data);
 
         return result;
     })
-    .catch((err)=>{
-        console.log("ERROR IN SERVICES",err);
-    })
+        .catch((err) => {
+            console.log("ERROR IN SERVICES", err);
+        })
 }
 
-export function editTitle(data){
-    console.log("Update title==>\n",data);
-    return axios(baseUrl+'editTitle',{
-        method:'PUT',
-        headers:{
-            'token':data.token
+export function editTitle(newTitle, token, card) {
+    let data = {
+        noteId: card._id,
+        title: newTitle
+    }
+    return axios(baseUrl + '/editTitle', {
+        method: 'PUT',
+        headers: {
+            'token': token
         },
-        data:data
+        data: data
     })
 }
-export function editDescription(data){
-    console.log("Update Description==>\n",data);
-    return axios(baseUrl+'/editDescription',{
-        method:'PUT',
-        headers:{
-            'token':data.token
+export function editDescription(newDescription, token, card) {
+    let data = {
+        noteId: card._id,
+        description: newDescription
+    }
+    return axios(baseUrl + '/editDescription', {
+        method: 'PUT',
+        headers: {
+            'token':token
         },
-        data:data
+        data: data
     })
 }
-export function UpdateColor(data){
-    console.log("Update Color==>\n",data);
-    return axios(baseUrl+'/UpdateColor',{
-        method:'PUT',
-        headers:{
-            'token':data.token
+export function UpdateColor(newColor,token,card) {
+    console.log(token);
+    
+    let data={
+        noteId:card._id,
+        color:newColor,
+    }
+    return axios(baseUrl + '/UpdateColor', {
+        method: 'PUT',
+        headers: {
+            'token':token
         },
-        data:data
+        data: data
     })
 }
-export function isArchived(data){
-    console.log("Update Archive==>\n",data);
-    return axios(baseUrl+'/isArchived',{
-        method:'PUT',
-        headers:{
-            'token':data.token
+export function isArchived(data) {
+    console.log("Update Archive==>\n", data);
+    return axios(baseUrl + '/isArchived', {
+        method: 'PUT',
+        headers: {
+            'token': data.token
         },
-        data:data
+        data: data
     })
 }
-export function isPinned(data){
-    console.log("Update Pinned==>\n",data);
-    return axios(baseUrl+'/isPinned',{
-        method:'PUT',
-        headers:{
-            'token':data.token
+export function isPinned(data) {
+    console.log("Update Pinned==>\n", data);
+    return axios(baseUrl + '/isPinned', {
+        method: 'PUT',
+        headers: {
+            'token': data.token
         },
-        data:data
+        data: data
     })
 }
-export function setReminder(data){
-    console.log("Update Remindewr==>\n",data);
-    return axios(baseUrl+'/setReminder',{
-        method:'PUT',
-        headers:{
-            'token':data.token
+export function setReminder(data) {
+    console.log("Update Remindewr==>\n", data);
+    return axios(baseUrl + '/setReminder', {
+        method: 'PUT',
+        headers: {
+            'token': data.token
         },
-        data:data
+        data: data
     })
+}
+export function editReminder(data) {
+    console.log("Edit reminder==>\n", data);
+    return axios(baseUrl + '/editReminder', {
+        method: 'PUT',
+        headers: {
+            'token': data.token
+        },
+        data: data
+    })
+
 }
 
-export function isTrashed(data){
-    console.log("Update isTrashed==>\n",data);
-    return axios(baseUrl+'/isTrashed',{
-        method:'PUT',
-        headers:{
-            'token':data.token
+export function isTrashed(data) {
+    console.log("Update isTrashed==>\n", data);
+    return axios(baseUrl + '/isTrashed', {
+        method: 'PUT',
+        headers: {
+            'token': data.token
         },
-        data:data
+        data: data
     })
 }
 

@@ -91,10 +91,11 @@ export default class Menu extends Component {
         return (
             <View >
 
-                <View style={{ height: 55 }}>
+                <View style={{ height: 50 }}>
                     <TouchableOpacity onPress={this.handleTrash.bind(this)}>
-                    <Image style={{width:24,height:30,flexDirection:"row"}}source={require('../assets/images/delete.png')} />
-                        <Text style={styles.text}> Delete </Text>
+                   
+                        <Text style={styles.text}>                          Delete </Text>
+                        <Image style={{width:24,height:30,flexDirection:"row"}}source={require('../assets/images/trash.png')}/>
                     </TouchableOpacity>
                 </View>
 
@@ -138,7 +139,7 @@ export default class Menu extends Component {
 }
 
 const styles = StyleSheet.create({
-    text:{fontWeight:'bold',fontSize:15},
+    text:{fontWeight:'bold',fontSize:15,flexDirection:'row',marginLeft:20},
     view1: { height: 40, marginLeft: 10, marginBottom: 10, fontWeight: 'bold' },
     view2: { height: 0 },
     delete: {

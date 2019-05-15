@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {
-
-    StyleSheet,
-    Text,
-    View,
-
-    Image,
-    TouchableOpacity,
-    TextInput,
-    Picker
-
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Picker } from 'react-native';
 import { ToastAndroid } from 'react-native';
-import { createNote, UpdateColor, UpdateArchive, UpdatePinned, UpdateReminder } from "../services/noteService";
+import { createNote, } from "../services/noteService";
 import Reminder from '../screens/reminder';
 import DashBoard from '../screens/dashboard'
 import Menu from '../navigation/Menu'
@@ -114,52 +103,6 @@ export default class TakeNote extends Component {
                         ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
 
                     })
-
-                //     UpdateArchive(data.archive)
-                //         .then((result) => {
-                //             this.setState({
-                //                 TakeNote: result.data.data.archive
-                //             })
-                //             this.props.navigation.navigate('DashBoard')
-                //         })
-                //         .catch((err) => {
-                //             ToastAndroid.showWithGravity("Archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                //         })
-
-
-                //     UpdatePinned(data.pinned)
-                //         .then((result) => {
-                //             this.setState({
-                //                 TakeNote: result.data.data.pinned
-                //             })
-                //             this.props.navigation.navigate('DashBoard')
-                //         })
-                //         .catch((err) => {
-                //             ToastAndroid.showWithGravity("Pinned is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                //         })
-
-                //     UpdateReminder(data.reminder)
-                //         .then((result) => {
-                //             this.setState({
-                //                 TakeNote: result.data.data.reminder
-                //             })
-                //             this.props.navigation.navigate('DashBoard')
-                //         })
-                //         .catch((err) => {
-                //             ToastAndroid.showWithGravity("Reminder is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                //         })
-
-                //     UpdateColor(data.color)   
-                //         .then((result) => {
-                //             this.setState({
-                //                 TakeNote: result.data.data.color
-                //             })
-                //             this.props.navigation.navigate('DashBoard')
-                //         })
-                //         .catch((err) => {
-                //             ToastAndroid.showWithGravity("Color is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                //         })
-                // })
             })
         }
         else {
@@ -212,16 +155,7 @@ export default class TakeNote extends Component {
         console.warn(this.state.archive + "2nd");
     }
 
-    /*   handleTimePicker = (date,time) => {
-           console.log('A Time has been picked',date+ time);
-           var t = '' + time;
-           var ta = t.slice(16, 21)
-           console.log('time--', ta);
-           this.setState({
-               time: date+ta
-           })
-           this.hideTimePicker();
-       } */
+
 
     handleTimePicker = (time) => {
         console.log("A Time has been picked", time);
@@ -231,7 +165,6 @@ export default class TakeNote extends Component {
         console.log("====================>><<><>", d.slice(16, 21));
 
         var da = d.slice(16, 21)
-
 
         console.log('time picked is--', da);
         this.setState({
@@ -319,18 +252,18 @@ export default class TakeNote extends Component {
                             </TouchableOpacity>)
                             :
                             (<TouchableOpacity onPress={(event) => this.getpin(event)}>
-                                <Image style={styles.unpinbutton} source={require('../assets/images/unpin.png')}>
+                                <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
                                 </Image>
                             </TouchableOpacity>)
                     }
 
                     <TouchableOpacity onPress={(event) => this.showDialog(event)}>
-                        <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
+                        <Image style={styles.reminderbutton} source={require('../assets/images/reminder.png')}></Image>
                     </TouchableOpacity>
 
 
                     <TouchableOpacity onPress={(event) => this.archive(event)} >
-                        <Image style={styles.archivebutton} source={require('../assets/images/archive.svg')}>
+                        <Image style={styles.archivebutton} source={require('../assets/images/archive.png')}>
                         </Image>
                     </TouchableOpacity>
                 </View>
@@ -356,12 +289,6 @@ export default class TakeNote extends Component {
                 </View>
 
 
-                {/* <Menu
-                    view={this.state.click}
-                    color={this.onChangeColor}
-                    trash={this.handleTrash}
-                    navigation={this.props.navigation}>
-                </Menu> */}
 
                 <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
 
@@ -392,6 +319,7 @@ export default class TakeNote extends Component {
                                 container: {
                                     // justifyContent: "center",
                                     marginBottom: 50,
+                                     backgroundColor:this.state.color
 
                                 }
                             }}>
@@ -403,7 +331,7 @@ export default class TakeNote extends Component {
                                 navigation={this.props.navigation} />
                         </RBSheet>
 
-                        <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
+                        <Image style={styles.dots} source={require('../assets/images/verticaldots.png')}></Image>
                     </TouchableOpacity>
 
 
@@ -497,17 +425,17 @@ const styles = StyleSheet.create({
     arrow: {
         marginTop: 10,
         marginLeft: 10,
-        width: 35,
-        height: 45,
-        paddingLeft: 10.1,
-        paddingRight: 10.1
+        width: 30,
+        height: 40,
+        paddingLeft: 10,
+        paddingRight: 10
 
     },
 
     pinbutton: {
-        width: 20,
-        height: 30,
-        marginTop: 20,
+        width: 30,
+        height: 50,
+        marginTop: 10,
 
         // width: 20,  //20,
         // height: 20,  //30,
@@ -520,41 +448,51 @@ const styles = StyleSheet.create({
 
 
     },
-    unpinbutton: {
-        width: 10,   //20,
-        height: 20,      //30,
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        //marginLeft: 10,  //10,
-        marginRight: -15,
-        paddingLeft: 50,   // 30,
-        marginTop: 20,
-
+    pinbutton: {
+        width: 30,
+        height: 50,
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10
     },
+    // unpinbutton: {
+    //     width: 30,   //20,
+    //     height: 20,      //30,
+    //     justifyContent: 'space-between',
+    //     alignItems: 'flex-start',
+    //     //marginLeft: 10,  //10,
+    //     marginRight: -15,
+    //     paddingLeft: 50,   // 30,
+    //     marginTop: 40,
+
+    // },
     reminderbutton: {
-        width: 40,
-        height: 40,
+        width: 35,
+        height: 35,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         marginLeft: 25,     //10,
         marginRight: 20,
         paddingLeft: 20,  // 30,
-        marginTop: 10
+        marginTop: 15
     },
     archivebutton: {
-        width: 30,
-        height: 30,
+        width: 35,
+        height: 35,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-
+        marginLeft: 10,
+        marginTop: 15,
+        marginRight: 50,
         // marginRight: 50,
         // paddingLeft: 20,    //  30,
         // marginTop: 10
     },
 
     plusicon: {
-        width: 50,
-        height: 50,
+        flexDirection: 'row',
+        width: 40,
+        height: 40,
         justifyContent: 'space-between',
         alignItems: "center",
         marginLeft: 10,
@@ -564,15 +502,14 @@ const styles = StyleSheet.create({
 
 
     dots: {
-        width: 60,
-        height: 60,
-        justifyContent: 'space-between',
+        flexDirection: "row",
+        width: 40,
+        height: 45,
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        // marginRight:300,
-        marginLeft: 290,
-        paddingLeft: 85,
-        marginTop: 10,
-        //marginBottom:50
+        marginLeft: 320,
+        marginTop: 1,
+        marginBottom: 10
     }
 
 });

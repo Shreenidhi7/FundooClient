@@ -18,7 +18,7 @@ export default class Trash extends Component {
     drawerLabel: 'Trash',
     backgroundColor:'yellow',
     drawerIcon:
-      <Image style={{width:24,height:30}}source={require('../assets/images/delete.png')} />
+      <Image style={{width:24,height:30}}source={require('../assets/images/trash.png')} />
   }
     constructor() {
         super()

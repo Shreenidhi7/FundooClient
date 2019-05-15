@@ -13,7 +13,7 @@ export default class Archive extends Component {
     drawerLabel: 'Archive',
     backgroundColor:'yellow',
     drawerIcon:
-      <Image style={{width:24,height:30}}source={require('../assets/images/archive.svg')} />
+      <Image style={{width:24,height:30}}source={require('../assets/images/archive.png')} />
   }
   constructor() {
     super();

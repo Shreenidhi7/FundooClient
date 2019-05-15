@@ -29,7 +29,7 @@ export default class DashBoard extends Component {
     inactiveTintColor:'black',
     backgroundColor:'yellow',
     drawerIcon:
-      <Image style={{width:24,height:30}}source={require('../assets/images/notesicon.png')} />
+      <Image style={{width:24,height:30}}source={require('../assets/images/noteicon.png')} />
   }
   
   constructor() {
@@ -81,6 +81,7 @@ export default class DashBoard extends Component {
           archive: this.state.archive,
           pinned: this.state.pinned,
           reminder: this.state.reminder,
+          color:this.state.color,
           token: value
         }
         getNotes(data)

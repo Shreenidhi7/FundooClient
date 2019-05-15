@@ -6,7 +6,7 @@ import {
 
 } from 'react-native';
 import { ToastAndroid } from 'react-native';
-import { createNote, editTitle, editDescription, UpdateColor, isArchived, isPinned, isTrashed,setReminder } from "../services/noteService";
+import { createNote, editTitle, editDescription, UpdateColor, isArchived, isPinned, isTrashed, editReminder } from "../services/noteService";
 import Reminder from '../screens/reminder';
 import DashBoard from '../screens/dashboard'
 import Menu from '../navigation/Menu'
@@ -33,8 +33,7 @@ export default class Edit extends Component {
             trash: false,
             click: false,
             newline: true,
-            TakeNote: {},
-           // archiveNote: {},
+            EditNote: {}, 
             color: this.props.navigation.state.params.Display.color,
             dialogVisible: false,
             PickerValue: '',
@@ -59,17 +58,7 @@ export default class Edit extends Component {
 
 
 
-    // validateinput() {
-    //     if (this.state.Title == '') {
-    //         ToastAndroid.showWithGravity("Enter Title", ToastAndroid.LONG, ToastAndroid.BOTTOM)
-    //     }
-    //     if (this.state.Description == '') {
-    //         ToastAndroid.showWithGravity("Enter Description", ToastAndroid.LONG, ToastAndroid.BOTTOM)
-    //     }
-    //     else {
-    //         return true
-    //     }
-    // }
+  
 
     // submit = async event => {
     //     // var check = this.validateinput();
@@ -82,122 +71,50 @@ export default class Edit extends Component {
     // }
 
 
-submit=async event=>{
+    submit = async event => {
 
 
 
 
 
-    AsyncStorage.getItem('token').then(value => {
-        console.log("Getting token while Creating Note", value);
-        this.token = value
-        var data = {
-            title: this.state.Title,
-            description: this.state.Description,
-            archive: this.state.archive,
-            pinned: this.state.pinned,
-            reminder: this.state.reminder,
-            color: this.state.color,
-            trash: this.state.trash,
-            token: value
-        }
-    
+        AsyncStorage.getItem('token').then(value => {
+            console.log("Getting token while Creating Note", value);
+            this.token = value
+           
 
-    /*    createNote(data)
-            .then((result) => {
- 
-                this.setState({
-                    TakeNote: result.data.data
+            editTitle(this.state.Title,this.token,this.props.navigation.state.params.Display)
+                .then((result) => {
+                    this.setState({
+                        EditNote: result.data.data.title
+                    })
+                    this.props.navigation.navigate('DashBoard')
                 })
-                this.props.navigation.navigate('DashBoard')
-            })
-            .catch((err) => {
-                ToastAndroid.showWithGravity("Fill all the sections", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("title is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                })
+
+
+
+                editDescription(this.state.Description,this.token,this.props.navigation.state.params.Display)
+            // editDescription(data.token, data.description, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
+                .then((result) => {
+                    this.setState({
+                        EditNote: result.data.data.description
+                    })
+                    this.props.navigation.navigate('DashBoard')
+                })
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("description is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                })
             
-            })
-            */
-           editTitle(data.title,this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
-           .then((result) => {
-               this.setState({
-                   TakeNote: result.data.data.title
-               })
-               this.props.navigation.navigate('DashBoard')
-           })
-           .catch((err) => {
-               ToastAndroid.showWithGravity("title is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-           })
+               
 
+        })
 
-
-
-                editDescription(data.description,this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
-                    .then((result) => {
-                        this.setState({
-                            TakeNote: result.data.data.description
-                        })
-                        this.props.navigation.navigate('DashBoard')
-                    })
-                    .catch((err) => {
-                        ToastAndroid.showWithGravity("description is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-                    })
-
-                })
-
-                }
-    //         //     isArchived(data.archive)
-    //         //         .then((result) => {
-    //         //             this.setState({
-    //         //                 TakeNote: result.data.data.archive
-    //         //             })
-    //         //             this.props.navigation.navigate('DashBoard')
-    //         //         })
-    //         //         .catch((err) => {
-    //         //             ToastAndroid.showWithGravity("Archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-    //         //         })
-
-
-    //         //     isPinned(data.pinned)
-    //         //         .then((result) => {
-    //         //             this.setState({
-    //         //                 TakeNote: result.data.data.pinned
-    //         //             })
-    //         //             this.props.navigation.navigate('DashBoard')
-    //         //         })
-    //         //         .catch((err) => {
-    //         //             ToastAndroid.showWithGravity("Pinned is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-    //         //         })
-
-    //         //     setReminder(data.reminder)
-    //         //         .then((result) => {
-    //         //             this.setState({
-    //         //                 TakeNote: result.data.data.reminder
-    //         //             })
-    //         //             this.props.navigation.navigate('DashBoard')
-    //         //         })
-    //         //         .catch((err) => {
-    //         //             ToastAndroid.showWithGravity("Reminder is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-    //         //         })
-
-    //         //     UpdateColor(data.color)
-    //         //         .then((result) => {
-    //         //             this.setState({
-    //         //                 TakeNote: result.data.data.color
-    //         //             })
-    //         //             this.props.navigation.navigate('DashBoard')
-    //         //         })
-    //         //         .catch((err) => {
-    //         //             ToastAndroid.showWithGravity("Color is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-    //         //         })
-    //         // })
-
-
-    //     })
-    //  }
-    // else {
-    //     console.log("error in validation");
-
-    // }
-   // getpin = async event => {
+        
+    }
+    
+    // getpin = async event => {
     async getpin(event) {
         await this.setState({ pinned: !this.state.pinned })
         isPinned(this.state.pinned, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
@@ -231,9 +148,9 @@ submit=async event=>{
         this.hideDateTimePicker();
     }
 
-  
 
-    
+
+
     archive = async event => {
 
         await this.setState({
@@ -269,20 +186,21 @@ submit=async event=>{
 
     async handleTrash(value) {
         console.log("trash", value);
-       await this.setState({
+        await this.setState({
             trash: value
         })
-        isTrashed(this.props.navigation.state.params.Display,this.props.navigation.state.params.notekey)
+        isTrashed(this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
     }
 
     async onChangeColor(newColor) {
         console.log("color", newColor);
-       await this.setState({
+        await this.setState({
             color: newColor
         })
-        UpdateColor(this.state.color,this.props.navigation.state.params.Display,this.props.navigation.state.params.notekey)
+        UpdateColor(this.state.color,this.token,this.props.navigation.state.params.Display)
+    
     }
-
+   
 
 
     handleSave = () => {
@@ -294,7 +212,7 @@ submit=async event=>{
                 dialogVisible: false
             })
         }
-        editReminder(date,this.props.navigation.state.params.Display,this.props.navigation.state.params.notekey)
+        editReminder(date, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
     }
     dateNotification() { }
 
@@ -305,13 +223,13 @@ submit=async event=>{
                 dialogVisible: false
             })
         }
-        editReminder(this.state.reminder,this.props.navigation.state.params.Display,this.props.navigation.state.params.notekey)
+        editReminder(this.state.reminder, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
     }
 
     render() {
-        console.log(this.props.navigation.state.params.notekey+"notekey");
-        
-       // const { navigation } = this.props;
+        console.log(this.props.navigation.state.params.notekey + "notekey");
+
+        // const { navigation } = this.props;
 
         // const title = navigation.getParam('title')
         // const description = navigation.getParam('description')
@@ -320,7 +238,7 @@ submit=async event=>{
             <View style={{ backgroundColor: this.state.color, }}>
                 <View style={styles.container}>
 
-                    <TouchableOpacity onPress={() => { this.submit()}}>
+                    <TouchableOpacity onPress={() => { this.submit() }}>
                         <Image style={styles.arrow} source={require('../assets/images/leftarrow.png')} >
                         </Image>
                     </TouchableOpacity>
@@ -334,18 +252,18 @@ submit=async event=>{
                             </TouchableOpacity>)
                             :
                             (<TouchableOpacity onPress={(event) => this.getpin(event)}>
-                                <Image style={styles.unpinbutton} source={require('../assets/images/unpin.png')}>
+                                <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
                                 </Image>
                             </TouchableOpacity>)
                     }
 
                     <TouchableOpacity onPress={(event) => this.showDialog(event)}>
-                        <Image style={styles.reminderbutton} source={require('../assets/images/remaindericon.png')}></Image>
+                        <Image style={styles.reminderbutton} source={require('../assets/images/reminder.png')}></Image>
                     </TouchableOpacity>
 
 
                     <TouchableOpacity onPress={(event) => this.archive(event)} >
-                        <Image style={styles.archivebutton} source={require('../assets/images/archivebox.png')}>
+                        <Image style={styles.archivebutton} source={require('../assets/images/archive.png')}>
                         </Image>
                     </TouchableOpacity>
                 </View>
@@ -357,9 +275,9 @@ submit=async event=>{
                         style={{ fontSize: 30, fontWeight: "bold" }}
                         placeholder="Title"
                         placeholderTextColor="#a1a5a3"
-                      //  onChangeText={(text) => this.setState({ Title: text })} working fine
-                      onChangeText={(Title)=>this.setState({Title})}
-                      value={this.state.Title}
+                        //  onChangeText={(text) => this.setState({ Title: text })} working fine
+                        onChangeText={(Title) => this.setState({ Title })}
+                        value={this.state.Title}
                         multiline={this.state.newline}
 
 
@@ -367,8 +285,8 @@ submit=async event=>{
                     <TextInput placeholder="Description"
                         style={{ fontSize: 20, fontWeight: "bold" }}
                         placeholderTextColor="#a1a5a3"
-                       // onChangeText={(text) => this.setState({ Description: text })}
-                        onChangeText={(Description)=>this.setState({Description})}
+                        // onChangeText={(text) => this.setState({ Description: text })}
+                        onChangeText={(Description) => this.setState({ Description })}
                         value={this.state.Description}
                         multiline={this.state.newline}
                     />
@@ -398,7 +316,7 @@ submit=async event=>{
                     <TouchableOpacity>
                         <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
                     </TouchableOpacity>
-                   
+
                     <TouchableOpacity onPress={() => this.RBSheet.open()}>
                         <RBSheet
                             ref={ref => {
@@ -420,9 +338,9 @@ submit=async event=>{
                                 trash={this.handleTrash}
                                 navigation={this.props.navigation} />
                         </RBSheet>
-                        <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
-                        </TouchableOpacity>
-                   
+                        <Image style={styles.dots} source={require('../assets/images/verticaldots.png')}></Image>
+                    </TouchableOpacity>
+
                     {/* <TouchableOpacity onPress={() => this.getmenu()}>
                         <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
 
@@ -506,68 +424,76 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 525
     },
-
     arrow: {
         marginTop: 10,
         marginLeft: 10,
-        width: 35,
-        height: 45,
-        paddingLeft: 10.1,
-        paddingRight: 10.1
+        width: 30,
+        height: 40,
+        paddingLeft: 10,
+        paddingRight: 10
 
     },
 
     pinbutton: {
-        width: 20,
-        height: 30,
-        marginTop: 20,
-
-        // width: 20,  //20,
-        // height: 20,  //30,
-        // justifyContent: 'space-between',
-        // alignItems: 'flex-start',
-
-        // marginRight: -25,
-        // paddingLeft: 50,   // 30,
-        // marginTop: 70,
-
-
+        width: 30,
+        height: 50,
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 10
     },
-    unpinbutton: {
-        width: 10,   //20,
-        height: 20,      //30,
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        //marginLeft: 10,  //10,
-        marginRight: -15,
-        paddingLeft: 50,   // 30,
-        marginTop: 20,
+    // pinbutton: {
+    //     width: 20,
+    //     height: 30,
+    //     marginTop: 30,
 
-    },
+    //     // width: 20,  //20,
+    //     // height: 20,  //30,
+    //     // justifyContent: 'space-between',
+    //     // alignItems: 'flex-start',
+
+    //     // marginRight: -25,
+    //     // paddingLeft: 50,   // 30,
+    //     // marginTop: 70,
+
+
+    // },
+    // unpinbutton: {
+    //     width: 10,   //20,
+    //     height: 20,      //30,
+    //     justifyContent: 'space-between',
+    //     alignItems: 'flex-start',
+    //     //marginLeft: 10,  //10,
+    //     marginRight: -15,
+    //     paddingLeft: 50,   // 30,
+    //     marginTop: 20,
+
+    // },
     reminderbutton: {
-        width: 40,
-        height: 40,
+        width: 35,
+        height: 35,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         marginLeft: 25,     //10,
         marginRight: 20,
         paddingLeft: 20,  // 30,
-        marginTop: 10
+        marginTop: 15
     },
     archivebutton: {
-        width: 30,
-        height: 30,
+        width: 35,
+        height: 35,
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-
+        marginLeft: 10,
+        marginTop: 15,
+        marginRight: 50,
         // marginRight: 50,
         // paddingLeft: 20,    //  30,
         // marginTop: 10
     },
-
     plusicon: {
-        width: 50,
-        height: 50,
+        flexDirection: 'row',
+        width: 40,
+        height: 40,
         justifyContent: 'space-between',
         alignItems: "center",
         marginLeft: 10,
@@ -575,19 +501,16 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
 
-
     dots: {
-        width: 60,
-        height: 60,
-        justifyContent: 'space-between',
+        flexDirection: "row",
+        width: 40,
+        height: 45,
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        // marginRight:300,
-        marginLeft: 290,
-        paddingLeft: 85,
-        marginTop: 10,
-        //marginBottom:50
+        marginLeft: 320,
+        marginTop: 1,
+        marginBottom: 10
     }
-
 });
 
 

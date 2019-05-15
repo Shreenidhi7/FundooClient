@@ -13,7 +13,7 @@ export default class Reminder extends Component {
     drawerLabel:'Reminder',
     backgroundColor:'yellow',
     drawerIcon:
-      <Image style={{width:24,height:30}}source={require('../assets/images/archivebox.png')} />
+      <Image style={{width:24,height:30}}source={require('../assets/images/reminder.png')} />
   }
   constructor() {
     super();
