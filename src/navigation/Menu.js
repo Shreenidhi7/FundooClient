@@ -94,7 +94,7 @@ export default class Menu extends Component {
                 <View style={{ height: 50 }}>
                     <TouchableOpacity onPress={this.handleTrash.bind(this)}>
                    
-                        <Text style={styles.text}>                          Delete </Text>
+                        <Text style={styles.text}> Delete </Text>
                         <Image style={{width:24,height:30,flexDirection:"row"}}source={require('../assets/images/trash.png')}/>
                     </TouchableOpacity>
                 </View>

@@ -8,7 +8,7 @@ import Reminder from '../screens/reminder';
 import DashBoard from '../screens/dashboard'
 import Menu from '../navigation/Menu'
 import DateTimePicker from 'react-native-modal-datetime-picker'
-
+import styles from "../StyleSheet";
 import Dialog from 'react-native-dialog'
 import RBSheet from 'react-native-raw-bottom-sheet'
 //import dateFormat from 'dateformat'
@@ -87,7 +87,7 @@ export default class TakeNote extends Component {
                     pinned: this.state.pinned,
                     reminder: this.state.reminder,
                     color: this.state.color,
-                    trash: this.state.trash,
+                  
                     token: value
                 }
 
@@ -202,14 +202,6 @@ export default class TakeNote extends Component {
     //         });
     //     };
 
-    //extra madirodu
-    // if(time!==''){
-    //     this.setState({
-    //         reminder:time,
-    //         dialogVisible:false
-    //     })
-    // }
-    // }
 
     handleSave = () => {
         var date = this.state.date + "  " + this.state.time
@@ -236,10 +228,10 @@ export default class TakeNote extends Component {
     render() {
         return (
             <View>
-                <View style={styles.container}>
+                <View style={styles.takeNoteTopBar}>
 
                     <TouchableOpacity onPress={() => this.submit()}>
-                        <Image style={styles.arrow} source={require('../assets/images/leftarrow.png')} >
+                        <Image style={styles.takenotetopicon} source={require('../assets/images/leftarrow.png')} >
                         </Image>
                     </TouchableOpacity>
 
@@ -247,23 +239,23 @@ export default class TakeNote extends Component {
                     {
                         this.state.pinned ?
                             (<TouchableOpacity onPress={(event) => this.getpin(event)}>
-                                <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
+                                <Image style={styles.takenotetopicon} source={require('../assets/images/pin.png')}>
                                 </Image>
                             </TouchableOpacity>)
                             :
                             (<TouchableOpacity onPress={(event) => this.getpin(event)}>
-                                <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
+                                <Image style={styles.takenotetopicon} source={require('../assets/images/unpin.png')}>
                                 </Image>
                             </TouchableOpacity>)
                     }
 
                     <TouchableOpacity onPress={(event) => this.showDialog(event)}>
-                        <Image style={styles.reminderbutton} source={require('../assets/images/reminder.png')}></Image>
+                        <Image style={styles.takenotetopicon} source={require('../assets/images/reminder.png')}></Image>
                     </TouchableOpacity>
 
 
                     <TouchableOpacity onPress={(event) => this.archive(event)} >
-                        <Image style={styles.archivebutton} source={require('../assets/images/archive.png')}>
+                        <Image style={styles.takenotetopicon} source={require('../assets/images/archive.png')}>
                         </Image>
                     </TouchableOpacity>
                 </View>
@@ -290,7 +282,7 @@ export default class TakeNote extends Component {
 
 
 
-                <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
+                {/* <View style={{ flex: 1, backgroundColor: "#ffffff", justifyContent: 'flex-end', bottom: -500,   }}></View> */}
 
 
 
@@ -301,10 +293,10 @@ export default class TakeNote extends Component {
                     navigation={this.props.navigation}>
                 </Menu> */}
 
-                <View style={styles.last}>
+                <View style={styles.databottomTakeNote}>
 
                     <TouchableOpacity>
-                        <Image style={styles.plusicon} source={require('../assets/images/plusnew.png')}></Image>
+                        <Image style={styles.takeNotebottomicon} source={require('../assets/images/plusnew.png')}></Image>
                     </TouchableOpacity>
 
 
@@ -316,10 +308,10 @@ export default class TakeNote extends Component {
                             height={300}
                             duration={250}
                             customStyles={{
-                                container: {
+                                takeNoteTopBar: {
                                     // justifyContent: "center",
                                     marginBottom: 50,
-                                     backgroundColor:this.state.color
+                                    backgroundColor: this.state.color
 
                                 }
                             }}>
@@ -331,14 +323,11 @@ export default class TakeNote extends Component {
                                 navigation={this.props.navigation} />
                         </RBSheet>
 
-                        <Image style={styles.dots} source={require('../assets/images/verticaldots.png')}></Image>
+                        <Image style={styles.takeNotebottomicon} source={require('../assets/images/verticaldots.png')}></Image>
                     </TouchableOpacity>
 
 
-                    {/* <TouchableOpacity onPress={() => this.getmenu()}>
-                        <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
-
-                    </TouchableOpacity> */}
+              
                 </View>
 
 
@@ -408,111 +397,115 @@ export default class TakeNote extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container:
-    {
-        flexDirection: 'row',
-    },
-    last: {
-        flexDirection: 'row',
-        marginTop: 525
-        // position: 'absolute',
-        // bottom: -500,  //-555,
-        //flexDirection: "row"
+// const styles = StyleSheet.create({
+//     takeNoteTopBar:
+//     {
+//         flexDirection: 'row',
+//     },
+//     last: {
+//         flexDirection: 'row',
+//         marginTop: 525
+//         // position: 'absolute',
+//         // bottom: -500,  //-555,
+//         //flexDirection: "row"
 
-    },
+//     },
 
-    arrow: {
-        marginTop: 10,
-        marginLeft: 10,
-        width: 30,
-        height: 40,
-        paddingLeft: 10,
-        paddingRight: 10
+//     arrow: {
+//         marginTop: 10,
+//         marginLeft: 10,
+//         width: 30,
+//         height: 40,
+//         paddingLeft: 10,
+//         paddingRight: 10
 
-    },
+//     },
 
-    pinbutton: {
-        width: 30,
-        height: 50,
-        marginTop: 10,
+//     pinbutton: {
+//         width: 30,
+//         height: 50,
+//         marginTop: 10,
 
-        // width: 20,  //20,
-        // height: 20,  //30,
-        // justifyContent: 'space-between',
-        // alignItems: 'flex-start',
+//         // width: 20,  //20,
+//         // height: 20,  //30,
+//         // justifyContent: 'space-between',
+//         // alignItems: 'flex-start',
 
-        // marginRight: -25,
-        // paddingLeft: 50,   // 30,
-        // marginTop: 70,
-
-
-    },
-    pinbutton: {
-        width: 30,
-        height: 50,
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10
-    },
-    // unpinbutton: {
-    //     width: 30,   //20,
-    //     height: 20,      //30,
-    //     justifyContent: 'space-between',
-    //     alignItems: 'flex-start',
-    //     //marginLeft: 10,  //10,
-    //     marginRight: -15,
-    //     paddingLeft: 50,   // 30,
-    //     marginTop: 40,
-
-    // },
-    reminderbutton: {
-        width: 35,
-        height: 35,
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        marginLeft: 25,     //10,
-        marginRight: 20,
-        paddingLeft: 20,  // 30,
-        marginTop: 15
-    },
-    archivebutton: {
-        width: 35,
-        height: 35,
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        marginLeft: 10,
-        marginTop: 15,
-        marginRight: 50,
-        // marginRight: 50,
-        // paddingLeft: 20,    //  30,
-        // marginTop: 10
-    },
-
-    plusicon: {
-        flexDirection: 'row',
-        width: 40,
-        height: 40,
-        justifyContent: 'space-between',
-        alignItems: "center",
-        marginLeft: 10,
-        paddingLeft: 30,
-        marginTop: 10
-    },
+//         // marginRight: -25,
+//         // paddingLeft: 50,   // 30,
+//         // marginTop: 70,
 
 
-    dots: {
-        flexDirection: "row",
-        width: 40,
-        height: 45,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginLeft: 320,
-        marginTop: 1,
-        marginBottom: 10
-    }
+//     },
+//     unpinbutton: {
+//         width: 25,
+//         height: 33,
+//         marginTop:20,
+//         marginBottom:0.5
+//       //  marginTop: 20,
+//       //  marginLeft:10,
+//       //  marginRight:5
+//        // marginLeft: 10,
+//        // marginRight: 10
+//     },
+//     // unpinbutton: {
+//     //     width: 30,   //20,
+//     //     height: 20,      //30,
+//     //     justifyContent: 'space-between',
+//     //     alignItems: 'flex-start',
+//     //     //marginLeft: 10,  //10,
+//     //     marginRight: -15,
+//     //     paddingLeft: 50,   // 30,
+//     //     marginTop: 40,
 
-});
+//     // },
+//     reminderbutton: {
+//         width: 35,
+//         height: 35,
+//         justifyContent: 'space-between',
+//         alignItems: 'flex-start',
+//         marginLeft: 25,     //10,
+//         marginRight: 20,
+//         paddingLeft: 20,  // 30,
+//         marginTop: 15
+//     },
+//     archivebutton: {
+//         width: 35,
+//         height: 35,
+//         justifyContent: 'space-between',
+//         alignItems: 'flex-start',
+//         marginLeft: 10,
+//         marginTop: 15,
+//         marginRight: 50,
+//         // marginRight: 50,
+//         // paddingLeft: 20,    //  30,
+//         // marginTop: 10
+//     },
+
+//     plusicon: {
+//         flexDirection: 'row',
+//         width: 40,
+//         height: 40,
+//         justifyContent: 'space-between',
+//         alignItems: "center",
+//         marginLeft: 10,
+//         paddingLeft: 30,
+//         marginTop: 10
+//     },
+
+
+//     dots: {
+//         flexDirection: "row",
+//         width: 40,
+//         height: 45,
+//         justifyContent: 'flex-end',
+//         alignItems: 'center',
+//         marginLeft: 320,
+//         marginTop: 1,
+//         marginBottom: 10
+//     }
+
+// });
 
 
 {/*onPress={(event) => this.archive(event)}>     */ }

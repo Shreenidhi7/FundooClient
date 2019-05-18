@@ -145,13 +145,7 @@ const styles = StyleSheet.create({
     },
 
     inputbox: {
-        // alignSelf: 'stretch',
-        // height: 40,
-        // marginBottom: 30,
-        // fontWeight: 'bold',
-        // color: "black",
-        // borderBottomColor: 'rgb(7, 7, 7)',
-         //borderBottomWidth: 1,
+  
          fontSize:18,
          width:300,
          backgroundColor:'rgba(255,255,255,0.3)',

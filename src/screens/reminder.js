@@ -6,14 +6,15 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerActions } from "react-navigation";
 import CardComponent from '../navigation/CardCompo'
 import { getNotes } from "../services/noteService";
+import styles from "../StyleSheet";
 export default class Reminder extends Component {
   //static navigationOptions={headers:null}
   static navigationOptions = {
     header: null,
-    drawerLabel:'Reminder',
-    backgroundColor:'yellow',
+    drawerLabel: 'Reminder',
+    backgroundColor: 'yellow',
     drawerIcon:
-      <Image style={{width:24,height:30}}source={require('../assets/images/reminder.png')} />
+      <Image style={{ width: 24, height: 30 }} source={require('../assets/images/reminder.png')} />
   }
   constructor() {
     super();
@@ -26,16 +27,6 @@ export default class Reminder extends Component {
       //  key: 1
     }
   }
-    // static navigationOptions = { 
-    //   drawerLabel:'Archive',
-    //   inactiveTintcolor:'black',
-    //   drawerIcon:()=>{
-    //     <Image
-    //     source={require('../assets/images/searchicon.png')}
-    //     style={[styles.icon]}/>
-    //   }
-    //  }
-  
 
   componentDidMount() {
 
@@ -46,21 +37,22 @@ export default class Reminder extends Component {
         var data = {
           title: this.state.Title,
           description: this.state.Description,
+          pinned: this.state.pinned,
           archive: this.state.archive,
-          reminder:this.state.reminder,
-          color:this.state.color,
+          reminder: this.state.reminder,
+          color: this.state.color,
           token: value
         }
         getNotes(data)
           .then((result) => {
 
             this.setState({
-         //  original   //archiveNote: result.result
-         dataArray:result.result
+              //  original   //archiveNote: result.result
+              dataArray: result
             })
-            console.log("Result in Datasoure Frontend===>\n")
-            console.log(result.result)
-            //  console.log("state in dash ->",this.state.dataSource);
+            // console.log("Result in Datasoure Frontend===>\n")
+            // console.log(result.result)  original
+
 
           })
           .catch((err) => {
@@ -81,14 +73,14 @@ export default class Reminder extends Component {
 
   render() {
 
-    var arr1 = []
+    var reminderArray = []
     var key;
-    arr1 = Object.keys(this.state.dataArray).map((notes) => {
+    reminderArray = Object.keys(this.state.dataArray).map((notes) => {
       key = notes;
       var data = this.state.dataArray[key]
 
-     // if ((data.trash === false && data.archive === true && data.pinned !== true)) {
-       if(data.reminder === true && data.archive===false){
+      // if ((data.trash === false && data.archive === true && data.pinned !== true)) {
+      if (data.reminder != '') {
         return (
           <CardComponent Display={data}
             notekey={key}
@@ -98,26 +90,26 @@ export default class Reminder extends Component {
       }
     })
 
-
-
-
     return (
-    
+
 
       <View style={{ flex: 1 }}>
-        <View style={{ height: 80, backgroundColor:     /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
-          <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390, marginLeft: 7, borderRadius: 9, borderColor: "#C1C1C1", borderWidth: 2, marginRight: 60 }}>
+        <View style={{ height: 80, backgroundColor: '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
+          <View style={styles.topboxReminder}>
+         
 
+            <View style={{flexDirection:'row'}}>
 
+              <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
+                <Image style={styles.remindertopicons} source={require('../assets/images/drawericon.png')} />
+              </TouchableOpacity>
 
-            <TouchableOpacity onPress={() =>   this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-              <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => this.componentDidMount()}>
-              <Image style={styles.image} source={require('../assets/images/refresh.png')}></Image>
-            </TouchableOpacity>
-
+              <TouchableOpacity onPress={() => this.componentDidMount()}>
+                <Image style={styles.remindertopicons} source={require('../assets/images/refresh.png')}></Image>
+              </TouchableOpacity>
+            </View>
+          
+          
             <Text style={styles.text}>Reminder
             </Text>
 
@@ -151,7 +143,7 @@ export default class Reminder extends Component {
 
         <ScrollView>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-            {arr1}
+            {reminderArray}
           </View>
 
         </ScrollView>
@@ -166,68 +158,11 @@ export default class Reminder extends Component {
 
 
 
-const styles = StyleSheet.create({
-  icon:{
-    width:20,
-    height:20,
-  },
-  drawericon: {
-   width: 38, //30,
-    height: 38,  //40,
-    justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    marginLeft: 5,   //10,
-    paddingLeft: 30
-  },
-  text: {
-    marginLeft: 30,
-    fontSize: 25,
-    color: "black",
-
-  },
-  searchicon: {
-    width: 35, //30,
-    height: 35,  //40,
-    justifyContent: 'space-between',
-    alignItems: "center",      
-    marginRight: 30,
-    marginLeft:20,
-    marginVertical:10
-
-  },
-
-  image: {
-    width: 30, //30,
-    height: 30,  //40,
-    justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    marginLeft: 15,   //10,
-    paddingLeft: 30,
-  },
-  gridicon: {
-   
-    width: 24,
-    height: 24,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end'
-  },
-
-  listicon: {
-
-    width: 42,
-    height: 42,
-    alignItems: "flex-end",
-    justifyContent: 'flex-end'
-  }
-
-})
 
 
 
 
 
-
- 
 
 
 
@@ -274,9 +209,9 @@ const styles = StyleSheet.create({
 //       date:''
 //     };
 //   }
-  
+
 //   showDialog=()=>{
-    
+
 //   }
 
 //   handleCancel(){
@@ -328,28 +263,28 @@ const styles = StyleSheet.create({
 //       console.log("Bartidya");
 //       var date1=this.state.date+','+this.state.time;
 //       console.log("time and date"+date1);
-           
+
 //     }
-  
+
 //   render(){
 //   // const newLocal = <DateTimePicker isVisible={this.state.isVisible} onConfirm={this.handlePicker} onCancel={this.hidePicker} />;
 //   const{selectedHours,selectedMinutes}=this.state  
-   
+
 //    return(
 //       <View>
 //       <TouchableOpacity onPress={this.showDialog}>
 //         <Text>Show Dialog </Text>
 //       </TouchableOpacity>
 //       <Dialog.Container visible={true}>
-     
+
 //       <Dialog.Title>
 //         Set Date and Time
 //       </Dialog.Title>
-      
+
 //       <Dialog.Description>
 //         Do you want to set time?
 //       </Dialog.Description>
-      
+
 
 //       <TouchableOpacity onPress={this.showDateTimePiker}>
 //         {
@@ -405,7 +340,7 @@ const styles = StyleSheet.create({
 //     justifyContent:'center',
 //     alignItems:'center',
 //     backgroundColor:'#F5FcFF',
-    
+
 //   }
 // })
 
@@ -574,11 +509,11 @@ const styles = StyleSheet.create({
 //       <View style={{ flex: 1 }}>
 //       <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
 //         <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390,marginLeft:7, borderRadius:9,/*borderColor:"#C1C1C1",borderWidth:2 */ }}>
-         
+
 //           <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
 //             <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
 //           </TouchableOpacity>
-      
+
 //           <Text style={styles.text}>
 //                   Reminders
 //           </Text>
@@ -613,7 +548,7 @@ const styles = StyleSheet.create({
 //   <View style={styles.data1}>
 //     <View style={styles.data}>
 
-  
+
 
 //   <TouchableOpacity   onPress={()=>this.props.navigation.navigate('TakeNote')}>
 //       <Text style={styles.text1}>Take a note...</Text>
@@ -696,8 +631,8 @@ const styles = StyleSheet.create({
 //      // paddingLeft: 30,
 //       marginHorizontal:60,
 //       marginRight:30
-     
-  
+
+
 //     },
 //     gridicon: {
 //       width: 28, //30,
@@ -723,9 +658,9 @@ const styles = StyleSheet.create({
 //       justifyContent: 'center',
 //       backgroundColor: "#ffffff",   //"#206bad",    /*   '#1c313a', */
 //       alignItems: 'center',
-  
+
 //     },
-  
+
 //     text: {
 //       justifyContent: 'center',
 //       alignItems: 'center',
@@ -770,7 +705,7 @@ const styles = StyleSheet.create({
 //       //marginRight:70,
 //       //marginLeft:-45,
 //      // marginLeft:-30
-  
+
 //     },
 //     image1: {
 //       flexDirection:"row",
@@ -781,7 +716,7 @@ const styles = StyleSheet.create({
 //       marginHorizontal: 10,
 //       paddingHorizontal: 0.5,
 //       paddingBottom:60,
-  
+
 //     },
 //     checkbox: {
 //       width: 25,  //20,
@@ -816,8 +751,8 @@ const styles = StyleSheet.create({
 //       marginHorizontal: 10,
 //       paddingHorizontal: 0.5
 //     }
-  
-  
+
+
 // })
 
 

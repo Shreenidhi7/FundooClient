@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerActions } from 'react-navigation';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Text,
-  ScrollView,
-} from 'react-native';
+import styles from "../StyleSheet";
+import {View,TouchableOpacity,Image,Text,ScrollView,} from 'react-native';
 import { ToastAndroid } from "react-native";
 
 import { getNotes } from "../services/noteService";
-//import { Card } from 'react-native-elements';
+
 import CardComponent from "../navigation/CardCompo";
 
-//var dateFormat = require('dateformat');
-//var dataArray = new Date();
-
+import Search from '../screens/search'
 
 
 export default class DashBoard extends Component {
@@ -26,19 +18,19 @@ export default class DashBoard extends Component {
   static navigationOptions = {
     header: null,
     drawerLabel: 'Notes',
-    inactiveTintColor:'black',
-    backgroundColor:'yellow',
+    inactiveTintColor: 'black',
+    backgroundColor: 'yellow',
     drawerIcon:
-      <Image style={{width:24,height:30}}source={require('../assets/images/noteicon.png')} />
+      <Image style={{ width: 24, height: 30 }} source={require('../assets/images/noteicon.png')} />
   }
-  
-  constructor() {
-    super();
+
+  constructor(props) {
+    super(props);
 
     this.state = {
       Title: '',
       Description: '',
-      dataArray: [],
+      dataArray : [],
       archive: false,
       click: false,
 
@@ -50,7 +42,7 @@ export default class DashBoard extends Component {
     // this.onChangeProfile=this.onChangeProfile.bind(this)
   }
 
- // https://aboutreact.com/react-native-image-icon-inside-navigation-bar/
+  // https://aboutreact.com/react-native-image-icon-inside-navigation-bar/
 
 
   grid(event) {
@@ -73,7 +65,7 @@ export default class DashBoard extends Component {
 
     AsyncStorage.getItem('token')
       .then(value => {
-        console.log("Getting token while ReCreating Note", value);
+        // console.log("Getting token while ReCreating Note", value);
         this.token = value
         var data = {
           title: this.state.Title,
@@ -81,18 +73,19 @@ export default class DashBoard extends Component {
           archive: this.state.archive,
           pinned: this.state.pinned,
           reminder: this.state.reminder,
-          color:this.state.color,
+          color: this.state.color,
+          trash:this.state.trash,
           token: value
         }
         getNotes(data)
           .then((result) => {
 
             this.setState({
-              dataArray:
-                result.result
+              dataArray:result
+               
             })
-            console.log("Result in Datasoure Frontend===>\n")
-            console.log(result.result)
+            // console.log("Result in Datasoure Frontend===>\n")
+            // console.log(result.result)
             //   console.log(
             //   dateFormat("mediumDate"),
             // dateFormat("shortTime"))
@@ -118,20 +111,18 @@ export default class DashBoard extends Component {
     var arr = []
     var key;
     var data;
+   
     arr = Object.keys(this.state.dataArray).map((notes) => {
       key = notes;
-      data = this.state.dataArray[key]
+     var data = this.state.dataArray[key]
 
-      if(data.trash!==true && data.pinned===false )
+      if (data.trash !== true && data.pinned === false)
         return (
           <CardComponent Display={data}
             notekey={key}
             view={this.state.click}
             navigation={this.props.navigation} />
         )
-      
-      
-      
     })
 
     var pinarr = [];
@@ -141,7 +132,7 @@ export default class DashBoard extends Component {
     pinarr = Object.keys(this.state.dataArray).map((notes) => {
       key = notes;
       data = this.state.dataArray[key]
-      if (data.pinned === true && data.trash !== true) {
+      if (data.pinned === true && data.archive === false && data.trash !== true) {
         return (
           <CardComponent Display={data}
             notekey={key}
@@ -151,14 +142,14 @@ export default class DashBoard extends Component {
 
         )
       }
-   })
+    })
 
-
+  
     return (
 
       <View style={{ flex: 1 }}>
         <View style={{ height: 80, backgroundColor: /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
-          <View style={{ height: 50, bakgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390, marginLeft: 7, borderRadius: 9, borderColor: "#C1C1C1", borderWidth: 2 }}>
+          <View style={styles.topboxDashboard}>
 
 
             {/* onpress with drawericon */}
@@ -173,7 +164,7 @@ export default class DashBoard extends Component {
 
             {/* search onpress navigation */}
             <TouchableOpacity onPress={(event) => this.SearchNote(event)}>
-              <Text style={styles.text}>Search your Notes</Text>
+              <Text style={styles.textSearchNotes}>Search your Notes</Text>
             </TouchableOpacity>
 
 
@@ -228,49 +219,46 @@ export default class DashBoard extends Component {
 
 
 
-        <View style={styles.last}>
-          <View style={styles.data1}>
-            <View style={styles.data}>
+        {/* <View style={styles.last}> */}
+        {/* <View style={styles.data1}> */}
+        <View style={styles.databottomDashboard}>
 
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('TakeNote')}>
+            <Text style={styles.textTakeaNote}>Take a note...</Text>
+          </TouchableOpacity>
 
-
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('TakeNote')}>
-                <Text style={styles.text1}>
-                  Take a note...
-              </Text>
+          <View style={styles.bottomicons}>
+            <View>
+              <TouchableOpacity>
+                <Image style={styles.dashbordbottomicon} source={require('../assets/images/checkbox.png')} >
+                </Image>
               </TouchableOpacity>
+            </View>
 
+            <View>
+              <TouchableOpacity>
+                <Image style={styles.dashbordbottomicon} source={require('../assets/images/paintbrush.png')}>
+                </Image>
+              </TouchableOpacity>
+            </View>
 
-              <View>
-                <TouchableOpacity>
-                  <Image style={styles.checkbox} source={require('../assets/images/checkbox.png')} >
-                  </Image>
-                </TouchableOpacity>
-              </View>
+            <View>
+              <TouchableOpacity>
+                <Image style={styles.dashbordbottomicon} source={require('../assets/images/microphone.png')}>
+                </Image>
+              </TouchableOpacity>
+            </View>
 
-              <View>
-                <TouchableOpacity>
-                  <Image style={styles.pen} source={require('../assets/images/paintbrush.png')}>
-                  </Image>
-                </TouchableOpacity>
-              </View>
-
-              <View>
-                <TouchableOpacity>
-                  <Image style={styles.microphone} source={require('../assets/images/microphone.png')}>
-                  </Image>
-                </TouchableOpacity>
-              </View>
-
-              <View>
-                <TouchableOpacity /*onPress={this.imagePopUp()}*/>
-                  <Image style={styles.photo} source={require('../assets/images/image.png')}>
-                  </Image>
-                </TouchableOpacity>
-              </View>
+            <View>
+              <TouchableOpacity /*onPress={this.imagePopUp()}*/>
+                <Image style={styles.dashbordbottomicon} source={require('../assets/images/image.png')}>
+                </Image>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
+        {/* </View> */}
+        {/* </View> */}
       </View>
 
 
@@ -284,246 +272,272 @@ export default class DashBoard extends Component {
 
 
 
-const styles = StyleSheet.create({
-  data: {
-    height: 70,
-    width: 300,
-   // backgroundColor: "#ffffff", //"#206bad",   /* '#1c313a' */
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginVertical: 10,
-    alignItems: 'center',
-    padding: 50,
-    borderRadius: 35,
-  },
+// const styles = StyleSheet.create({
+//   data: {
+//     height: 70,
+//     width: 300,
 
-  drawericon: {
-    width: 30,
-    height: 40,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginRight: 10
-  },
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     marginVertical: 10,
+//     alignItems: 'center',
+//     padding: 50,
+//     borderRadius: 35,
+//   },
+// const styles=StyleSheet.create({
+// topDashboard:{
+//   height: 50, 
+//   bakgroundColor: '#ffffff',
+//    flexDirection: "row", 
+//    paddingLeft: 10,
+//     alignItems: 'center',
+//      width: /*350*/ 390, 
+//      marginLeft: 7,
+//       borderRadius: 9,
+//        borderColor: "#C1C1C1",
+//         borderWidth: 2
+// }
 
-  refresh: {
-    width: 30,
-    height: 30,
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginRight: 50,
-    marginLeft: 10
-  },
-  text: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 2,
-    marginLeft: -35,
-
-  },
-  gridicon: {
-    width: 27,
-    height: 28,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginLeft: 15,
-    marginRight: 10,
-    paddingLeft: 30
-  },
-
-  listicon: {
-    width: 30,
-    height: 40,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginLeft: 15,
-    marginRight: 10,
-    paddingLeft: 30
-  },
-
-  profile: {
-    width: 35,
-    height: 35,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginLeft: 15,
-    marginRight: 10,
-
-  },
+// })
 
 
 
-  // drawericon: {
-  //   width: 38, //30,
-  //   height: 38,  //40,
-  //   justifyContent: 'space-between',
-  //   alignItems: "center",       //'flex-start',
-  //   marginLeft: 10,   //10,
-  //   paddingLeft: 30
-  // },
-  // refresh: {
-  //   width: 30, //30,
-  //   height: 30,  //40,
-  //   justifyContent: 'space-between',
-  //   alignItems: "center",       //'flex-start',
-  //   marginLeft: 15,   //10,
-  //  marginRight:50,
 
-  // },
-  // gridicon: {
-  //   width: 27.5, //30,
-  //   height: 28.5,  //40,
-  //   justifyContent: 'space-between',
-  //   alignItems: "center",       //'flex-start',
-  //  // marginLeft: 15,   //10, not present
-  //  marginRight:100,
-  //  marginLeft:10,
-  //   paddingLeft: 30
-  // },
-  // listicon: {
-  //   width: 45, //30,
-  //   height: 40,  //40,
-  //   justifyContent: 'space-between',
-  //   alignItems: "center",       //'flex-start',
-  //   //marginLeft: 15,   //10, not present
-  //   marginRight:100,
-  //   paddingLeft: 30
-  // },
-  // profile: {
-  //   width: 45, //30,
-  //   height: 40,  //40,
-  //   justifyContent: 'space-between',
-  //   alignItems: "center",       //'flex-start',
-  // //  marginRight: 50,   //10, not present
-  //  //  paddingLeft: 30   not present
-  //   },
 
-  data1: {
 
-    justifyContent: 'center',
-    backgroundColor: "#ffffff",   //"#206bad",    /*   '#1c313a', */
-    alignItems: 'center',
 
-  },
 
-  // text: {
-  //   justifyContent: 'center',
-  //   alignItems: 'flex-start',
-  //   fontSize: 20,
-  //   fontWeight: "bold",
-  //   padding: 2,
-  //   marginLeft:-35,
 
-  // },
-  data: {
-    height: 70,
-    width: 340,
- //   backgroundColor: '#ffffff',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginVertical: 10,
-    alignItems: 'center',
-    // padding: 25,  not present
-    //borderRadius: 15,  not present
-  },
-  last: {
-    // position: 'relative',  not present
-    // bottom: 0,  not present
-    height: 50,
-   // backgroundColor: '#ffffff',
-    flexDirection: "row",
-    paddingLeft: 25,  //10,
-    alignItems: 'center',
-    width: /*350*/ 390,
-    marginLeft: 10,  //7,
-    marginVertical: 10,
-    // borderRadius: 1, //9, not present
-    borderColor: "#C1C1C1",
-    // borderWidth:1  not present
 
-  },
 
-  text1: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 22,
-    fontWeight: "bold",
-    // marginHorizontal:  3,  //0.5, not
-    // marginRight:5, not
-    // marginLeft:-55, not 
-    // marginLeft:-30 not
 
-  },
-  image1: {
-    width: 20,
-    height: 20,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginHorizontal: 10,
-    paddingHorizontal: 0.5,
+//   drawericon: {
+//     width: 30,
+//     height: 40,
+//     justifyContent: 'flex-start',
+//     alignItems: 'flex-start',
+//     marginRight: 10
+//   },
 
-  },
-  checkbox: {
-    width: 25,  //20,
-    height: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 20,
-    paddingHorizontal: 10,
-    marginRight: 1,  //10,
-  },
-  pen: {
-    width: 25,
-    height: 25,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginHorizontal: 10,
-    paddingHorizontal: 0.5
-  },
-  microphone: {
-    width: 35,
-    height: 35,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginHorizontal: 10,
-    paddingHorizontal: 0.5
-  },
-  photo: {
-    width: 25,
-    height: 25,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginHorizontal: 10,
-    paddingHorizontal: 0.5
-  },
+//   refresh: {
+//     width: 30,
+//     height: 30,
+//     justifyContent: "space-between",
+//     alignItems: "center",
+//     marginRight: 50,
+//     marginLeft: 10
+//   },
+//   text: {
+//     justifyContent: 'center',
+//     alignItems: 'flex-start',
+//     fontSize: 20,
+//     fontWeight: "bold",
+//     padding: 2,
+//     marginLeft: -35,
 
-  card: {
-    flexDirection: 'row',
-    flex: 1
-  },
+//   },
+//   gridicon: {
+//     width: 27,
+//     height: 28,
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//     marginLeft: 15,
+//     marginRight: 10,
+//     paddingLeft: 30
+//   },
 
-  margin1: {
-    marginLeft: 20,
-    fontSize: 15,
-    marginTop: 15
-  },
-  margin: {
-    marginLeft: 20,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  view1:
-  {
-    width: 100/*160*/
-  },
+//   listicon: {
+//     width: 30,
+//     height: 40,
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//     marginLeft: 15,
+//     marginRight: 10,
+//     paddingLeft: 30
+//   },
 
-  view2:
-  {
-    width: 200 /*320*/
-  }
+//   profile: {
+//     width: 35,
+//     height: 35,
+//     justifyContent: 'flex-end',
+//     alignItems: 'center',
+//     marginLeft: 15,
+//     marginRight: 10,
 
-})
+//   },
+
+
+
+//   // drawericon: {
+//   //   width: 38, //30,
+//   //   height: 38,  //40,
+//   //   justifyContent: 'space-between',
+//   //   alignItems: "center",       //'flex-start',
+//   //   marginLeft: 10,   //10,
+//   //   paddingLeft: 30
+//   // },
+//   // refresh: {
+//   //   width: 30, //30,
+//   //   height: 30,  //40,
+//   //   justifyContent: 'space-between',
+//   //   alignItems: "center",       //'flex-start',
+//   //   marginLeft: 15,   //10,
+//   //  marginRight:50,
+
+//   // },
+//   // gridicon: {
+//   //   width: 27.5, //30,
+//   //   height: 28.5,  //40,
+//   //   justifyContent: 'space-between',
+//   //   alignItems: "center",       //'flex-start',
+//   //  // marginLeft: 15,   //10, not present
+//   //  marginRight:100,
+//   //  marginLeft:10,
+//   //   paddingLeft: 30
+//   // },
+//   // listicon: {
+//   //   width: 45, //30,
+//   //   height: 40,  //40,
+//   //   justifyContent: 'space-between',
+//   //   alignItems: "center",       //'flex-start',
+//   //   //marginLeft: 15,   //10, not present
+//   //   marginRight:100,
+//   //   paddingLeft: 30
+//   // },
+//   // profile: {
+//   //   width: 45, //30,
+//   //   height: 40,  //40,
+//   //   justifyContent: 'space-between',
+//   //   alignItems: "center",       //'flex-start',
+//   // //  marginRight: 50,   //10, not present
+//   //  //  paddingLeft: 30   not present
+//   //   },
+
+//   data1: {
+
+//     justifyContent: 'center',
+//     backgroundColor: "#ffffff",   //"#206bad",    /*   '#1c313a', */
+//     alignItems: 'center',
+
+//   },
+
+//   // text: {
+//   //   justifyContent: 'center',
+//   //   alignItems: 'flex-start',
+//   //   fontSize: 20,
+//   //   fontWeight: "bold",
+//   //   padding: 2,
+//   //   marginLeft:-35,
+
+//   // },
+//   data: {
+//     height: 70,
+//     width: 340,
+//  //   backgroundColor: '#ffffff',
+//     flexDirection: 'row',
+//     flexWrap: 'wrap',
+//     marginVertical: 10,
+//     alignItems: 'center',
+//     // padding: 25,  not present
+//     //borderRadius: 15,  not present
+//   },
+//   last: {
+//     // position: 'relative',  not present
+//     // bottom: 0,  not present
+//     height: 50,
+//    // backgroundColor: '#ffffff',
+//     flexDirection: "row",
+//     paddingLeft: 25,  //10,
+//     alignItems: 'center',
+//     width: /*350*/ 390,
+//     marginLeft: 10,  //7,
+//     marginVertical: 10,
+//     // borderRadius: 1, //9, not present
+//     borderColor: "#C1C1C1",
+//     // borderWidth:1  not present
+
+//   },
+
+//   text1: {
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     fontSize: 22,
+//     fontWeight: "bold",
+//     // marginHorizontal:  3,  //0.5, not
+//     // marginRight:5, not
+//     // marginLeft:-55, not 
+//     // marginLeft:-30 not
+
+//   },
+//   image1: {
+//     width: 20,
+//     height: 20,
+//     justifyContent: 'flex-start',
+//     alignItems: 'flex-start',
+//     marginHorizontal: 10,
+//     paddingHorizontal: 0.5,
+
+//   },
+//   checkbox: {
+//     width: 25,  //20,
+//     height: 25,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     marginHorizontal: 20,
+//     paddingHorizontal: 10,
+//     marginRight: 1,  //10,
+//   },
+//   dashbordbottomicon: {
+//     width: 25,
+//     height: 25,
+//     justifyContent: 'flex-start',
+//     alignItems: 'flex-start',
+//     marginHorizontal: 10,
+//     paddingHorizontal: 0.5
+//   },
+//   microphone: {
+//     width: 35,
+//     height: 35,
+//     justifyContent: 'flex-start',
+//     alignItems: 'flex-start',
+//     marginHorizontal: 10,
+//     paddingHorizontal: 0.5
+//   },
+//   photo: {
+//     width: 25,
+//     height: 25,
+//     justifyContent: 'flex-start',
+//     alignItems: 'flex-start',
+//     marginHorizontal: 10,
+//     paddingHorizontal: 0.5
+//   },
+
+//   card: {
+//     flexDirection: 'row',
+//     flex: 1
+//   },
+
+//   margin1: {
+//     marginLeft: 20,
+//     fontSize: 15,
+//     marginTop: 15
+//   },
+//   margin: {
+//     marginLeft: 20,
+//     fontSize: 20,
+//     fontWeight: 'bold',
+//   },
+//   view1:
+//   {
+//     width: 100/*160*/
+//   },
+
+//   view2:
+//   {
+//     width: 200 /*320*/
+//   }
+
+// })
 
 
 

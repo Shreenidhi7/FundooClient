@@ -24,6 +24,7 @@ export default class Trash extends Component {
         super()
 
         this.state = {
+            
             trashNote: [],
             click: false
         }

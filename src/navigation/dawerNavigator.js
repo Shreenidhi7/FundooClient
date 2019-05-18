@@ -11,6 +11,8 @@ import Search from '../screens/search'
 import Signout from '../screens/signout';
 import Edit from '../screens/Edit';
 import LoginNew from '../screens/loginFormNew';
+import Register from '../screens/registerForm';
+import ForgotPassword from '../screens/forgotPasswordForm';
 //import CardComponent from './CardComponent';
 
 
@@ -28,10 +30,10 @@ const MyDrawer = createDrawerNavigator(
     Archive: { screen: Archive },
     Trash: { screen: Trash },
     //Settings: { screen: DashBoard },
-    // Search: { screen: Search },
+   Search: { screen: Search },
     SignOut: { screen: Signout },
     Edit: { screen: Edit },
-    DashBoard: { screen: DashBoard },
+    DashBoard: { screen:DashBoard},
 
 
 
@@ -43,7 +45,7 @@ const MyDrawer = createDrawerNavigator(
       gesturesEnabled: false,
       header: null,
     },
-    initialRouteName: "DashBoard",    //"Login",      //"Notes",
+    initialRouteName: 'Notes',//"DashBoard",    //"Login",      //"Notes",
     contentOptions: {
       activeTintColor: 'black',
       activeBackgroundColor: '#ffe082'

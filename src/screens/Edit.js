@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {
-    StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Picker
-
-} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Picker } from 'react-native';
 import { ToastAndroid } from 'react-native';
-import { createNote, editTitle, editDescription, UpdateColor, isArchived, isPinned, isTrashed, editReminder } from "../services/noteService";
-import Reminder from '../screens/reminder';
-import DashBoard from '../screens/dashboard'
+import { editTitle, editDescription, UpdateColor, isArchived, isPinned, isTrashed, editReminder } from "../services/noteService";
+
 import Menu from '../navigation/Menu'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
@@ -16,7 +12,7 @@ import Dialog from 'react-native-dialog'
 
 import RBSheet from 'react-native-raw-bottom-sheet'
 
-
+import styles from "../StyleSheet";
 
 export default class Edit extends Component {
 
@@ -27,13 +23,13 @@ export default class Edit extends Component {
             Title: this.props.navigation.state.params.Display.title,
             Description: this.props.navigation.state.params.Display.description,
             token: '',
-            archive: false,
+            archive: this.props.navigation.state.params.Display.archive,
             pinned: this.props.navigation.state.params.Display.pinned,
             reminder: this.props.navigation.state.params.Display.reminder,
             trash: false,
             click: false,
             newline: true,
-            EditNote: {}, 
+            EditNote: {},
             color: this.props.navigation.state.params.Display.color,
             dialogVisible: false,
             PickerValue: '',
@@ -57,32 +53,69 @@ export default class Edit extends Component {
 
 
 
+    archive = async event => {
 
-  
+        await this.setState({
+            archive: !this.state.archive
+        })
+    }
 
-    // submit = async event => {
-    //     // var check = this.validateinput();
+    getpin = async (event) => {
+        await this.setState({
+            pinned: !this.state.pinned
+        })
+    }
 
-    //     // if (check) {
-    //     console.log(this.props.Display.Title + "display");
-    //     await editTitle(this.state.title, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
-    //     await editDescription(this.state.description, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
-    //     this.props.navigation.navigate('DashBoard')
-    // }
+    async onChangeColor(newColor) {
+        console.log("color", newColor);
+        await this.setState({
+            color: newColor
+        })
+    }
+
+    handleSave = () => {
+        var date = this.state.date + "  " + this.state.time
+        console.log("date==>", date);
+        if (date !== '') {
+            this.setState({
+                reminder: date,
+                dialogVisible: false
+            })
+        }
+    }
+
+
 
 
     submit = async event => {
-
-
-
-
-
         AsyncStorage.getItem('token').then(value => {
             console.log("Getting token while Creating Note", value);
             this.token = value
-           
 
-            editTitle(this.state.Title,this.token,this.props.navigation.state.params.Display)
+            UpdateColor(this.state.color, this.token, this.props.navigation.state.params.Display)
+                .then((result) => {
+                    this.setState({
+                        EditNote: result.data.data.title
+                    })
+                    this.props.navigation.navigate('DashBoard')
+                })
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("title is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                })
+
+
+            isPinned(this.state.pinned, this.token, this.props.navigation.state.params.Display)
+                .then((result) => {
+                    this.setState({
+                        EditNote: result.data.data.pinned
+                    })
+                    this.props.navigation.navigate('DashBoard')
+                })
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("pinned data is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                })
+
+            editTitle(this.state.Title, this.token, this.props.navigation.state.params.Display)
                 .then((result) => {
                     this.setState({
                         EditNote: result.data.data.title
@@ -95,8 +128,7 @@ export default class Edit extends Component {
 
 
 
-                editDescription(this.state.Description,this.token,this.props.navigation.state.params.Display)
-            // editDescription(data.token, data.description, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
+            editDescription(this.state.Description, this.token, this.props.navigation.state.params.Display)    //nothing is there in notekey
                 .then((result) => {
                     this.setState({
                         EditNote: result.data.data.description
@@ -106,19 +138,56 @@ export default class Edit extends Component {
                 .catch((err) => {
                     ToastAndroid.showWithGravity("description is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
                 })
-            
-               
+
+
+            var data = {
+                archive: this.state.archive,
+                Display: this.props.navigation.state.params.Display,
+                token: this.token
+            }
+
+            isArchived(data.archive, data.Display, data.token)
+                .then((result) => {
+                    this.setState({
+                        EditNote: result.data.data.archive
+                    })
+                    this.props.navigation.navigate('DashBoard')
+                })
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                })
+
 
         })
 
-        
+
+        var data = {
+            reminder: this.state.reminder,
+            Display: this.props.navigation.state.params.Display,
+            // token: this.token
+        }
+
+
+        editReminder(data.reminder, data.Display, this.token)
+            .then((result) => {
+                this.setState({
+                    EditNote: result.data.data.reminder
+                })
+                this.props.navigation.navigate('DashBoard')
+            })
+            .catch((err) => {
+                ToastAndroid.showWithGravity("reminder data is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+            })
+
+
+            .catch((err) => {
+                ToastAndroid.showWithGravity("enteries should be clear", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+            })
     }
-    
-    // getpin = async event => {
-    async getpin(event) {
-        await this.setState({ pinned: !this.state.pinned })
-        isPinned(this.state.pinned, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
-    }
+
+
+
+
 
     getmenu() {
         this.setState({
@@ -151,19 +220,7 @@ export default class Edit extends Component {
 
 
 
-    archive = async event => {
 
-        await this.setState({
-            archive: !this.state.archive
-        })
-        isArchived(this.state.archive, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
-        // var data = {
-        //     archive: this.state.archive,
-        //     Display: this.props.navigation.state.params.Display,
-        //     noteKey: this.props.navigation.state.params.notekey
-        // }
-        // isArchived(this.state.archive, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)     
-    }
 
 
 
@@ -192,15 +249,15 @@ export default class Edit extends Component {
         isTrashed(this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
     }
 
-    async onChangeColor(newColor) {
-        console.log("color", newColor);
-        await this.setState({
-            color: newColor
-        })
-        UpdateColor(this.state.color,this.token,this.props.navigation.state.params.Display)
-    
-    }
-   
+    // async onChangeColor(newColor) {
+    //     console.log("color", newColor);
+    //     await this.setState({
+    //         color: newColor
+    //     })
+    //     UpdateColor(this.state.color, this.token, this.props.navigation.state.params.Display)
+
+    // }
+
 
 
     handleSave = () => {
@@ -236,10 +293,10 @@ export default class Edit extends Component {
         // const reminder = navigation.getParam('reminder')
         return (
             <View style={{ backgroundColor: this.state.color, }}>
-                <View style={styles.container}>
+                <View style={styles.EditNoteTopBar}>
 
                     <TouchableOpacity onPress={() => { this.submit() }}>
-                        <Image style={styles.arrow} source={require('../assets/images/leftarrow.png')} >
+                        <Image style={styles.EditNoteTopIcon} source={require('../assets/images/leftarrow.png')} >
                         </Image>
                     </TouchableOpacity>
 
@@ -247,23 +304,23 @@ export default class Edit extends Component {
                     {
                         this.state.pinned ?
                             (<TouchableOpacity onPress={(event) => this.getpin(event)}>
-                                <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
+                                <Image style={styles.EditNoteTopIcon} source={require('../assets/images/pin.png')}>
                                 </Image>
                             </TouchableOpacity>)
                             :
                             (<TouchableOpacity onPress={(event) => this.getpin(event)}>
-                                <Image style={styles.pinbutton} source={require('../assets/images/pin.png')}>
+                                <Image style={styles.EditNoteTopIcon} source={require('../assets/images/unpin.png')}>
                                 </Image>
                             </TouchableOpacity>)
                     }
 
                     <TouchableOpacity onPress={(event) => this.showDialog(event)}>
-                        <Image style={styles.reminderbutton} source={require('../assets/images/reminder.png')}></Image>
+                        <Image style={styles. EditNoteTopIcon} source={require('../assets/images/reminder.png')}></Image>
                     </TouchableOpacity>
 
 
                     <TouchableOpacity onPress={(event) => this.archive(event)} >
-                        <Image style={styles.archivebutton} source={require('../assets/images/archive.png')}>
+                        <Image style={styles. EditNoteTopIcon} source={require('../assets/images/archive.png')}>
                         </Image>
                     </TouchableOpacity>
                 </View>
@@ -293,12 +350,6 @@ export default class Edit extends Component {
                 </View>
 
 
-                {/* <Menu
-                    view={this.state.click}
-                    color={this.onChangeColor}
-                    trash={this.handleTrash}
-                    navigation={this.props.navigation}>
-                </Menu> */}
 
                 <View style={{ flex: 1, backgroundColor: /*"#009688"*/ "#ffffff", justifyContent: 'flex-end', bottom: -500,  /*-555,*/ }}></View>
 
@@ -415,103 +466,111 @@ export default class Edit extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container:
-    {
-        flexDirection: 'row',
-    },
-    last: {
-        flexDirection: 'row',
-        marginTop: 525
-    },
-    arrow: {
-        marginTop: 10,
-        marginLeft: 10,
-        width: 30,
-        height: 40,
-        paddingLeft: 10,
-        paddingRight: 10
+// const styles = StyleSheet.create({
+//     container:
+//     {
+//         flexDirection: 'row',
+//     },
+//     last: {
+//         flexDirection: 'row',
+//         marginTop: 525
+//     },
+//     arrow: {
+//         marginTop: 10,
+//         marginLeft: 10,
+//         width: 30,
+//         height: 40,
+//         paddingLeft: 10,
+//         paddingRight: 10
 
-    },
+//     },
 
-    pinbutton: {
-        width: 30,
-        height: 50,
-        marginTop: 10,
-        marginLeft: 10,
-        marginRight: 10
-    },
-    // pinbutton: {
-    //     width: 20,
-    //     height: 30,
-    //     marginTop: 30,
+//     pinbutton: {
+//         width: 30,
+//         height: 50,
+//         marginTop: 10,
+//         marginLeft: 10,
+//         marginRight: 10
+//     },
+//     // pinbutton: {
+//     //     width: 20,
+//     //     height: 30,
+//     //     marginTop: 30,
 
-    //     // width: 20,  //20,
-    //     // height: 20,  //30,
-    //     // justifyContent: 'space-between',
-    //     // alignItems: 'flex-start',
+//     //     // width: 20,  //20,
+//     //     // height: 20,  //30,
+//     //     // justifyContent: 'space-between',
+//     //     // alignItems: 'flex-start',
 
-    //     // marginRight: -25,
-    //     // paddingLeft: 50,   // 30,
-    //     // marginTop: 70,
+//     //     // marginRight: -25,
+//     //     // paddingLeft: 50,   // 30,
+//     //     // marginTop: 70,
 
 
-    // },
-    // unpinbutton: {
-    //     width: 10,   //20,
-    //     height: 20,      //30,
-    //     justifyContent: 'space-between',
-    //     alignItems: 'flex-start',
-    //     //marginLeft: 10,  //10,
-    //     marginRight: -15,
-    //     paddingLeft: 50,   // 30,
-    //     marginTop: 20,
+//     // },
+//     // unpinbutton: {
+//     //     width: 10,   //20,
+//     //     height: 20,      //30,
+//     //     justifyContent: 'space-between',
+//     //     alignItems: 'flex-start',
+//     //     //marginLeft: 10,  //10,
+//     //     marginRight: -15,
+//     //     paddingLeft: 50,   // 30,
+//     //     marginTop: 20,
 
-    // },
-    reminderbutton: {
-        width: 35,
-        height: 35,
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        marginLeft: 25,     //10,
-        marginRight: 20,
-        paddingLeft: 20,  // 30,
-        marginTop: 15
-    },
-    archivebutton: {
-        width: 35,
-        height: 35,
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-        marginLeft: 10,
-        marginTop: 15,
-        marginRight: 50,
-        // marginRight: 50,
-        // paddingLeft: 20,    //  30,
-        // marginTop: 10
-    },
-    plusicon: {
-        flexDirection: 'row',
-        width: 40,
-        height: 40,
-        justifyContent: 'space-between',
-        alignItems: "center",
-        marginLeft: 10,
-        paddingLeft: 30,
-        marginTop: 10
-    },
+//     // },
 
-    dots: {
-        flexDirection: "row",
-        width: 40,
-        height: 45,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginLeft: 320,
-        marginTop: 1,
-        marginBottom: 10
-    }
-});
+//     unpinbutton: {
+//         width: 25,
+//         height: 33,
+//         marginTop: 20,
+//         marginBottom: 0.5,
+
+//     },
+//     reminderbutton: {
+//         width: 35,
+//         height: 35,
+//         justifyContent: 'space-between',
+//         alignItems: 'flex-start',
+//         marginLeft: 25,     //10,
+//         marginRight: 20,
+//         paddingLeft: 20,  // 30,
+//         marginTop: 15
+//     },
+//     archivebutton: {
+//         width: 35,
+//         height: 35,
+//         justifyContent: 'space-between',
+//         alignItems: 'flex-start',
+//         marginLeft: 10,
+//         marginTop: 15,
+//         marginRight: 50,
+//         // marginRight: 50,
+//         // paddingLeft: 20,    //  30,
+//         // marginTop: 10
+//     },
+//     plusicon: {
+//         flexDirection: 'row',
+//         width: 40,
+//         height: 40,
+//         justifyContent: 'space-between',
+//         alignItems: "center",
+//         marginLeft: 10,
+//         paddingLeft: 30,
+//         marginTop: 10
+//     },
+
+//     dots: {
+//         flexDirection: "row",
+//         width: 40,
+//         height: 45,
+//         justifyContent: 'flex-end',
+//         alignItems: 'center',
+//         marginLeft: 320,
+//         marginTop: 1,
+//         marginBottom: 10
+//     }
+// });
 
 
 {/*onPress={(event) => this.archive(event)}>     */ }

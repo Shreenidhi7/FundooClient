@@ -7,6 +7,7 @@ import DashBoard from '../screens/dashboard';
 import Drawer from '../navigation/dawerNavigator';
 import TakeNote from '../screens/TakeNote';
 import Edit from '../screens/Edit';
+import Search from '../screens/search';
 
 
 //navigationOptions={header : null}
@@ -17,11 +18,12 @@ const MainNavigator=createStackNavigator({
     ResetPassword : {screen:ResetPassword  },
     DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
     Drawer:{screen:Drawer,navigationOptions:{header:null}},
+    Search: { screen: Search },
     TakeNote:{screen : TakeNote,navigationOptions:{header:null}},
     Edit:{screen:Edit,navigationOptions:{header:null}}
 },
 {
-    initialRouteName :    "Drawer"   //////'Drawer'
+    initialRouteName :  'Drawer' // "Drawer"   //////'Drawer'
 });
 
 const Container=createAppContainer(MainNavigator);

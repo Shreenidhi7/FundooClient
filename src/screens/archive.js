@@ -47,18 +47,17 @@ export default class Archive extends Component {
           title: this.state.Title,
           description: this.state.Description,
           archive: this.state.archive,
-
-          token: value
+          token: value,
         }
         getNotes(data)
           .then((result) => {
 
             this.setState({
          //  original   //archiveNote: result.result
-         archiveNote:result.result
+         archiveNote:result
             })
-            console.log("Result in Datasoure Frontend===>\n")
-            console.log(result.result)
+            // console.log("Result in Datasoure Frontend===>\n")
+            // console.log(result.result)
           })
           .catch((err) => {
             ToastAndroid.showWithGravity("Error occured while Retriving Notes ", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
@@ -84,7 +83,7 @@ export default class Archive extends Component {
       key = notes;
       var data = this.state.archiveNote[key]
 
-      if (data.pinned=== false && data.archive === true && data.trash===false) {
+      if (data.archive === true && data.trash===false) {
         return (
           <CardComponent Display={data}
             notekey={key}

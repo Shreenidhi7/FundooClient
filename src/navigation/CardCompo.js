@@ -4,7 +4,7 @@ import { Card } from 'react-native-elements'
 import Edit from '../screens/Edit'
 import Multimenu from './Multimenu';
 import Reminder from '../screens/reminder'
-
+import { Chip} from 'react-native-paper';
 
 
 export default class CardComponent extends Component {
@@ -16,7 +16,7 @@ export default class CardComponent extends Component {
     }
     static navigationOptions = { header: null };
     data = () => {
-        console.warn("iiiii " + this.props.Display)
+        console.warn("display data" + this.props.Display)
         this.props.navigation.navigate('Edit', { Display: this.props.Display, notekey: this.props.notekey })
     }
     handlerLongClick() {
@@ -55,14 +55,24 @@ export default class CardComponent extends Component {
                                     <Text>{this.props.Display.description}</Text>
                                 </View>
 
-                                <Card containerStyle={{ backgroundColor: this.props.Display.color, borderRadius: 50, borderWidth: 1, borderColor: 'black' }}>
+
+                            <View style={{padding:5,fontSize:150,fontWeight:'bold',color:'black'}}>
+                            <Chip mode='outlined' style={{backgroundColor:this.props.Display.color,width:'60%'}}>
+                                <Image style={style.clock} source={require('../assets/images/clock.png')}/>
+                                {this.props.Display.reminder}
+                            </Chip>                            
+                            </View>
+
+
+
+
+                                {/* <Card containerStyle={{ backgroundColor: this.props.Display.color, borderRadius: 50, borderWidth: 1, borderColor: 'black' }}>
                                     <Image style={style.clock} source={require('../assets/images/clock.png')} />
                                    
                                     <View style={{ padiing: 5, fontWeight: 90, fontWeight: 'bold' }}>
                                         <Text>{this.props.Display.reminder}</Text>
                                     </View>
-                               
-                                </Card>
+                                 </Card> */}
 
                             </View>
                         </Card>
@@ -85,7 +95,8 @@ const style = StyleSheet.create({
 
     clock: {
         width: 15,
-        height: 20
+        height: 15,
+        flexDirection:'row'
     }
 
 

@@ -2,7 +2,7 @@ import React,{ Component } from "react";
 import { StyleSheet,Text,TextInput,View,TouchableOpacity } from "react-native";
 import { ToastAndroid } from "react-native";
 import {forgot} from '../services/userService'
-
+import styles from '../StyleSheet'
 
 export default class ForgotPassword extends Component {
 
@@ -35,10 +35,8 @@ validateEmail(text) {
 
 submit() {
     if(this.state.Email==false) {
-        //alert("Invalid Email")
         ToastAndroid.showWithGravity("Enter Valid Email",ToastAndroid.LONG,ToastAndroid.BOTTOM)
-    }
-    else{
+    }else{
         var data={
             email:this.state.Email
         }
@@ -60,20 +58,21 @@ submit() {
 
     render(){
         return(
+            
             <View style={styles.forgotpasswordform}>
-            <Text style={styles.header}>ForgotPassword</Text>
+            <Text style={styles.forgotHeader}>ForgotPassword</Text>
 
-            <Text style={styles.heading}>
+            <Text style={styles.emailHeading}>
                 Enter Email</Text>
 
 
-            <TextInput style={[styles.inputbox,
+            <TextInput style={[styles.forgotinputbox,
              !this.state.Email? styles.error:null]}
              onChangeText={(text)=>this.validateEmail(text)}
                 placeholder="Email"
                 fontWeight='bold'
-                underlineColorAndroid='rgba(0,0,0,0)'
-                placeholderTextColor='#ffffff'/>
+                underlineColorAndroid='black'
+                placeholderTextColor='gray'/>
 
             <TouchableOpacity style={styles.button}
            // onPress ={() =>this.props.navigation.navigate('loginFormNew')}>
@@ -87,69 +86,69 @@ submit() {
     }
 }
 
-const styles = StyleSheet.create({
+// const styles = StyleSheet.create({
 
-    forgotpasswordform: {
-        flex:1,
-        paddingVertical:60,
-        alignItems:'center',
-        justifyContent:'center',
-        backgroundColor:  "#206bad"          //    '#07081c',     //"rgb(45, 54, 58)"        //'#455a64'
+//     forgotpasswordform: {
+//         flex:1,
+//         paddingVertical:60,
+//         alignItems:'center',
+//         justifyContent:'center',
+//         backgroundColor:  "#206bad"          //    '#07081c',     //"rgb(45, 54, 58)"        //'#455a64'
 
-    },
+//     },
 
-    header: {
-        fontWeight:'bold',
-        fontSize: 25,
-        color: 'white',  //  'black',
-        paddingBottom: 10,
-        marginBottom: 40,  //40,
-        borderBottomColor: 'rgb(23, 28, 27)',
-        borderBottomWidth: 1,
-        //paddingLeft:10,
-    },
+//     header: {
+//         fontWeight:'bold',
+//         fontSize: 25,
+//         color: 'white',  //  'black',
+//         paddingBottom: 10,
+//         marginBottom: 40,  //40,
+//         borderBottomColor: 'rgb(23, 28, 27)',
+//         borderBottomWidth: 1,
+//         //paddingLeft:10,
+//     },
 
-    heading:{
-        paddingLeft:10,
-        color:'black',
-        fontSize:20,
-        fontWeight:'800'
-    },
+//     heading:{
+//         paddingLeft:10,
+//         color:'black',
+//         fontSize:20,
+//         fontWeight:'800'
+//     },
 
-    inputbox: {
-        // alignSelf: 'stretch',
-        // height: 40,
-        // marginBottom: 30,
-        // fontWeight: 'bold',
-        // color: "black",
-        // borderBottomColor: 'rgb(7, 7, 7)',
-         //borderBottomWidth: 1,
-         fontSize:18,
-         width:300,
-         backgroundColor:'rgba(255,255,255,0.3)',
-         borderRadius:25,
-         paddingHorizontal:10,
-         marginVertical:10,
+//     inputbox: {
+//         // alignSelf: 'stretch',
+//         // height: 40,
+//         // marginBottom: 30,
+//         // fontWeight: 'bold',
+//         // color: "black",
+//         // borderBottomColor: 'rgb(7, 7, 7)',
+//          //borderBottomWidth: 1,
+//          fontSize:18,
+//          width:300,
+//          backgroundColor:'rgba(255,255,255,0.3)',
+//          borderRadius:25,
+//          paddingHorizontal:10,
+//          marginVertical:10,
  
  
-     },
-     button: {
-        alignSelf: 'stretch',
-        alignItems: 'center',
-        padding: 10,
-        backgroundColor: 'black',      //'rgb(28, 27, 27)',
-        marginTop: 30,
-        borderRadius:40,
-        marginLeft:80,
-        marginRight:80,
-    },
+//      },
+//      button: {
+//         alignSelf: 'stretch',
+//         alignItems: 'center',
+//         padding: 10,
+//         backgroundColor: 'black',      //'rgb(28, 27, 27)',
+//         marginTop: 30,
+//         borderRadius:40,
+//         marginLeft:80,
+//         marginRight:80,
+//     },
 
-    buttontext: {
-        fontSize:26,
-       // backgroundColor: "white",
-       color:'#ffffff',
-        fontWeight: "900",
-        paddingRight:0,
-    }
+//     buttontext: {
+//         fontSize:26,
+//        // backgroundColor: "white",
+//        color:'#ffffff',
+//         fontWeight: "900",
+//         paddingRight:0,
+//     }
 
-})
+// })

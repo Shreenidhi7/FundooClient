@@ -15,11 +15,20 @@ export function createNote(data) {
         data: data
     })
 }
-
+export function setReminder(data) {
+    console.log("Update Remindewr==>\n", data);
+    return axios(baseUrl + '/setReminder', {
+        method: 'PUT',
+        headers: {
+            'token': data.token
+        },
+        data: data
+    })
+}
 
 
 export function getNotes(data) {
-    console.log("Getting Notes Yet to Achieve\n Yet to hit the api");
+    // console.log("Getting Notes Yet to Achieve\n Yet to hit the api");
     return axios(baseUrl + '/getNotes', {
         method: "GET",
         headers: {
@@ -27,15 +36,36 @@ export function getNotes(data) {
         },
 
     }).then(function (response) {
-        const result = response.data;
-        // console.log("===================================>",response.data);
-
+        const result = response.data;  
+          console.log("===================================>",response.data)
         return result;
     })
         .catch((err) => {
             console.log("ERROR IN SERVICES", err);
         })
 }
+
+
+// export function getTitle(data) {
+
+//     return axios(baseUrl + '/getTitle', {
+//         method: 'GET',
+//         headers:{
+//             'token':data.token
+//         },
+//     })
+//     .then(function(response){
+//         const titleResult=response.data
+//         console.log("<><><><><><><><><><><><><><><>",response.data.result.title);
+        
+//         return titleResult;
+//     })
+
+//     .catch((err)=>{
+//         console.log("error in getting Token",err);  
+//     })
+// }
+
 
 export function editTitle(newTitle, token, card) {
     let data = {
@@ -58,62 +88,76 @@ export function editDescription(newDescription, token, card) {
     return axios(baseUrl + '/editDescription', {
         method: 'PUT',
         headers: {
-            'token':token
+            'token': token
         },
         data: data
     })
 }
-export function UpdateColor(newColor,token,card) {
+export function UpdateColor(newColor, token, card) {
     console.log(token);
-    
-    let data={
-        noteId:card._id,
-        color:newColor,
+
+    let data = {
+        noteId: card._id,
+        color: newColor,
     }
     return axios(baseUrl + '/UpdateColor', {
         method: 'PUT',
         headers: {
-            'token':token
+            'token': token
         },
         data: data
     })
 }
-export function isArchived(data) {
-    console.log("Update Archive==>\n", data);
+export function isArchived(newdata, arg2, token) {
+    let data = {
+        noteId: arg2._id,
+        archive: newdata
+    }
+    console.log("arg2==>", arg2);
+    console.log('Updated Archive==>/n', newdata);
+
+    console.log("arg3(token)==>", token);
     return axios(baseUrl + '/isArchived', {
         method: 'PUT',
         headers: {
-            'token': data.token
+            'token': token
         },
         data: data
     })
 }
-export function isPinned(data) {
-    console.log("Update Pinned==>\n", data);
+export function isPinned(pinnedData, token, labelInfo) {
+    let data = {
+        noteId: labelInfo._id,
+        pinned: pinnedData,
+    }
+    console.log("labelInfo==>", labelInfo);
+    console.log("Update Pinned==>\n", pinnedData);
+    console.log("token==>", token);
+
     return axios(baseUrl + '/isPinned', {
         method: 'PUT',
         headers: {
-            'token': data.token
+            'token': token
         },
         data: data
     })
 }
-export function setReminder(data) {
-    console.log("Update Remindewr==>\n", data);
-    return axios(baseUrl + '/setReminder', {
-        method: 'PUT',
-        headers: {
-            'token': data.token
-        },
-        data: data
-    })
-}
-export function editReminder(data) {
-    console.log("Edit reminder==>\n", data);
+
+export function editReminder(reminData, labelInfo, token) {
+
+    console.log(",..,.,.,.",reminData);
+    
+    let data = {
+        reminder: reminData,
+        noteId: labelInfo._id
+    }
+    console.log("labelInfo==>", labelInfo);
+    console.log("Edit reminder==>\n", reminData);
+    console.log("token==>", token);
     return axios(baseUrl + '/editReminder', {
         method: 'PUT',
         headers: {
-            'token': data.token
+            'token': token
         },
         data: data
     })
@@ -192,19 +236,7 @@ function getNotes(data) {
 
 
 
-function getTitle(data) {
-    return axios(baseUrl + '/getTitle', {
-        method: 'GET',
-        data: data,
-
-    })
-
-
-
-}
-
-export {
-    //  createNote,
-    //  getNotes,
-    getTitle
-}
+// export {
+    
+//     getTitle
+// }
