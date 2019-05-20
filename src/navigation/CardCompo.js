@@ -4,14 +4,15 @@ import { Card } from 'react-native-elements'
 import Edit from '../screens/Edit'
 import Multimenu from './Multimenu';
 import Reminder from '../screens/reminder'
-import { Chip} from 'react-native-paper';
+import { Chip } from 'react-native-paper';
 
 
 export default class CardComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            click: false
+            click: false,
+            color:''
         }
     }
     static navigationOptions = { header: null };
@@ -43,30 +44,32 @@ export default class CardComponent extends Component {
                 <TouchableOpacity onPress={this.data.bind(this)}
                     onLongPress={this.handlerLongClick}
                     activeOpacity={0.6} >
-                 
-                        <Card containerStyle={{ backgroundColor:this.props.Display.color, borderRadius: 10, borderWidth: 1, borderColor: 'black' }}>
-                            <View>
-                                
-                                <View style={{ padding: 5, fontSize: 150, fontWeight: 'bold', color: 'black' }}>
-                                    <Text>{this.props.Display.title}</Text>
-                                </View>
 
-                                <View style={{ padding: 5, fontSize: 150, fontWeight: 'bold', color: 'black' }}>
-                                    <Text>{this.props.Display.description}</Text>
-                                </View>
+                    <Card containerStyle={{ backgroundColor: this.props.Display.color, borderRadius: 10, borderWidth: 1, borderColor: 'black' }}>
+                        <View>
 
-
-                            <View style={{padding:5,fontSize:150,fontWeight:'bold',color:'black'}}>
-                            <Chip mode='outlined' style={{backgroundColor:this.props.Display.color,width:'60%'}}>
-                                <Image style={style.clock} source={require('../assets/images/clock.png')}/>
-                                {this.props.Display.reminder}
-                            </Chip>                            
+                            <View style={{ padding: 5, fontSize:300, fontWeight: 'bold', color: 'black' }}>
+                                <Text>{this.props.Display.title}</Text>
                             </View>
 
+                            <View style={{ padding: 5, fontSize:200, fontWeight: 'bold', color: 'black' }}>
+                                <Text>{this.props.Display.description}</Text>
+                            </View>
+
+                            {this.props.Display.reminder !== '' ?
+                                <View style={{ padding: 5, fontSize: 150, fontWeight: 'bold', color: 'black' }}>
+                                    <Chip mode='outlined' style={{ backgroundColor: this.props.Display.color, width: '60%' }}>
+                                        <Image style={style.clock} source={require('../assets/images/clock.png')} />
+                                        {this.props.Display.reminder}
+                                    </Chip>
+                                </View>
+                                :
+                                <View></View>}
 
 
 
-                                {/* <Card containerStyle={{ backgroundColor: this.props.Display.color, borderRadius: 50, borderWidth: 1, borderColor: 'black' }}>
+
+                            {/* <Card containerStyle={{ backgroundColor: this.props.Display.color, borderRadius: 50, borderWidth: 1, borderColor: 'black' }}>
                                     <Image style={style.clock} source={require('../assets/images/clock.png')} />
                                    
                                     <View style={{ padiing: 5, fontWeight: 90, fontWeight: 'bold' }}>
@@ -74,10 +77,10 @@ export default class CardComponent extends Component {
                                     </View>
                                  </Card> */}
 
-                            </View>
-                        </Card>
-                    </TouchableOpacity>
-            
+                        </View>
+                    </Card>
+                </TouchableOpacity>
+
 
             </View>
         )
@@ -86,17 +89,17 @@ export default class CardComponent extends Component {
 
 const style = StyleSheet.create({
     view1: {
-        width: 205, //180,
+        width: '100%', //   205, //180,
 
     },
     view2: {
-        width: 350,   //350,
+        width: '50%',   //350,
     },
 
     clock: {
         width: 15,
         height: 15,
-        flexDirection:'row'
+        flexDirection: 'row'
     }
 
 

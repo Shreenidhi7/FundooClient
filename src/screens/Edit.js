@@ -73,6 +73,15 @@ export default class Edit extends Component {
         })
     }
 
+    async handleTrash(value) {
+        console.log("trash", value);
+        await this.setState({
+            trash: value
+        })
+        // isTrashed(this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
+    }
+
+
     handleSave = () => {
         var date = this.state.date + "  " + this.state.time
         console.log("date==>", date);
@@ -180,6 +189,22 @@ export default class Edit extends Component {
             })
 
 
+            var data={
+                trash:this.state.trash,
+                Display:this.props.navigation.state.params.Display
+            }
+            isTrashed(data.trash,data.Display,this.token)
+            .then((result) => {
+                this.setState({
+                    EditNote: result.data.data.reminder
+                })
+                this.props.navigation.navigate('DashBoard')
+            })
+            .catch((err) => {
+                ToastAndroid.showWithGravity("note is not trashed specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+            })
+
+
             .catch((err) => {
                 ToastAndroid.showWithGravity("enteries should be clear", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
             })
@@ -219,11 +244,6 @@ export default class Edit extends Component {
 
 
 
-
-
-
-
-
     handleTimePicker = (time) => {
         console.log("A Time has been picked", time);
         var d = '' + time;
@@ -241,13 +261,13 @@ export default class Edit extends Component {
         this.hideTimePicker();
     }
 
-    async handleTrash(value) {
-        console.log("trash", value);
-        await this.setState({
-            trash: value
-        })
-        isTrashed(this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
-    }
+    // async handleTrash(value) {
+    //     console.log("trash", value);
+    //     await this.setState({
+    //         trash: value
+    //     })
+    //     isTrashed(this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
+    // }
 
     // async onChangeColor(newColor) {
     //     console.log("color", newColor);
@@ -315,12 +335,12 @@ export default class Edit extends Component {
                     }
 
                     <TouchableOpacity onPress={(event) => this.showDialog(event)}>
-                        <Image style={styles. EditNoteTopIcon} source={require('../assets/images/reminder.png')}></Image>
+                        <Image style={styles.EditNoteTopIcon} source={require('../assets/images/reminder.png')}></Image>
                     </TouchableOpacity>
 
 
                     <TouchableOpacity onPress={(event) => this.archive(event)} >
-                        <Image style={styles. EditNoteTopIcon} source={require('../assets/images/archive.png')}>
+                        <Image style={styles.EditNoteTopIcon} source={require('../assets/images/archive.png')}>
                         </Image>
                     </TouchableOpacity>
                 </View>

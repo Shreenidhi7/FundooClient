@@ -98,37 +98,36 @@ export default class Reminder extends Component {
           <View style={styles.topboxReminder}>
          
 
-            <View style={{flexDirection:'row'}}>
+            {/* <View style={{flexDirection:'row'}}> */}
 
               <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-                <Image style={styles.remindertopicons} source={require('../assets/images/drawericon.png')} />
+                <Image style={styles.reminderTopIcon} source={require('../assets/images/drawericon.png')} />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.componentDidMount()}>
-                <Image style={styles.remindertopicons} source={require('../assets/images/refresh.png')}></Image>
+                <Image style={styles.reminderTopIcon} source={require('../assets/images/refresh.png')}></Image>
               </TouchableOpacity>
-            </View>
+            {/* </View> */}
           
           
-            <Text style={styles.text}>Reminder
-            </Text>
+            <Text style={styles.text}> Reminder </Text>
 
 
             <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
-              <Image style={styles.searchicon} source={require('../assets/images/searchicon.png')} />
+              <Image style={styles.reminderTopIcon} source={require('../assets/images/searchicon.png')} />
             </TouchableOpacity>
 
             {
               this.state.click ?
                 (<View>
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.gridicon} source={require('../assets/images/gridicon1.png')}></Image>
+                    <Image style={styles.reminderTopIcon} source={require('../assets/images/gridicon1.png')}></Image>
                   </TouchableOpacity>
                 </View>)
                 :
                 (<View>
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.listicon} source={require('../assets/images/list1.png')}></Image>
+                    <Image style={styles.reminderTopIcon} source={require('../assets/images/list1.png')}></Image>
                   </TouchableOpacity>
                 </View>)
             }

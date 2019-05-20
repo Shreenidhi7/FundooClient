@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import styles from "../StyleSheet";
 import { ToastAndroid } from "react-native";
 import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, FlatList } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -47,6 +47,7 @@ export default class Archive extends Component {
           title: this.state.Title,
           description: this.state.Description,
           archive: this.state.archive,
+          trash:this.state.trash,
           token: value,
         }
         getNotes(data)
@@ -83,7 +84,7 @@ export default class Archive extends Component {
       key = notes;
       var data = this.state.archiveNote[key]
 
-      if (data.archive === true && data.trash===false) {
+      if (data.archive === true && data.trash!==true) {
         return (
           <CardComponent Display={data}
             notekey={key}
@@ -150,38 +151,47 @@ export default class Archive extends Component {
 
       <View style={{ flex: 1 }}>
         <View style={{ height: 80, backgroundColor:     /*'#1c313a'*/ /*"#206bad"*/ '#ffffff', width: 500, justifyContent: 'center', paddingHorizontal: 5, }}>
-          <View style={{ height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ 390, marginLeft: 7, borderRadius: 9, borderColor: "#C1C1C1", borderWidth: 2, marginRight: 60 }}>
+          <View style={styles.topboxArchive}> 
+            {/* // height: 50, backgroundColor: '#ffffff', flexDirection: "row", paddingLeft: 10, alignItems: 'center', width: /*350*/ /* 390, marginLeft: 7, borderRadius: 9, borderColor: "#C1C1C1", borderWidth: 2, marginRight: 60  */}
+          
 
 
-
+            {/* <View style={{width:'8%'}} > */}
             <TouchableOpacity onPress={() =>   this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-              <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
+              <Image style={styles.ArchiveTopIcon} source={require('../assets/images/drawericon.png')} />
             </TouchableOpacity>
+            {/* </View> */}
 
+            {/* <View style={{width:'8%'}} > */}
             <TouchableOpacity onPress={() => this.componentDidMount()}>
-              <Image style={styles.image} source={require('../assets/images/refresh.png')}></Image>
+              <Image style={styles.ArchiveTopIcon} source={require('../assets/images/refresh.png')}></Image>
             </TouchableOpacity>
+            {/* </View> */}
 
+            {/* <View style={{width:'40%'}} > */}
             <Text style={styles.text}>
               Archive
             </Text>
+            {/* </View> */}
 
-
+            {/* <View style={{width:'8%'}} > */}
             <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
-              <Image style={styles.searchicon} source={require('../assets/images/searchicon.png')} />
+              <Image style={styles.ArchiveTopIcon} source={require('../assets/images/searchicon.png')} />
             </TouchableOpacity>
+            {/* </View> */}
+
 
             {
               this.state.click ?
-                (<View>
+                (<View >
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.gridicon} source={require('../assets/images/gridicon1.png')}></Image>
+                    <Image style={styles.ArchiveTopIcon} source={require('../assets/images/gridicon1.png')}></Image>
                   </TouchableOpacity>
                 </View>)
                 :
-                (<View>
+                (<View >
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.listicon} source={require('../assets/images/list1.png')}></Image>
+                    <Image style={styles.ArchiveTopIcon} source={require('../assets/images/list1.png')}></Image>
                   </TouchableOpacity>
                 </View>)
             }
@@ -221,91 +231,6 @@ export default class Archive extends Component {
 
 
 
-
-const styles = StyleSheet.create({
-  icon:{
-    width:20,
-    height:20,
-  },
-  drawericon: {
-
-    width: 38, //30,
-    height: 38,  //40,
-    justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    marginLeft: 5,   //10,
-    paddingLeft: 30
-  },
-  text: {
-    marginLeft: 30,
-    fontSize: 25,
-    color: "black",
-
-  },
-  searchicon: {
-    width: 35, //30,
-    height: 35,  //40,
-    justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    //marginLeft: 60,   //10,
-    // paddingLeft: 30,
-    marginHorizontal: 80,
-    marginRight: 30
-
-
-  },
-
-  /* gridicon: {
-    // marginRight: 10,
-    marginRight:40,
-     marginTop: 5,
-     width: 24, //30,
-     height: 24,  //40,
-     justifyContent: 'space-between',
-     alignItems: "flex-end",       //'flex-start',
-     // marginLeft: 20,  //15,   //10,
-     // paddingLeft: 30,
-     // marginHorizontal:60
-   },
-   listicon: {
-     marginRight:0,
-    //marginLeft: -11,
-     marginTop: -1,
-     width: 42, //30,
-     height: 42,  //40,
-     justifyContent: 'space-between',
-     alignItems: "flex-end",       //'flex-start',
-     // marginLeft: 20,   //15,   //10,
-     // paddingLeft: 30,
-     // marginHorizontal:60
-   },
- 
-   */
-  image: {
-    width: 30, //30,
-    height: 30,  //40,
-    justifyContent: 'space-between',
-    alignItems: "center",       //'flex-start',
-    marginLeft: 15,   //10,
-    paddingLeft: 30,
-  },
-  gridicon: {
-    marginLeft: -10,
-    width: 24,
-    height: 24,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end'
-  },
-
-  listicon: {
-    marginLeft: -19,
-    width: 42,
-    height: 42,
-    alignItems: "flex-end",
-    justifyContent: 'flex-end'
-  }
-
-})
 
 
 

@@ -200,7 +200,7 @@ export default StyleSheet.create({
     },
 
     text: {
-        marginLeft: 30,
+        //marginLeft: 10,
         fontSize: 25,
         color: "black",
 
@@ -239,6 +239,17 @@ export default StyleSheet.create({
         //        borderWidth: 2
     },
 
+
+
+    dashboardTopIcon: {
+        width: 25, // '20%',
+        height: 25,   // '35%',
+        padding: 15,
+        margin: 15,
+       
+    },
+
+
     drawericon: {
         width: 30,
         height: 40,
@@ -273,8 +284,8 @@ export default StyleSheet.create({
 
     },
     gridicon: {
-        width: 27,
-        height: 28,
+        width: '30%',
+        height: 40,
         justifyContent: 'space-between',
         alignItems: 'center',
         marginLeft: 15,
@@ -283,7 +294,7 @@ export default StyleSheet.create({
     },
 
     listicon: {
-        width: 30,
+        width: '30%',
         height: 40,
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -493,41 +504,84 @@ export default StyleSheet.create({
     databottomTakeNote: {
         marginLeft: 10,
         marginRight: 10,
+        // bottom:-650,
         flexDirection: "row",
         height: 100,
         width: "95%",
-        alignItems: "center",
+        // alignItems: 'center',
         justifyContent: 'space-between',
-        borderRadius: 10,
-        marginTop: 10
+        bottom:0,
+        left:0
+        // borderRadius: 10,
+      
+  
+    //    // marginTop: 10
 
 
 
     },
-    plusicon: {
-        flexDirection: 'row',
-        width: 40,
-        height: 40,
-        justifyContent: 'space-between',
-        alignItems: "center",
-        marginLeft: 10,
-        paddingLeft: 30,
-        marginTop: 10
-    },
+
+    // last: {
 
 
-    dots: {
-        flexDirection: "row",
-        width: 40,
-        height: 45,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginLeft: 320,
-        marginTop: 1,
-        marginBottom: 10
-    },
+    //     height: 50,
+
+    //     flexDirection: "row",
+    //     paddingLeft: 25,  //10,
+    //     alignItems: 'center',
+    //     width: /*350*/ 390,
+    //     marginLeft: 10,  //7,
+    //     marginVertical: 10,
+
+    //     borderColor: "#C1C1C1",
+
+
+    // },
+    // plusicon: {
+    //     flexDirection: 'row',
+    //     width: 40,
+    //     height: 40,
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",
+    //     marginLeft: 10,
+    //     paddingLeft: 30,
+    //     marginTop: 10
+    // },
+
+
+    // dots: {
+    //     flexDirection: "row",
+    //     width: 40,
+    //     height: 45,
+    //     justifyContent: 'flex-end',
+    //     alignItems: 'center',
+    //     marginLeft: 320,
+    //     marginTop: 1,
+    //     marginBottom: 10
+    // },
 
     /*----------------------------------------------reminder----------------------------------------------------------------------------------------------------*/
+
+    // topboxReminder: {
+    //     flexDirection: "row",
+    //     height: 50,
+    //     width: "95%",
+    //     alignItems: "center",
+    //     justifyContent: "center",
+    //     borderRadius: 10,
+    //     borderWidth: StyleSheet.hairlineWidth,
+    //     borderColor: "black",
+    //     // height: 50,
+    //     //  bakgroundColor: '#ffffff',
+    //     //   flexDirection: "row",
+    //     //    paddingLeft: 10, 
+    //     //    alignItems: 'center',
+    //     //     width:  390,
+    //     //      marginLeft: 7, 
+    //     //      borderRadius: 9,
+    //     //       borderColor: "#C1C1C1",
+    //     //        borderWidth: 2
+    // },
 
     topboxReminder: {
         flexDirection: "row",
@@ -549,21 +603,31 @@ export default StyleSheet.create({
         //       borderColor: "#C1C1C1",
         //        borderWidth: 2
     },
+ 
+    reminderTopIcon: {
+      
+        width: 35, // '20%',
+        height: 35,   // '35%',
+        padding: 15,
+        margin: 15,
+       
+    },
+
 
     icon: {
         width: 20,
         height: 20,
     },
 
-    remindertopicons: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: "center",
-        width: 35,
-        height: 35,
-        padding: 1,
-        margin: 5
-    },
+    // remindertopicons: {
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",
+    //     width: 35,
+    //     height: 35,
+    //     padding: 1,
+    //     margin: 5
+    // },
 
 
 
@@ -576,46 +640,47 @@ export default StyleSheet.create({
     //     marginLeft: 5,   //10,
     //     paddingLeft: 30
     //   },
-    text: {
-        marginLeft: 30,
-        fontSize: 25,
-        color: "black",
+    /***************************** */
+    // text: {
+    //     marginLeft: 30,
+    //     fontSize: 25,
+    //     color: "black",
 
-    },
-    searchicon: {
-        width: 35,
-        height: 35,
-        justifyContent: 'space-between',
-        alignItems: "center",
-        marginRight: 30,
-        marginLeft: 20,
-        marginVertical: 10
+    // },
+    // searchicon: {
+    //     width: 35,
+    //     height: 35,
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",
+    //     marginRight: 30,
+    //     marginLeft: 20,
+    //     marginVertical: 10
 
-    },
+    // },
 
-    image: {
-        width: 30, //30,
-        height: 30,  //40,
-        justifyContent: 'space-between',
-        alignItems: "center",       //'flex-start',
-        marginLeft: 15,   //10,
-        paddingLeft: 30,
-    },
-    gridicon: {
+    // image: {
+    //     width: 30, //30,
+    //     height: 30,  //40,
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",       //'flex-start',
+    //     marginLeft: 15,   //10,
+    //     paddingLeft: 30,
+    // },
+    // gridicon: {
 
-        width: 24,
-        height: 24,
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end'
-    },
+    //     width: 24,
+    //     height: 24,
+    //     alignItems: 'flex-end',
+    //     justifyContent: 'flex-end'
+    // },
 
-    listicon: {
+    // listicon: {
 
-        width: 42,
-        height: 42,
-        alignItems: "flex-end",
-        justifyContent: 'flex-end'
-    },
+    //     width: 42,
+    //     height: 42,
+    //     alignItems: "flex-end",
+    //     justifyContent: 'flex-end'
+    // },
 
     /*-----------------------------------------------Edit-----------------------------------------------------------------------------------------------------*/
 
@@ -826,12 +891,132 @@ drawerArrow: {
 searchText: {
     color: 'gray',
     flexDirection: "row",
-    justifyContent:'space-between',
-    fontSize: 18,
+    alignItems:'center',
+    justifyContent:'space-evenly',
+    fontSize: 24,
     paddingLeft:20,
     paddingRight:20
 
-}
+},
+
+/**************************************************************************Archive********************************************************************** */
+
+topboxArchive: {
+    flexDirection: "row",
+    height: 50,
+    width: "95%",
+    alignItems: "center",
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "black",
+    // height: 50,
+    //  bakgroundColor: '#ffffff',
+    //   flexDirection: "row",
+    //    paddingLeft: 10, 
+    //    alignItems: 'center',
+    //     width:  390,
+    //      marginLeft: 7, 
+    //      borderRadius: 9,
+    //       borderColor: "#C1C1C1",
+    //        borderWidth: 2
+},
+
+
+ArchiveTopIcon: {
+    width: 35, // '20%',
+    height: 35,   // '35%',
+    padding: 15,
+    margin: 15,
+   
+},
+
+
+
+
+
+icon:{
+    width:20,
+    height:20,
+  },
+//   drawericon: {
+
+//     width: 38, //30,
+//     height: 38,  //40,
+//     justifyContent: 'space-between',
+//     alignItems: "center",       //'flex-start',
+//     marginLeft: 5,   //10,
+//     paddingLeft: 30
+//   },
+  text: {
+    marginLeft: 30,
+    fontSize: 25,
+    color: "black",
+
+  },
+//   searchicon: {
+//     width: 35, //30,
+//     height: 35,  //40,
+//     justifyContent: 'space-between',
+//     alignItems: "center",       //'flex-start',
+//     //marginLeft: 60,   //10,
+//     // paddingLeft: 30,
+//     marginHorizontal: 80,
+//     marginRight: 30
+
+
+//   },
+
+  /* gridicon: {
+    // marginRight: 10,
+    marginRight:40,
+     marginTop: 5,
+     width: 24, //30,
+     height: 24,  //40,
+     justifyContent: 'space-between',
+     alignItems: "flex-end",       //'flex-start',
+     // marginLeft: 20,  //15,   //10,
+     // paddingLeft: 30,
+     // marginHorizontal:60
+   },
+   listicon: {
+     marginRight:0,
+    //marginLeft: -11,
+     marginTop: -1,
+     width: 42, //30,
+     height: 42,  //40,
+     justifyContent: 'space-between',
+     alignItems: "flex-end",       //'flex-start',
+     // marginLeft: 20,   //15,   //10,
+     // paddingLeft: 30,
+     // marginHorizontal:60
+   },
+ 
+   */
+//   image: {
+//     width: 30, //30,
+//     height: 30,  //40,
+//     justifyContent: 'space-between',
+//     alignItems: "center",       //'flex-start',
+//     marginLeft: 15,   //10,
+//     paddingLeft: 30,
+//   },
+//   gridicon: {
+//     marginLeft: -10,
+//     width: 24,
+//     height: 24,
+//     alignItems: 'flex-end',
+//     justifyContent: 'flex-end'
+//   },
+
+//   listicon: {
+//     marginLeft: -19,
+//     width: 42,
+//     height: 42,
+//     alignItems: "flex-end",
+//     justifyContent: 'flex-end'
+//   }
+
 
 
 

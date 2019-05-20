@@ -80,9 +80,9 @@ export default class Menu extends Component {
         await this.setState({
             trash: !this.state.trash
         })
-        //this.props.navigation.navigate('Trash')
-        this.props.trash(this.state.trash)
         this.props.navigation.navigate('Trash')
+        this.props.trash(this.state.trash)
+       // this.props.navigation.navigate('Trash')
     }
 
     render() {
@@ -129,7 +129,7 @@ export default class Menu extends Component {
                         data={colorPaletteClassName}
                         renderItem={({ item }) =>
                             <TouchableOpacity onPress={() => this.handlecolor(item.colorCode)}>
-                                <View style={{ backgroundColor: item.colorCode, marginLeft: 5, borderRadius: 25, height: 40, width: 40, borderColor: 'black', borderWidth: StyleSheet.hairlineWidth }}></View>
+                                <View style={{ backgroundColor:item.colorCode, marginLeft: 5, borderRadius: 25, height: 40, width: 40, borderColor: 'black', borderWidth: StyleSheet.hairlineWidth }}></View>
                             </TouchableOpacity>}>
                     </FlatList>
                 </View>

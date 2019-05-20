@@ -34,7 +34,7 @@ export default class TakeNote extends Component {
             newline: true,
             TakeNote: {},
             archiveNote: {},
-            color: '',
+            color:'',
             dialogVisible: false,
             PickerValue: '',
             isDateTimePickerVisible: false,
@@ -87,7 +87,7 @@ export default class TakeNote extends Component {
                     pinned: this.state.pinned,
                     reminder: this.state.reminder,
                     color: this.state.color,
-                  
+                    trash:this.state.trash,
                     token: value
                 }
 
@@ -264,7 +264,7 @@ export default class TakeNote extends Component {
 
                 <View style={{ marginLeft: 30 }}>
                     <TextInput
-                        style={{ fontSize: 30, fontWeight: "bold" }}
+                        style={{ fontSize: 30, fontWeight: "bold", }}
                         placeholder="Title"
                         placeholderTextColor="#a1a5a3"
                         onChangeText={(text) => this.setState({ Title: text })}
@@ -273,7 +273,7 @@ export default class TakeNote extends Component {
 
                     />
                     <TextInput placeholder="Description"
-                        style={{ fontSize: 20, fontWeight: "bold" }}
+                        style={{ fontSize: 20, fontWeight: "bold", }}
                         placeholderTextColor="#a1a5a3"
                         onChangeText={(text) => this.setState({ Description: text })}
                         multiline={this.state.newline}
@@ -292,7 +292,7 @@ export default class TakeNote extends Component {
                     trash={this.handleTrash}
                     navigation={this.props.navigation}>
                 </Menu> */}
-
+   
                 <View style={styles.databottomTakeNote}>
 
                     <TouchableOpacity>
@@ -311,7 +311,7 @@ export default class TakeNote extends Component {
                                 takeNoteTopBar: {
                                     // justifyContent: "center",
                                     marginBottom: 50,
-                                    backgroundColor: this.state.color
+                                   // backgroundColor: this.state.color
 
                                 }
                             }}>
@@ -329,7 +329,7 @@ export default class TakeNote extends Component {
 
               
                 </View>
-
+              
 
                 <Dialog.Container visible={this.state.dialogVisible}>
 

@@ -36,8 +36,8 @@ export function getNotes(data) {
         },
 
     }).then(function (response) {
-        const result = response.data;  
-          console.log("===================================>",response.data)
+        const result = response.data;
+        console.log("===================================>", response.data)
         return result;
     })
         .catch((err) => {
@@ -57,7 +57,7 @@ export function getNotes(data) {
 //     .then(function(response){
 //         const titleResult=response.data
 //         console.log("<><><><><><><><><><><><><><><>",response.data.result.title);
-        
+
 //         return titleResult;
 //     })
 
@@ -145,8 +145,8 @@ export function isPinned(pinnedData, token, labelInfo) {
 
 export function editReminder(reminData, labelInfo, token) {
 
-    console.log(",..,.,.,.",reminData);
-    
+    console.log(",..,.,.,.", reminData);
+
     let data = {
         reminder: reminData,
         noteId: labelInfo._id
@@ -164,12 +164,22 @@ export function editReminder(reminData, labelInfo, token) {
 
 }
 
-export function isTrashed(data) {
-    console.log("Update isTrashed==>\n", data);
+export function isTrashed(trashData, labelInfo, token) {
+
+    let data = {
+        trash: trashData,
+        noteId: labelInfo._id
+    }
+
+    console.log("labelInfo===>", labelInfo);
+    console.log("Update isTrashed==>\n", trashData);
+    console.log("token==>", token);
+
+
     return axios(baseUrl + '/isTrashed', {
         method: 'PUT',
         headers: {
-            'token': data.token
+            'token':token
         },
         data: data
     })
@@ -237,6 +247,6 @@ function getNotes(data) {
 
 
 // export {
-    
+
 //     getTitle
 // }

@@ -154,12 +154,12 @@ export default class DashBoard extends Component {
 
             {/* onpress with drawericon */}
             <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-              <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
+              <Image style={styles.dashboardTopIcon} source={require('../assets/images/drawericon.png')} />
             </TouchableOpacity>
 
             {/* keep icon */}
             <TouchableOpacity onPress={() => this.componentDidMount()}>
-              <Image style={styles.refresh} source={require('../assets/images/refresh.png')}></Image>
+              <Image style={styles.dashboardTopIcon} source={require('../assets/images/refresh.png')}></Image>
             </TouchableOpacity>
 
             {/* search onpress navigation */}
@@ -172,19 +172,19 @@ export default class DashBoard extends Component {
               this.state.click ?
                 (
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.gridicon} source={require('../assets/images/gridicon1.png')}></Image>
+                    <Image style={styles.dashboardTopIcon} source={require('../assets/images/gridicon1.png')}></Image>
                   </TouchableOpacity>
                 )
                 :
                 (
                   <TouchableOpacity onPress={(event) => this.grid(event)}>
-                    <Image style={styles.listicon} source={require('../assets/images/list1.png')}></Image>
+                    <Image style={styles.dashboardTopIcon} source={require('../assets/images/list1.png')}></Image>
                   </TouchableOpacity>
                 )
             }
 
             <TouchableOpacity >
-              <Image style={styles.profile} source={require('../assets/images/user.png')}></Image>
+              <Image style={styles.dashboardTopIcon} source={require('../assets/images/user.png')}></Image>
             </TouchableOpacity>
 
             {/* <Profile

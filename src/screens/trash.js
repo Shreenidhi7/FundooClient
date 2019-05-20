@@ -12,19 +12,19 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { getNotes } from "../services/noteService";
 
 export default class Trash extends Component {
-  //  static navigationOptions = { headers: null }
-  static navigationOptions = {
-    header: null,
-    drawerLabel: 'Trash',
-    backgroundColor:'yellow',
-    drawerIcon:
-      <Image style={{width:24,height:30}}source={require('../assets/images/trash.png')} />
-  }
+    //  static navigationOptions = { headers: null }
+    static navigationOptions = {
+        header: null,
+        drawerLabel: 'Trash',
+        backgroundColor: 'yellow',
+        drawerIcon:
+            <Image style={{ width: 24, height: 30 }} source={require('../assets/images/trash.png')} />
+    }
     constructor() {
         super()
 
         this.state = {
-            
+
             trashNote: [],
             click: false
         }
@@ -52,10 +52,10 @@ export default class Trash extends Component {
                     .then((result) => {
 
                         this.setState({
-                            trashNote: result.result
+                            trashNote: result
                         })
                         console.log("Result in Datasoure Frontend===>\n")
-                        console.log(result.result)
+                        console.log(result)
                         //  console.log("state in dash ->",this.state.dataSource);
 
                     })
@@ -96,9 +96,10 @@ export default class Trash extends Component {
 
 
         return (
-            <View style={{ flex: 1, flexDirection: "row", marginTop: 10 }}>
+            <View>
+            <View style={styles.topboxTrash}>
                 <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
-                    <Image style={styles.drawericon} source={require('../assets/images/drawericon.png')} />
+                    <Image style={styles.TrashTopIcon} source={require('../assets/images/drawericon.png')} />
                 </TouchableOpacity>
 
                 <Text style={styles.text}>
@@ -106,33 +107,34 @@ export default class Trash extends Component {
             </Text>
 
                 <TouchableOpacity>
-                    <Image style={styles.dots} source={require('../assets/images/dots.png')}></Image>
+                    <Image style={styles.TrashTopIcon2} source={require('../assets/images/dots.png')}></Image>
                 </TouchableOpacity>
+            </View>
 
 
-                <ScrollView>
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-                        {array}
-                    </View>
+            <ScrollView>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                    {array}
+                </View>
 
-                </ScrollView>
+            </ScrollView>
 
-
+          
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    drawericon: {
+    // drawericon: {
 
-        width: 38, //30,
-        height: 38,  //40,
-        justifyContent: 'space-between',
-        alignItems: "center",       //'flex-start',
-        marginLeft: 10,   //10,
-        paddingLeft: 30
-    },
+    //     width: 38, //30,
+    //     height: 38,  //40,
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",       //'flex-start',
+    //     marginLeft: 10,   //10,
+    //     paddingLeft: 30
+    // },
     text: {
         marginLeft: 30,
         fontSize: 25,
@@ -140,19 +142,61 @@ const styles = StyleSheet.create({
 
     },
 
-    dots: {
-        marginTop: 4,
-        width: 40,
-        height: 40,
-        justifyContent: 'space-between',
-        alignItems: "center",
-        //paddingLeft:70,
-        paddingRight: 70,
-        marginHorizontal: 210
+    // dots: {
+    //     marginTop: 4,
+    //     width: 40,
+    //     height: 40,
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",
+    //     //paddingLeft:70,
+    //     paddingRight: 70,
+    //     marginHorizontal: 210
 
-        // marginRight:300,
-        // marginLeft: 290,
-        // paddingLeft: 85,
-        // marginTop: -5
-    }
+    //     // marginRight:300,
+    //     // marginLeft: 290,
+    //     // paddingLeft: 85,
+    //     // marginTop: -5
+    // }
+    topboxTrash: {
+       marginTop:10,
+        height: 50,
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "black",
+        flexDirection: 'row'
+        // height: 50,
+        //  bakgroundColor: '#ffffff',
+        //   flexDirection: "row",
+        //    paddingLeft: 10, 
+        //    alignItems: 'center',
+        //     width:  390,
+        //      marginLeft: 7, 
+        //      borderRadius: 9,
+        //       borderColor: "#C1C1C1",
+        //        borderWidth: 2
+    },
+
+
+    TrashTopIcon: {
+        alignItems:'center',
+        justifyContent:'space-between',
+        width: 30, // '20%',
+        height: 30,   // '35%',
+        padding: 15,
+        margin: 15,
+
+    },
+
+    TrashTopIcon2: {
+       alignItems:'center',
+       justifyContent:'space-between',
+        width: 40, // '20%',
+        height: 40,   // '35%',
+        padding: 15,
+        margin: 15,
+
+    },
 })
