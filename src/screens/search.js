@@ -147,6 +147,7 @@ import { getNotes } from '../services/noteService'
 import AsyncStorage from '@react-native-community/async-storage';
 
 export default class SearchNote extends Component {
+    static navigationOptions ={header:null}
     constructor(props) {
         super(props)
         this.state = {
@@ -199,12 +200,14 @@ export default class SearchNote extends Component {
 
     filteredNotes = searchText => {
 
-        var arr1 = []
+      
 
         if (searchText !== '') {
             this.setState({
                 isSearching: true
             });
+
+            var arr1 = []
             arr1 = Object.keys(this.state.note).map((notes) => {
                 var key = notes
                 arr1.push(this.state.note[key])

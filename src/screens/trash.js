@@ -82,7 +82,7 @@ export default class Trash extends Component {
 
             data = this.state.trashNote[key]
 
-            if ((data.trash === true )) {
+            if ((data.trash===true && data.archive===true)) {
                 return (
                     <CardComponent Display={data}
                         notekey={key}
@@ -96,7 +96,7 @@ export default class Trash extends Component {
 
 
         return (
-            <View>
+            <View style={{flex:1}}>
             <View style={styles.topboxTrash}>
                 <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.openDrawer())}>
                     <Image style={styles.TrashTopIcon} source={require('../assets/images/drawericon.png')} />
@@ -107,7 +107,7 @@ export default class Trash extends Component {
             </Text>
 
                 <TouchableOpacity>
-                    <Image style={styles.TrashTopIcon2} source={require('../assets/images/dots.png')}></Image>
+                    <Image style={styles.TrashTopIcon2} source={require('../assets/images/verticaldots.png')}></Image>
                 </TouchableOpacity>
             </View>
 
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     //     paddingLeft: 30
     // },
     text: {
+        width:'70%',
         marginLeft: 30,
         fontSize: 25,
         color: "black",
@@ -181,8 +182,8 @@ const styles = StyleSheet.create({
 
 
     TrashTopIcon: {
-        alignItems:'center',
-        justifyContent:'space-between',
+        // alignItems:'center',
+        // justifyContent:'space-between',
         width: 30, // '20%',
         height: 30,   // '35%',
         padding: 15,
@@ -191,10 +192,9 @@ const styles = StyleSheet.create({
     },
 
     TrashTopIcon2: {
-       alignItems:'center',
-       justifyContent:'space-between',
-        width: 40, // '20%',
-        height: 40,   // '35%',
+        width:'100%',
+        width: 30, // '20%',
+        height: 30,   // '35%',
         padding: 15,
         margin: 15,
 

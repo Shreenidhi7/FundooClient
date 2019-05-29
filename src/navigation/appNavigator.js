@@ -8,6 +8,8 @@ import Drawer from '../navigation/dawerNavigator';
 import TakeNote from '../screens/TakeNote';
 import Edit from '../screens/Edit';
 import Search from '../screens/search';
+import ProfilePicture from './ProfilePicture';
+import NewLabelPage from '../screens/NewLabelPage';
 
 
 //navigationOptions={header : null}
@@ -15,12 +17,16 @@ const MainNavigator=createStackNavigator({
     Login : { screen : LoginNew },
     Register : { screen : Register},
     Forgot : {screen : ForgotPassword},
-    ResetPassword : {screen:ResetPassword  },
-    DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
+    ResetPassword : {screen:ResetPassword},
+  //  DashBoard : {screen : DashBoard,navigationOptions:{header:null}},
     Drawer:{screen:Drawer,navigationOptions:{header:null}},
-    Search: { screen: Search },
-    TakeNote:{screen : TakeNote,navigationOptions:{header:null}},
-    Edit:{screen:Edit,navigationOptions:{header:null}}
+     Search: { screen: Search },
+     TakeNote:{screen : TakeNote,navigationOptions:{header:null}},
+     Edit: { screen: Edit },
+     ProfilePic:{screen:ProfilePicture},
+
+     NewLabelPage:{screen:NewLabelPage}
+    // Edit:{screen:Edit,navigationOptions:{header:null}}
 },
 {
     initialRouteName :  'Drawer' // "Drawer"   //////'Drawer'

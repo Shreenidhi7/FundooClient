@@ -12,7 +12,7 @@ export default class CardComponent extends Component {
         super(props)
         this.state = {
             click: false,
-            color:''
+            color: ''
         }
     }
     static navigationOptions = { header: null };
@@ -48,11 +48,11 @@ export default class CardComponent extends Component {
                     <Card containerStyle={{ backgroundColor: this.props.Display.color, borderRadius: 10, borderWidth: 1, borderColor: 'black' }}>
                         <View>
 
-                            <View style={{ padding: 5, fontSize:300, fontWeight: 'bold', color: 'black' }}>
+                            <View style={{ padding: 5, fontSize: 300, fontWeight: 'bold', color: 'black' }}>
                                 <Text>{this.props.Display.title}</Text>
                             </View>
 
-                            <View style={{ padding: 5, fontSize:200, fontWeight: 'bold', color: 'black' }}>
+                            <View style={{ padding: 5, fontSize: 200, fontWeight: 'bold', color: 'black' }}>
                                 <Text>{this.props.Display.description}</Text>
                             </View>
 
@@ -66,7 +66,9 @@ export default class CardComponent extends Component {
                                 :
                                 <View></View>}
 
-
+                            <View style={{ padding: 5, fontSize: 200, fontWeight: 'bold', color: 'black' }}>
+                                <Text>{this.props.Display.label}</Text>
+                            </View>
 
 
                             {/* <Card containerStyle={{ backgroundColor: this.props.Display.color, borderRadius: 50, borderWidth: 1, borderColor: 'black' }}>

@@ -151,9 +151,9 @@ export function editReminder(reminData, labelInfo, token) {
         reminder: reminData,
         noteId: labelInfo._id
     }
-    console.log("labelInfo==>", labelInfo);
-    console.log("Edit reminder==>\n", reminData);
-    console.log("token==>", token);
+    console.log("labelInfo==>",labelInfo);
+    console.log("Edit reminder==>\n",reminData);
+    console.log("token>", token);
     return axios(baseUrl + '/editReminder', {
         method: 'PUT',
         headers: {
@@ -171,7 +171,7 @@ export function isTrashed(trashData, labelInfo, token) {
         noteId: labelInfo._id
     }
 
-    console.log("labelInfo===>", labelInfo);
+    console.log(" In Trash labelInfo===>", labelInfo);
     console.log("Update isTrashed==>\n", trashData);
     console.log("token==>", token);
 
@@ -188,7 +188,135 @@ export function isTrashed(trashData, labelInfo, token) {
 
 
 
+export function createLabel(labelArray,token) {
 
+    var data={
+        label:labelArray,
+        token:token
+   }
+    console.log("AddLabel Method===>\n", data.label);
+    console.log("token+_+_+_+_+",data.token);
+    
+    return axios(baseUrl + '/addLabel', {
+        method: "POST",
+        headers: {
+            'token': token
+        },
+        data: data
+    })
+}
+
+
+export function getLabels(data) {
+    // console.log("Getting Notes Yet to Achieve\n Yet to hit the api");
+    return axios(baseUrl + '/getLabels', {
+        method: "GET",
+        headers: {
+            "token": data.token
+        },
+
+    }).then(function (response) {
+        const result = response.data;
+        // console.log("========label label label label========>", response.data)
+        console.log("========label label label label========>", response.data)
+        return result;
+    })
+        .catch((err) => {
+            console.log("ERROR IN SERVICES", err);
+        })
+}
+
+//real one with normal 
+// export function setProfilePic(Image,Token){
+
+//     var data={
+//         image:Image,
+//         token:Token
+//     }
+//     console.log("in noteservices image><><><>",data.image);
+//     console.log("in noteservices token<><><><>",data.token);
+
+   
+//         return axios(baseUrl +'/setProfilePic',{
+//             method:'PUT',
+//             headers:{
+//                 'token':Token
+//             },  
+//             data: data
+//         })
+
+//     .then(function(response) {
+//         const result=response.data
+//         console.log("image data  coming back to update===>",response.data);
+//         return result
+//     }).catch((err)=>{
+//         console.log("Error in services",err);
+//     })
+
+// }
+
+
+
+
+export function setProfilePic(formdata){
+    // var data={
+    //     image:Image,
+    //     token:Token
+    // }
+    // console.log("in noteservices image><><><>",data.image);
+    // console.log("in noteservices token<><><><>",data.token);  
+
+console.log("11111111111111111111111111111111111111111111111111111111111111",formdata);
+
+
+// return axios(baseUrl+'/setProfilePic',{
+//     method:"PUT",
+//     data:formdata,
+//     headers:{
+//         Accept:'application/json',
+//         'Content-Type':'multipart/form-data'
+//     }
+// })
+// }
+
+return axios({
+    url: baseUrl+'/setProfilePic',
+    method: 'PUT',
+    data: formdata.formData,
+    headers: {
+   
+      'token':formdata.token
+    }
+  })
+
+
+}
+
+
+
+// fetch('http://192.168.1.101:3000/products',{
+//   method: 'post',
+//   headers: {
+//     'Content-Type': 'multipart/form-data',
+//   },
+//   body: formdata
+//   }).then(response => {
+//     console.log("image uploaded")
+//   }).catch(err => {
+//     console.log(err)
+//   })  
+// });
+
+
+export function pushNotification(data) {
+    console.log("Data from front to back ===>", data);
+    var headers = {
+      token: AsyncStorage.getItem("token")
+    };
+    return axios.post("/pushNotification", data, {
+      headers: headers
+    });
+  }
 
 
 
@@ -245,8 +373,3 @@ function getNotes(data) {
 
 
 
-
-// export {
-
-//     getTitle
-// }

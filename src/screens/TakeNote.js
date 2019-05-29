@@ -34,7 +34,7 @@ export default class TakeNote extends Component {
             newline: true,
             TakeNote: {},
             archiveNote: {},
-            color:'',
+            color: '',
             dialogVisible: false,
             PickerValue: '',
             isDateTimePickerVisible: false,
@@ -87,7 +87,7 @@ export default class TakeNote extends Component {
                     pinned: this.state.pinned,
                     reminder: this.state.reminder,
                     color: this.state.color,
-                    trash:this.state.trash,
+                    trash: this.state.trash,
                     token: value
                 }
 
@@ -227,7 +227,7 @@ export default class TakeNote extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{ backgroundColor: this.state.color, flex: 1 }}>
                 <View style={styles.takeNoteTopBar}>
 
                     <TouchableOpacity onPress={() => this.submit()}>
@@ -292,44 +292,44 @@ export default class TakeNote extends Component {
                     trash={this.handleTrash}
                     navigation={this.props.navigation}>
                 </Menu> */}
-   
+
                 <View style={styles.databottomTakeNote}>
-
-                    <TouchableOpacity>
-                        <Image style={styles.takeNotebottomicon} source={require('../assets/images/plusnew.png')}></Image>
-                    </TouchableOpacity>
-
-
-                    <TouchableOpacity onPress={() => this.RBSheet.open()}>
-                        <RBSheet
-                            ref={ref => {
-                                this.RBSheet = ref;
-                            }}
-                            height={300}
-                            duration={250}
-                            customStyles={{
-                                takeNoteTopBar: {
-                                    // justifyContent: "center",
-                                    marginBottom: 50,
-                                   // backgroundColor: this.state.color
-
-                                }
-                            }}>
-
-                            <Menu
-                                view={this.state.click}
-                                color={this.onChangeColor}
-                                trash={this.handleTrash}
-                                navigation={this.props.navigation} />
-                        </RBSheet>
-
-                        <Image style={styles.takeNotebottomicon} source={require('../assets/images/verticaldots.png')}></Image>
-                    </TouchableOpacity>
-
-
-              
+                    <View>
+                        <TouchableOpacity>
+                            <Image style={styles.takeNotebottomicon} source={require('../assets/images/plusnew.png')}></Image>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={() => this.RBSheet.open()}>
+                            <Image style={styles.takeNotebottomicon} source={require('../assets/images/verticaldots.png')}></Image>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-              
+
+                <RBSheet
+                    ref={ref => {
+                        this.RBSheet = ref;
+                    }}
+                    height={300}
+                    duration={250}
+                    customStyles={{
+                        takeNoteTopBar: {
+                            // justifyContent: "center",
+                            marginBottom: 50,
+                             backgroundColor: this.state.color
+
+                        }
+                    }}>
+
+                    <Menu
+                        view={this.state.click}
+                        color={this.onChangeColor}
+                        trash={this.handleTrash}
+                        navigation={this.props.navigation} />
+                </RBSheet>
+
+
+
 
                 <Dialog.Container visible={this.state.dialogVisible}>
 

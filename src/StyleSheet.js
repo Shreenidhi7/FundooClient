@@ -19,8 +19,8 @@ export default StyleSheet.create({
         color: 'rgb(30,144,255)'
     },
     loginHeader: {
-        marginTop:30,
-        marginBottom:30,
+        marginTop: 30,
+        marginBottom: 30,
         fontSize: 25,
         fontWeight: 'bold',
         color: 'black',
@@ -46,12 +46,12 @@ export default StyleSheet.create({
         fontSize: 25,
         width: '70%',
         backgroundColor: 'rgba(255,255,255,0.3)',
-        paddingHorizontal: 16, 
+        paddingHorizontal: 16,
         marginVertical: 10,
         color: 'black',
         marginBottom: 20,
-    
-        },
+
+    },
     // loginButton: {
     //     //alignSelf: 'stretch',
     //     alignItems: 'center',
@@ -64,7 +64,7 @@ export default StyleSheet.create({
     //     marginLeft: 80,
     //     marginRight: 80,
     // },
-    loginButton:{
+    loginButton: {
         alignSelf: 'stretch',
         alignItems: 'center',
         padding: 10,
@@ -81,11 +81,11 @@ export default StyleSheet.create({
         fontWeight: "900",
         paddingRight: 0,
     },
-  
+
     signUpTextCont: {
         //this is apt
-        marginTop:30,
-        marginBottom:30,
+        marginTop: 30,
+        marginBottom: 30,
         color: 'black',
         fontWeight: 'bold',
         alignItems: 'center',
@@ -103,10 +103,10 @@ export default StyleSheet.create({
     signUpButton: {
         color: "rgb(30,144,255)",
         fontSize: 25,
-        fontWeight: 'bold' ,
+        fontWeight: 'bold',
     },
     forgotButton: {
-        margin:20,
+        margin: 20,
         paddingBottom: 10,
         marginBottom: 10,
         color: 'black',
@@ -229,7 +229,7 @@ export default StyleSheet.create({
         borderColor: "black",
         // height: 50,
         //  bakgroundColor: '#ffffff',
-        //   flexDirection: "row",
+        //   flexDirection: "row", 
         //    paddingLeft: 10, 
         //    alignItems: 'center',
         //     width:  390,
@@ -246,7 +246,7 @@ export default StyleSheet.create({
         height: 25,   // '35%',
         padding: 15,
         margin: 15,
-       
+
     },
 
 
@@ -347,7 +347,7 @@ export default StyleSheet.create({
         flexDirection: "row",
         paddingLeft: 25,  //10,
         alignItems: 'center',
-        width: /*350*/ 390,
+        width: '100%',
         marginLeft: 10,  //7,
         marginVertical: 10,
 
@@ -408,6 +408,8 @@ export default StyleSheet.create({
 
     takeNoteTopBar:
     {
+        // flex:1,
+        // flexGrow:1,
         flexDirection: "row",
         height: 50,
         width: "100%",
@@ -502,25 +504,24 @@ export default StyleSheet.create({
 
 
     databottomTakeNote: {
-        marginLeft: 10,
-        marginRight: 10,
-        // bottom:-650,
+        //     position: 'relative',
+        //     bottom: 0,
+        //     left: 0,
+        //     justifyContent: 'space-between',
+        //     flexDirection: 'row',
+        //     height: 50,
+        // },
+
+        height: 50,
         flexDirection: "row",
-        height: 100,
-        width: "95%",
-        // alignItems: 'center',
+        bottom: 0,
+        position: 'absolute',
         justifyContent: 'space-between',
-        bottom:0,
-        left:0
-        // borderRadius: 10,
-      
-  
-    //    // marginTop: 10
-
-
-
+        width: '100%',
+        marginLeft: 10,  //7,
+        marginVertical: 10,
+        borderColor: "#C1C1C1",
     },
-
     // last: {
 
 
@@ -603,14 +604,14 @@ export default StyleSheet.create({
         //       borderColor: "#C1C1C1",
         //        borderWidth: 2
     },
- 
+
     reminderTopIcon: {
-      
+
         width: 35, // '20%',
         height: 35,   // '35%',
         padding: 15,
         margin: 15,
-       
+
     },
 
 
@@ -806,10 +807,10 @@ export default StyleSheet.create({
 
     forgotpasswordform: {
         flex: 1,
-        flexGrow:1,
-        flexDirection:'column',
-      //  paddingVertical: 60,
-         alignItems: 'center',
+        flexGrow: 1,
+        flexDirection: 'column',
+        //  paddingVertical: 60,
+        alignItems: 'center',
         backgroundColor: 'white',
         // marginTop:30,     
         // marginBottom:30
@@ -819,7 +820,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 25,
         color: 'black',
-        marginTop:70
+        marginTop: 70
         // paddingBottom: 10,
         // marginBottom: 40,  
         // borderBottomColor: 'rgb(23, 28, 27)',
@@ -828,8 +829,8 @@ export default StyleSheet.create({
     },
 
     emailHeading: {
-        marginTop:20,
-        marginBottom:20,
+        marginTop: 20,
+        marginBottom: 20,
         paddingLeft: 10,
         color: 'black',
         fontSize: 20,
@@ -845,7 +846,7 @@ export default StyleSheet.create({
         width: '60%',
         backgroundColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
-        marginTop:20,
+        marginTop: 20,
         // justifyContent: 'space-around',
         // paddingHorizontal: 10,
         // marginVertical: 10,
@@ -854,9 +855,9 @@ export default StyleSheet.create({
         alignSelf: 'stretch',
         alignItems: 'center',
         padding: 10,
-        backgroundColor:  'rgb(30,144,255)',
+        backgroundColor: 'rgb(30,144,255)',
         marginTop: 30,
-        marginBottom:120,
+        marginBottom: 120,
         borderRadius: 40,
         marginLeft: 80,
         marginRight: 80,
@@ -870,152 +871,154 @@ export default StyleSheet.create({
         paddingRight: 0,
     },
 
-//*****************************************Drawer Search ************************************************************************************************* */
+    //*****************************************Drawer Search ************************************************************************************************* */
 
-searchContainer: {
-  //  flex: 1,
-    flexDirection:"row",
-    padding:15
+    searchContainer: {
+        //  flex: 1,
+        flexDirection: "row",
+        padding: 15
 
-},
+    },
 
-drawerArrow: {
-    flexDirection: "row",
-    marginTop: 10,
-    //marginLeft: 10,
-    width: 30,
-    height: 40,
+    drawerArrow: {
+        flexDirection: "row",
+        marginTop: 10,
+        //marginLeft: 10,
+        width: 30,
+        height: 40,
 
-},
+    },
 
-searchText: {
-    color: 'gray',
-    flexDirection: "row",
-    alignItems:'center',
-    justifyContent:'space-evenly',
-    fontSize: 24,
-    paddingLeft:20,
-    paddingRight:20
+    searchText: {
+        color: 'gray',
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        fontSize: 24,
+        paddingLeft: 20,
+        paddingRight: 20
 
-},
+    },
 
-/**************************************************************************Archive********************************************************************** */
+    /**************************************************************************Archive********************************************************************** */
 
-topboxArchive: {
-    flexDirection: "row",
-    height: 50,
-    width: "95%",
-    alignItems: "center",
-    justifyContent: 'center',
-    borderRadius: 10,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "black",
-    // height: 50,
-    //  bakgroundColor: '#ffffff',
-    //   flexDirection: "row",
-    //    paddingLeft: 10, 
-    //    alignItems: 'center',
-    //     width:  390,
-    //      marginLeft: 7, 
-    //      borderRadius: 9,
-    //       borderColor: "#C1C1C1",
-    //        borderWidth: 2
-},
+    topboxArchive: {
+        flexDirection: "row",
+        height: 50,
+        width: "95%",
+        alignItems: "center",
+        justifyContent: 'center',
+        borderRadius: 10,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "black",
+        // height: 50,
+        //  bakgroundColor: '#ffffff',
+        //   flexDirection: "row",
+        //    paddingLeft: 10, 
+        //    alignItems: 'center',
+        //     width:  390,
+        //      marginLeft: 7, 
+        //      borderRadius: 9,
+        //       borderColor: "#C1C1C1",
+        //        borderWidth: 2
+    },
 
 
-ArchiveTopIcon: {
-    width: 35, // '20%',
-    height: 35,   // '35%',
-    padding: 15,
-    margin: 15,
+    ArchiveTopIcon: {
+
+        width: 35, // '20%',
+        height: 35,   // '35%',
+        padding: 15,
+        margin: 15,
+
+    },
+
+
+
+
+
+    icon: {
+        width: 20,
+        height: 20,
+    },
+    //   drawericon: {
+
+    //     width: 38, //30,
+    //     height: 38,  //40,
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",       //'flex-start',
+    //     marginLeft: 5,   //10,
+    //     paddingLeft: 30
+    //   },
+    text: {
+        width: '39%',
+        marginLeft: 30,
+        fontSize: 25,
+        color: "black",
+
+    },
+    //   searchicon: {
+    //     width: 35, //30,
+    //     height: 35,  //40,
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",       //'flex-start',
+    //     //marginLeft: 60,   //10,
+    //     // paddingLeft: 30,
+    //     marginHorizontal: 80,
+    //     marginRight: 30
+
+
+    //   },
+
+    /* gridicon: {
+      // marginRight: 10,
+      marginRight:40,
+       marginTop: 5,
+       width: 24, //30,
+       height: 24,  //40,
+       justifyContent: 'space-between',
+       alignItems: "flex-end",       //'flex-start',
+       // marginLeft: 20,  //15,   //10,
+       // paddingLeft: 30,
+       // marginHorizontal:60
+     },
+     listicon: {
+       marginRight:0,
+      //marginLeft: -11,
+       marginTop: -1,
+       width: 42, //30,
+       height: 42,  //40,
+       justifyContent: 'space-between',
+       alignItems: "flex-end",       //'flex-start',
+       // marginLeft: 20,   //15,   //10,
+       // paddingLeft: 30,
+       // marginHorizontal:60
+     },
    
-},
+     */
+    //   image: {
+    //     width: 30, //30,
+    //     height: 30,  //40,
+    //     justifyContent: 'space-between',
+    //     alignItems: "center",       //'flex-start',
+    //     marginLeft: 15,   //10,
+    //     paddingLeft: 30,
+    //   },
+    //   gridicon: {
+    //     marginLeft: -10,
+    //     width: 24,
+    //     height: 24,
+    //     alignItems: 'flex-end',
+    //     justifyContent: 'flex-end'
+    //   },
 
-
-
-
-
-icon:{
-    width:20,
-    height:20,
-  },
-//   drawericon: {
-
-//     width: 38, //30,
-//     height: 38,  //40,
-//     justifyContent: 'space-between',
-//     alignItems: "center",       //'flex-start',
-//     marginLeft: 5,   //10,
-//     paddingLeft: 30
-//   },
-  text: {
-    marginLeft: 30,
-    fontSize: 25,
-    color: "black",
-
-  },
-//   searchicon: {
-//     width: 35, //30,
-//     height: 35,  //40,
-//     justifyContent: 'space-between',
-//     alignItems: "center",       //'flex-start',
-//     //marginLeft: 60,   //10,
-//     // paddingLeft: 30,
-//     marginHorizontal: 80,
-//     marginRight: 30
-
-
-//   },
-
-  /* gridicon: {
-    // marginRight: 10,
-    marginRight:40,
-     marginTop: 5,
-     width: 24, //30,
-     height: 24,  //40,
-     justifyContent: 'space-between',
-     alignItems: "flex-end",       //'flex-start',
-     // marginLeft: 20,  //15,   //10,
-     // paddingLeft: 30,
-     // marginHorizontal:60
-   },
-   listicon: {
-     marginRight:0,
-    //marginLeft: -11,
-     marginTop: -1,
-     width: 42, //30,
-     height: 42,  //40,
-     justifyContent: 'space-between',
-     alignItems: "flex-end",       //'flex-start',
-     // marginLeft: 20,   //15,   //10,
-     // paddingLeft: 30,
-     // marginHorizontal:60
-   },
- 
-   */
-//   image: {
-//     width: 30, //30,
-//     height: 30,  //40,
-//     justifyContent: 'space-between',
-//     alignItems: "center",       //'flex-start',
-//     marginLeft: 15,   //10,
-//     paddingLeft: 30,
-//   },
-//   gridicon: {
-//     marginLeft: -10,
-//     width: 24,
-//     height: 24,
-//     alignItems: 'flex-end',
-//     justifyContent: 'flex-end'
-//   },
-
-//   listicon: {
-//     marginLeft: -19,
-//     width: 42,
-//     height: 42,
-//     alignItems: "flex-end",
-//     justifyContent: 'flex-end'
-//   }
+    //   listicon: {
+    //     marginLeft: -19,
+    //     width: 42,
+    //     height: 42,
+    //     alignItems: "flex-end",
+    //     justifyContent: 'flex-end'
+    //   }
 
 
 

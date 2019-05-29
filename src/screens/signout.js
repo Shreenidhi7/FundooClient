@@ -82,15 +82,17 @@ export default class Signout extends Component {
 
     handleLogOut = () => {
 
-    AsyncStorage.getItem('token')
-        token=dataArray.token
-        AsyncStorage.removeItem('token',token);
-        console.log("You have been Logged Out");
-        alert('You have been logged out.');
-      
-        
-        this.props.navigation.navigate('Login')
-        this.setState({ dialogVisible: !this.state.dialogVisible })
+        AsyncStorage.removeItem('token',(err,result)=>{
+            if(err){
+                console.error("Error in logging you out");
+                this.props.navigation.navigate('Dashboard');
+            }else{
+                console.log("signout works ");
+                alert('You have been logged out.');
+                this.props.navigation.navigate('Login');
+                this.setState({ dialogVisible: !this.state.dialogVisible })
+            }
+        });
     }
     showDialog = () => {
         this.setState({ dialogVisible: !this.state.dialogVisible })

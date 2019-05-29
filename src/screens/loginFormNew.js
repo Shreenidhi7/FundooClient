@@ -43,6 +43,7 @@ export default class LoginNew extends Component {
     static navigationOptions = { header: null }
     constructor() {        //(props)
         super()            //(props)
+        
         this.state = {
             Email: '',
             Password: '',
@@ -104,7 +105,8 @@ export default class LoginNew extends Component {
             }
 
             userLogin(data)
-                .then((result) => {
+               
+            .then((result) => {
                     const token1 = result.data.token
                     console.log("Token Generated at Login Time===>\n", token1, "\n");
 
@@ -115,7 +117,13 @@ export default class LoginNew extends Component {
 
                     this.setState({
                         logform: result.data.data,
+                        // Email:'',
+                        // Password:'',
                     })
+                    console.warn("====>",this.state.Email);
+                    console.warn("<><>",this.state.Password);
+                    
+                    
                     this.props.navigation.navigate('DashBoard')
                 })
                 .catch((error) => {

@@ -61,10 +61,14 @@ export default class Menu extends Component {
         super(props)
 
         this.state = {
+            label:'',
             color: '',
-            trash: false
+            trash:false,
+        
         }
-        this.handlecolor = this.handlecolor.bind(this)
+         this.handlecolor = this.handlecolor.bind(this)
+         this.handleTrash=this.handleTrash.bind(this)
+         this.navigateToLabel=this.navigateToLabel.bind(this)
     }
 
     async  handlecolor(color) {
@@ -76,14 +80,39 @@ export default class Menu extends Component {
         this.props.color(this.state.color)
     }
 
-    handleTrash = async event => {
-        await this.setState({
-            trash: !this.state.trash
-        })
-        this.props.navigation.navigate('Trash')
-        this.props.trash(this.state.trash)
-       // this.props.navigation.navigate('Trash')
+    navigateToLabel(){
+        this.props.navigation.navigate('NewLabelPage')
     }
+
+
+ handleTrash=async event=>{
+    console.warn("trashBefore===>",trash);
+    
+     await this.setState({
+        trash: !this.state.trash
+    })
+    console.warn("trash value after",trash);
+    this.props.trash(this.state.trash)
+    this.props.navigation.navigate('Trash')
+    
+}
+
+
+
+
+    // handleTrash = async event => {
+    //     console.warn("trash before===================>",trash);
+        
+    //     await this.setState({
+    //         trash: !this.state.trash
+    //     })
+    //     console.warn("value of trash==>",trash);
+        
+    //    // this.props.navigation.navigate('Trash')
+    //     this.props.trash(this.state.trash)
+      
+
+    // }
 
     render() {
 
@@ -92,10 +121,10 @@ export default class Menu extends Component {
             <View >
 
                 <View style={{ height: 50 }}>
-                    <TouchableOpacity onPress={this.handleTrash.bind(this)}>
-                   
+                    <TouchableOpacity onPress= {this.handleTrash.bind(this)}>                         
+                    {/* /*{this.handleTrash.bind(this)}> */}
                         <Text style={styles.text}> Delete </Text>
-                        <Image style={{width:24,height:30,flexDirection:"row"}}source={require('../assets/images/trash.png')}/>
+                        {/* <Image style={{width:24,height:30,flexDirection:"row"}}source={require('../assets/images/trash.png')}/> */}
                     </TouchableOpacity>
                 </View>
 
@@ -118,7 +147,7 @@ export default class Menu extends Component {
                 </View>
 
                 <View style={{ height: 40 }}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.navigateToLabel.bind(this)}>
                     <Text style={styles.text}> Labels </Text>
                 </TouchableOpacity>
                 </View>

@@ -14,6 +14,10 @@ import RBSheet from 'react-native-raw-bottom-sheet'
 
 import styles from "../StyleSheet";
 
+
+console.log("trash value before edit");
+
+
 export default class Edit extends Component {
 
 
@@ -26,7 +30,7 @@ export default class Edit extends Component {
             archive: this.props.navigation.state.params.Display.archive,
             pinned: this.props.navigation.state.params.Display.pinned,
             reminder: this.props.navigation.state.params.Display.reminder,
-            trash: false,
+            trash: this.props.navigation.state.params.Display.trash,
             click: false,
             newline: true,
             EditNote: {},
@@ -53,6 +57,7 @@ export default class Edit extends Component {
 
 
 
+
     archive = async event => {
 
         await this.setState({
@@ -74,9 +79,10 @@ export default class Edit extends Component {
     }
 
     async handleTrash(value) {
+       // console.log("+++++++++++++++++++++++++++++++++++++",trash);
         console.log("trash", value);
         await this.setState({
-            trash: value
+            trash: !value
         })
         // isTrashed(this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
     }
@@ -104,20 +110,20 @@ export default class Edit extends Component {
             UpdateColor(this.state.color, this.token, this.props.navigation.state.params.Display)
                 .then((result) => {
                     this.setState({
-                        EditNote: result.data.data.title
+                        EditNote: result.data.data.color
                     })
                     this.props.navigation.navigate('DashBoard')
                 })
                 .catch((err) => {
-                    ToastAndroid.showWithGravity("title is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                    ToastAndroid.showWithGravity("color is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
                 })
 
 
             isPinned(this.state.pinned, this.token, this.props.navigation.state.params.Display)
                 .then((result) => {
-                    this.setState({
-                        EditNote: result.data.data.pinned
-                    })
+                    // this.setState({
+                    //     EditNote: result.data.data.pinned
+                    // })
                     this.props.navigation.navigate('DashBoard')
                 })
                 .catch((err) => {
@@ -152,7 +158,9 @@ export default class Edit extends Component {
             var data = {
                 archive: this.state.archive,
                 Display: this.props.navigation.state.params.Display,
-                token: this.token
+                token: this.token,
+                reminder:this.state.reminder,
+                trash:this.state.trash
             }
 
             isArchived(data.archive, data.Display, data.token)
@@ -166,52 +174,49 @@ export default class Edit extends Component {
                     ToastAndroid.showWithGravity("archive is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
                 })
 
+            // var data = {
+            //     reminder: this.state.reminder,
+            //     Display: this.props.navigation.state.params.Display,
+            //     token: this.token
+            // }
 
+            editReminder(data.reminder, data.Display, data.token)
+                .then((result) => {
+                    this.setState({
+                        EditNote: result.data.data.reminder
+                    })
+                    this.props.navigation.navigate('DashBoard')
+                })
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("reminder data is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                })
+
+
+            // var data = {
+            //     trash: this.state.trash,
+            //     Display: this.props.navigation.state.params.Display,
+            //     token: this.token
+            // }
+
+            isTrashed(data.trash, data.Display, data.token)
+                .then((result) => {
+                    this.setState({
+                        EditNote: result.data.data.trash
+                    })
+                    this.props.navigation.navigate('DashBoard')
+                })
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("note is not trashed specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                })
+
+
+                .catch((err) => {
+                    ToastAndroid.showWithGravity("enteries should be clear", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+                })
         })
 
 
-        var data = {
-            reminder: this.state.reminder,
-            Display: this.props.navigation.state.params.Display,
-            // token: this.token
-        }
-
-
-        editReminder(data.reminder, data.Display, this.token)
-            .then((result) => {
-                this.setState({
-                    EditNote: result.data.data.reminder
-                })
-                this.props.navigation.navigate('DashBoard')
-            })
-            .catch((err) => {
-                ToastAndroid.showWithGravity("reminder data is not specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-            })
-
-
-            var data={
-                trash:this.state.trash,
-                Display:this.props.navigation.state.params.Display
-            }
-            isTrashed(data.trash,data.Display,this.token)
-            .then((result) => {
-                this.setState({
-                    EditNote: result.data.data.reminder
-                })
-                this.props.navigation.navigate('DashBoard')
-            })
-            .catch((err) => {
-                ToastAndroid.showWithGravity("note is not trashed specified", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-            })
-
-
-            .catch((err) => {
-                ToastAndroid.showWithGravity("enteries should be clear", err, ToastAndroid.LONG, ToastAndroid.BOTTOM)
-            })
     }
-
-
-
 
 
     getmenu() {
@@ -289,7 +294,7 @@ export default class Edit extends Component {
                 dialogVisible: false
             })
         }
-        editReminder(date, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
+        
     }
     dateNotification() { }
 
@@ -300,9 +305,8 @@ export default class Edit extends Component {
                 dialogVisible: false
             })
         }
-        editReminder(this.state.reminder, this.props.navigation.state.params.Display, this.props.navigation.state.params.notekey)
+       
     }
-
     render() {
         console.log(this.props.navigation.state.params.notekey + "notekey");
 
@@ -312,7 +316,7 @@ export default class Edit extends Component {
         // const description = navigation.getParam('description')
         // const reminder = navigation.getParam('reminder')
         return (
-            <View style={{ backgroundColor: this.state.color, }}>
+            <View style={{ backgroundColor: this.state.color }}>
                 <View style={styles.EditNoteTopBar}>
 
                     <TouchableOpacity onPress={() => { this.submit() }}>
@@ -399,6 +403,8 @@ export default class Edit extends Component {
                                 container: {
                                     // justifyContent: "center",
                                     marginBottom: 50,
+                                    backgroundColor:this.state.color
+
 
                                 }
                             }}>

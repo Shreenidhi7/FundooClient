@@ -1,3 +1,232 @@
+
+// import React, { Component } from 'react';
+// import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+// import ImagePicker from 'react-native-image-picker';
+// //import RNFetchBlob from 'rn-fetch-blob';
+// //import { AsyncStorage } from "react-native";
+// import AsyncStorage from '@react-native-community/async-storage';
+// import { setprofile } from "../services/userServices";
+// import { upload } from '../services/NoteServices';
+
+// const options = {
+//   title: 'Fundoo App',
+//   takePhotoButtonTitle: 'Take photo with your camera',
+//   chooseFromLibraryButtonTitle: 'Choose photo from library',
+// }
+// export default class Profile extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       avatarSource:null,
+//       userId : '',
+//       uploadNote:{}
+
+//     }
+//   }
+//   myfun = () => {
+//     //alert('clicked');
+
+//     ImagePicker.showImagePicker(options, (response) => {
+//       console.log('Response = ', response);
+
+//       if (response.didCancel) {
+//         console.log('User cancelled image picker');
+//       }
+//       else if (response.error) {
+//         console.log('Image Picker Error: ', response.error);
+//       }
+
+//       else {
+//         let source = { uri: response.uri };
+
+//         // You can also display the image using data:
+//         //  let source = { uri: 'data:image/jpeg;base64,' + response.data };
+//          console.log("response------------------------------------------------------------------",source);
+
+//         this.setState({
+//           avatarSource: source,
+//           uploadNote: {},
+
+//         });
+//       }
+//     });
+//   }
+// //   uploadPic = (source) => {
+
+// //  console.log("source ------>",source);
+ 
+// //     RNFetchBlob.fetch('PUT', 'http:10.0.2.2:8000/setProfilePic', {
+
+// //       Authorization: "Bearer access-token",
+// //       otherHeader: "foo",
+// //      'Content-Type': 'multipart/form-data',
+      
+
+// //      }, [
+      
+// //         // element with property `filename` will be transformed into `file` in form data
+// //      { name: 'image', filename: 'avatar.png', data: this.state.pic }
+        
+// //      ]).then((resp) => {
+// //         console.log("response...."+resp);
+// //         alert('your image uploaded successfully');
+// //         this.setState({ avatarSource: resp })
+// //         this.props.navigation.navigate('DashBord')
+// //       })
+// //   }
+
+//   // validateinput() {
+//   //   if (this.state.pic == '') {
+//   //     console.log("image is not null ")
+//   //   }
+   
+//   //   else {
+//   //     return true
+//   //   }
+//   // }
+
+  
+
+//   // submit (source){
+//   //   console.log("image src",source);
+    
+//   //   var check = this.validateinput();
+
+//   //   if (check) {
+
+//   //       var token=AsyncStorage.getItem('token')
+//   //     console.log("Getting Token while creating Note(Take Note)  ",token);
+
+
+//   //     AsyncStorage.getItem('token').then(value => {
+//   //       console.log("Getting token while Creating  profile pic", value);
+//   //       this.token = value
+//   //       var data = {
+//   //         // title: this.state.Title,
+//   //         // description: this.state.Description,
+//   //         // reminder: this.state.reminder,
+//   //         // color: this.state.color,
+//   //         // trash: this.state.trash,
+//   //         // archive: this.state.archive,
+//   //         // pin: this.state.pin,
+//   //         profile:this.state.profilePic,
+//   //          token: value
+//   //       }
+//   //       const profile1 =JSON.stringify(data.profile);
+//   //       console.log("stringify data ---->"+profile1);
+       
+//   //       upload(data)
+        
+//   //                this.setState({ avatarSource: profile1 })
+
+
+
+//   //       this.props.navigation.navigate('DashBord')
+//   //     })
+//   //     .catch((error) => {
+//   //       console.log("The User Doesnot Exists,Register Now", error)
+
+//   //     })
+          
+
+      
+  
+
+//   //  }
+//   //   else {
+//   //     console.log("error in validation");
+
+//   //   }
+//   //  }
+
+
+
+
+//   submit = async event => {
+
+
+//    AsyncStorage.getItem('token')
+//    .then(value => {
+//      console.log("Getting token while ReCreating Note", value);
+//      this.token = value
+//      var data = {
+
+//        profilePic:this.props.navigation.state.params.Display.avatarSource,
+//       // profilePic:this.state.avatarSource,
+
+//        token: value
+//      }
+//      upload(data)
+//        .then((result) => {
+
+//          this.setState({
+//            uploadNote: result.result
+//          })
+//          console.log("Result in Datasoure Frontend===>\n")
+//          console.log(uploadNote)
+
+//        })
+//        .catch((err) => {
+//          console.log("Error occured while Retriving  archiveNotes ", err)
+
+//        })
+//    })
+//    .catch(err => {
+//      console.log("error has got its time to show off:", err);
+//    })
+// }
+
+
+//   render() {
+    
+//     return (
+//       <View style={styles.container}>
+//         <Text style={styles.welcome}>Welcome to React Native!</Text>
+
+//         <Image source={this.state.avatarSource}
+//           style={{ width: '100%', height: 300, margin: 10 }} />
+
+//         <TouchableOpacity style={{ backgroundColor: 'green', margin: 10, padding: 10 }}
+//           onPress={this.myfun}>
+//           <Text style={{ color: '#fff' }}>Select Image</Text>
+//         </TouchableOpacity>
+        
+//         <TouchableOpacity onPress={this.submit}>
+//           <Text>Upload</Text>
+//         </TouchableOpacity>
+
+
+//       </View>
+//     );
+//   }
+// }
+
+
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#F5FCFF',
+//   },
+//   welcome: {
+//     fontSize: 20,
+//     textAlign: 'center',
+//     margin: 10,
+//   },
+//   instructions: {
+//     textAlign: 'center',
+//     color: '#333333',
+//     marginBottom: 5,
+//   },
+// });
+
+
+
+
+
+/******************************************************************************************************************************************************* */
 // import React, { Component } from "react";
 
 // import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
@@ -55,184 +284,7 @@
 
 // const styles = StyleSheet.create({
 //     width: 20,
-//     height: 30,
+// //     height: 30,
 
 // })
 /************************************************************************************************************************************************* */
-
-// import React, { Component } from 'react'
-// import { View, Text, Button, TouchableOpacity, StyleSheet, Image, Modal } from 'react-native'
-// import ImagePicker from 'react-native-image-picker';
-// //import { logout, getemail1 } from '../Service/UserService';
-// import storageRef from '../Config/Firebase'
-// //import { AsyncStorage } from 'react-native'
-// import { Avatar } from 'react-native-elements'
-
-// const options = {
-//     title: 'Select Avatar',
-//     takePhotoButtonTitle: 'take photo',
-//     chooseFromLibraryButtonTitle: 'choose photo from library'
-
-// }
-// export default class Profile extends Component {
-
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             avatarSource: null,
-//             email: '',
-//             open: false,
-//             firstname: '',
-//             lastname: '',
-
-//         }
-//         this.ImageDisplay = this.ImageDisplay.bind(this)
-
-//     }
-//     openlink(event) {
-//         event.preventDefault();
-//         this.setState({ open: true })
-
-//     }
-//     closeModal(event) {
-//         event.preventDefault();
-//         this.setState({ open: false })
-
-//     }
-//     async componentDidMount() {
-//         var email1 = getemail1()
-//         this.setState({ email: email1 })
-//         var url = await storageRef.storageRef.child('/profile/' + this.state.email).getDownloadURL().then(function (url) {
-
-
-//         }, function (error) {
-//             console.log("error" + error);
-
-//         });
-//         this.setState({
-//             firstName: fName,
-//             lastName: lName,
-//             email: email,
-//             avatarSource: url
-
-//         })
-//     }
-
-//     ImageDisplay() {
-
-//         ImagePicker.showImagePicker(options, (response) => {
-//             console.log('Response = ', response);
-
-//             if (response.didCancel) {
-//                 console.log('User cancelled image picker');
-//             } else if (response.error) {
-//                 console.log('ImagePicker Error: ', response.error);
-//             } else if (response.customButton) {
-//                 console.log('User tapped custom button: ', response.customButton);
-//             } else {
-//                 const source = { uri: response.uri };
-
-//                 // You can also display the image using data:
-//                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-//                 this.setState({
-//                     avatarSource: source,
-//                 });
-//                 //this.props.profile(this.state.avatarSource)
-//                 var blob = new Blob([this.state.avatarSource], { type: "image/jpeg" });
-//                 var storageUrl = '/profile' + this.state.firstName;
-//                 var ref = storageRef.storageRef.child('/profile/' + this.state.email).put(blob);
-
-
-//             }
-//         });
-
-//     }
-
-//     static navigationOptions = { header: null };
-//     render() {
-//         return (
-//             <View >
-//                 <TouchableOpacity onPress={(event) => this.openlink(event)}>
-//                     <Avatar
-//                         source={this.state.avatarSource}
-//                         rounded
-//                     />
-//                 </TouchableOpacity>
-
-//                 <Modal style={{ height: 40, marginLeft: 10 }}
-//                     visible={this.state.open}>
-//                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', padding: 20 }}>
-
-//                         <View style={{ flexDirection: 'row' }}>
-//                             <View style={{ flexDirection: 'column', padding: 20 }}>
-//                                 <View>
-
-//                                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
-//                                         <Text>{this.state.email}</Text>
-//                                     </View>
-//                                 </View>
-
-//                                 {/* <View style={{ marginTop: 50 }}>
-//  <Button title="Change profile picture" onPress={() => this.image43()}></Button>
-//  </View> */}
-//                                 <View>
-//                                     <TouchableOpacity onPress={() => this.ImageDisplay()}>
-//                                         <Avatar size="large"
-//                                             source={this.state.avatarSource}
-//                                             rounded
-//                                         />
-//                                     </TouchableOpacity>
-//                                 </View>
-//                                 <View style={{ marginTop: 10 }}>
-//                                     <Button title="Close"
-//                                         onPress={(event) => this.closeModal(event)}>
-
-//                                     </Button>
-//                                 </View>
-
-//                             </View>
-
-//                         </View>
-
-//                     </View>
-
-//                 </Modal>
-
-
-
-//             </View>
-
-//         );
-//     }
-
-// }
-// const style = StyleSheet.create({
-//     data1: {
-//          justifyContent: "center", 
-//          alignItems: "center", 
-//          flex: 1 },
-//     data: {
-//         justifyContent: "center", alignItems: "center",
-//         height: 200,
-//         width: 300, backgroundColor: '#c7d3cd',
-//     },
-//     data2: { justifyContent: "center", alignItems: "center", flexDirection: 'row', },
-//     image2: {
-//         width: 100,
-//         height: 100,
-//         justifyContent: 'flex-start',
-//         alignItems: 'flex-start',
-//         marginHorizontal: 10,
-//     },
-//     text: { fontSize: 16 },
-//     text1: {
-//         fontSize: 18, marginVertical: 30
-//     },
-//     container: { flexDirection: 'row', marginHorizontal: 20 },
-//     view1: { height: 100, marginLeft: 10, justifyContent: 'center' },
-//     view2: { height: 0, justifyContent: 'center' }
-
-
-
-// })
